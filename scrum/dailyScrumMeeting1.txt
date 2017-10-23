@@ -1,0 +1,72 @@
+# Fill in, commit and push each day.
+# Group Member: FILL THIS IN
+
+Oct 23, 2017
+	Yesterday :
+	Today     :
+	Obstacles :
+
+Oct 24, 2017
+	Yesterday :
+	Today     :
+	Obstacles :
+
+Oct 25, 2017
+	Yesterday :
+	Today     :
+	Obstacles :
+
+Oct 26, 2017
+	Yesterday :
+	Today     :
+	Obstacles :
+
+Oct 27, 2017
+	Yesterday :
+	Today     :
+	Obstacles :
+
+Oct 28, 2017
+	Yesterday :
+	Today     :
+	Obstacles :
+
+Oct 29, 2017
+	Yesterday :
+	Today     :
+	Obstacles :
+
+Oct 30, 2017
+	Yesterday :
+	Today     :
+	Obstacles :
+
+Oct 31, 2017
+	Yesterday :
+	Today     :
+	Obstacles :
+
+Nov 1, 2017
+	Yesterday :
+	Today     :
+	Obstacles :
+	
+Nov 2, 2017
+	Yesterday :
+	Today     :
+	Obstacles :
+	
+Nov 3, 2017
+	Yesterday :
+	Today     :
+	Obstacles :
+
+Nov 4, 2017
+	Yesterday :
+	Today     :
+	Obstacles :
+
+Nov 5, 2017
+	Yesterday :
+	Today     :
+	Obstacles :
