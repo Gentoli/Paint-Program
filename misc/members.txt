@@ -5,8 +5,8 @@ Name: Jarod Legault
 Email: jarod.legault@mail.utoronto.ca
 
 Member 2:
-Name:
-Email:
+Name: Group Leader
+Email: kurtis.assad@mail.utoronto.ca
 
 Member 3:
 Name:
