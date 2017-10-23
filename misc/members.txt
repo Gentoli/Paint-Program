@@ -9,8 +9,8 @@ Name: Group Leader
 Email: kurtis.assad@mail.utoronto.ca
 
 Member 3:
-Name:
-Email:
+Name: Shuyi Dong
+Email: nick-dong@live.com
 
 Member 4:
 Name:
