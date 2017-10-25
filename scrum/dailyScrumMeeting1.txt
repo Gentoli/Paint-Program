@@ -12,9 +12,9 @@ Oct 24, 2017
 	Obstacles :
 
 Oct 25, 2017
-	Yesterday :
-	Today     :
-	Obstacles :
+	Yesterday : Added details to user stories
+	Today     : Deciding on design patterns, adding user stories and general work
+	Obstacles : Picking the right design pattern is difficult
 
 Oct 26, 2017
 	Yesterday :

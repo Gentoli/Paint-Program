@@ -8,8 +8,8 @@
 TYPE     : USER STORY 1
 NAME     : Draw Circle
 OWNER    : 
-PRIORITY :
-ESTIMATE : 
+PRIORITY : 1
+ESTIMATE : 1 hour
 AS A     : user
 I WANT   : To click the center of the circle, drag, and release to specify
            a circle to be drawn in the current style.
@@ -19,8 +19,8 @@ SO THAT  : I can add circles to my canvas
 TYPE     : USER STORY 2
 NAME     : Draw Circle Feedback
 OWNER    : 
-PRIORITY :
-ESTIMATE : 
+PRIORITY : 1
+ESTIMATE : 1 hour
 AS A     : user
 I WANT   : As a user is specifying a Circle, during the drag, a 'current'
            circle should be on display. As the user drags, the 'current'
@@ -34,8 +34,8 @@ SO THAT  : I can see the circle I am about to build on release of the mouse
 TYPE     : USER STORY 3
 NAME     : Draw Rectangle
 OWNER    : 
-PRIORITY :
-ESTIMATE : 
+PRIORITY : 1
+ESTIMATE : 1 hour
 AS A     : user
 I WANT   : To click on one corner of a rectangle, drag, and release to 
 		   specify two corners of a rectangle to be drawn in the current style.
@@ -45,8 +45,8 @@ SO THAT  : I can add rectangles to my canvas
 TYPE     : USER STORY 4
 NAME     : Draw Rectangle Feedback
 OWNER    : 
-PRIORITY :
-ESTIMATE : 
+PRIORITY : 1
+ESTIMATE : 1 hour
 AS A     : user
 I WANT   : Similarly to Draw Circle Feedback, display the rectangle in mid construction.
 SO THAT  : I can see the rectangle I am about to build on release of the mouse button.
@@ -55,8 +55,8 @@ SO THAT  : I can see the rectangle I am about to build on release of the mouse b
 TYPE     : USER STORY 5
 NAME     : Color selector
 OWNER    : 
-PRIORITY :
-ESTIMATE : 
+PRIORITY : 2
+ESTIMATE : 2 hours
 AS A     : user
 I WANT   : To be able to select the current drawing color, to be applied
            to subsequent shapes. Example: 
@@ -73,14 +73,14 @@ I WANT   : To be able to select the current drawing color, to be applied
            		draw a squiggle
            	results in two red circles and a red rectangle as well as
            	two green rectangles and a green squiggle
-SO THAT  : 
+SO THAT  : I can change the color of my drawings
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
 TYPE     : USER STORY 6
 NAME     : Fill style selector
 OWNER    : 
-PRIORITY :
-ESTIMATE : 
+PRIORITY : 2
+ESTIMATE : 2 hours
 AS A     : user
 I WANT   : To be able to select the current drawing style (filled or outline), to be applied
            to subsequent shapes. Example: 
@@ -97,14 +97,14 @@ I WANT   : To be able to select the current drawing style (filled or outline), t
            		draw a squiggle
            	results in two solid circles and a solid rectangle as well as
            	two outlined rectangles and a squiggle
-SO THAT  : 
+SO THAT  : I can draw shapes that are filled in without filling them in manually
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
 TYPE     : USER STORY 7
 NAME     : Line thickness selector
 OWNER    : 
-PRIORITY :
-ESTIMATE : 
+PRIORITY : 2
+ESTIMATE : 2 hours
 AS A     : user
 I WANT   : To be able to select the current line thickness, to be applied
            to subsequent shapes. Example:
@@ -122,22 +122,104 @@ I WANT   : To be able to select the current line thickness, to be applied
            		draw a squiggle
            	results in two thinly outlined circles and a thinly outlined 
            	rectangle as well as two thickly outlined rectangles and a thick squiggle
-SO THAT  : 
+SO THAT  : I can draw in different levels of thickness
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 8
+NAME     : Line style selector
+OWNER    : 
+PRIORITY : 4
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To be able to select the current line style, to be applied
+           to subsequent shapes. Example: 
+           		selects line style 1
+           		mode circle
+           		draw a circle
+           		draw a circle
+           		mode rectangle
+           		draw a rectangle
+           		select line style 9
+           		draw a rectangle
+           		draw a rectangle
+           		select mode squiggle
+           		draw a squiggle
+           	results in two normally outlined circles and a brush-stroke outlined 
+           	rectangle as well as two brush-stroke outlined rectangles and a brush-stroke squiggle
+SO THAT  : I can change the style of lines I want to draw.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 9
+NAME     : File tab
+OWNER    : 
+PRIORITY : 4
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To have the file tab functionality including:
+				New image
+				Open existing image
+				Save image
+				Exit from file tab 
+SO THAT  : I can easily open a new image, edit an existing one and save images.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 10
+NAME     : Edit tab
+OWNER    : 
+PRIORITY : 4
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To have the edit tab functionality including:
+				Cut image
+				Copy image
+				Paste image
+				Undo move
+				Redo move
+SO THAT  : I can easily copy/paste images and fix mistaken clicks
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 11
+NAME     : Hotkey functionality
+OWNER    : 
+PRIORITY : 4
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To have the hotkey functionality including:
+				cut/copy/paste
+				Holding shift for secondary functions such as:
+					Oval tool draws ovals and hold shift while using it to constrain to circles
+					Rectangle tool draws rectangle and hold shift while using it to constrain to squares
+					Triangle tool draws triangles and hold shift for equilateral triangles
+SO THAT  : I have a simpler interface with less icons and more control
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 12
+NAME     : Selection
+OWNER    : 
+PRIORITY : 4
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To be able to select a portion of the screen and
+		   		Move it
+		   		Copy it
+		   		Cut it
+		   		Rotate it
+SO THAT  : I can easily edit drawings
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
 TYPE     : BUG 1
 NAME     : Icons instead of text for drawing mode selection
 OWNER    : 
-PRIORITY :
-ESTIMATE : 
+PRIORITY : 4
+ESTIMATE : 1hour
 ISSUE    : Would be nice to have icons instead of "Circle", "Rectangle", ...
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
 TYPE     : BUG 2
 NAME     : Drawing selection mode not indicated
 OWNER    : 
-PRIORITY :
-ESTIMATE : 
+PRIORITY : 4
+ESTIMATE : 1 hour
 ISSUE    : Currently ,you can't tell which mode "Circle", "Rectangle", ...
            is currently selected. Is JButton correct, is there a way
            to highlight the currently selected mode?
@@ -146,8 +228,8 @@ ISSUE    : Currently ,you can't tell which mode "Circle", "Rectangle", ...
 TYPE     : BUG 3
 NAME     : Architecture behind choosing selection mode is poor
 OWNER    : 
-PRIORITY :
-ESTIMATE : 
+PRIORITY : 3
+ESTIMATE : 3 hours
 ISSUE    : Code is not modular and is difficult to expand. Need a better
            architecture behind selecting a drawing mode, and handling
            the drawing events. Consider some design patterns here.
@@ -158,8 +240,8 @@ ISSUE    : Code is not modular and is difficult to expand. Need a better
 TYPE     : BUG 4
 NAME     : Architecture behind Model is poor
 OWNER    : 
-PRIORITY :
-ESTIMATE : 
+PRIORITY : 3
+ESTIMATE : 3 hours
 ISSUE    : Having a list of different types of drawable things in the
            model is cumbersome. In fact, it is currently incorrect, with
            Squiggle's not drawing properly. Need to re-architect the Model
@@ -171,8 +253,8 @@ ISSUE    : Having a list of different types of drawable things in the
 TYPE     : BUG 5
 NAME     : Squiggle is broken
 OWNER    : 
-PRIORITY :
-ESTIMATE : 
+PRIORITY : 1
+ESTIMATE : 1 hour
 ISSUE    : Squiggles are connected to each other by a straight line. Each drag
 		   of the mouse should be a separate squiggle. Possibly
            the issue is with the representation of the squiggles in the Model.
@@ -181,11 +263,20 @@ ISSUE    : Squiggles are connected to each other by a straight line. Each drag
 TYPE     : BUG 6
 NAME     : Circle drawing is broken
 OWNER    : 
-PRIORITY :
-ESTIMATE : 
+PRIORITY : 1
+ESTIMATE : 1 hour
 ISSUE    : The first click should specify the center of the circle, with
            a drag for the radius. This is not the case in the current
            implementation.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 7
+NAME     : Layers of drawing are fixed
+OWNER    : 
+PRIORITY : 2
+ESTIMATE : 1 hour
+ISSUE    : The first thing drawn should be behind the second thing drawn on top 
+		   of it, but instead points are drawn first, then circles on top of it.
 --------------------------------------------------------------------------
 
 # COMPLETED USER STORIES/BUGS BELOW ###########################################
