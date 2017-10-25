@@ -240,6 +240,15 @@ ISSUE    : The first click should specify the center of the circle, with
            a drag for the radius. This is not the case in the current
            implementation.
 --------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 7
+NAME     : Layers of drawing are fixed
+OWNER    : 
+PRIORITY : 2
+ESTIMATE : 1 hour
+ISSUE    : The first thing drawn should be behind the second thing drawn on top 
+		   of it, but instead points are drawn first, then circles on top of it.
+--------------------------------------------------------------------------
 
 # COMPLETED USER STORIES/BUGS BELOW ###########################################
 
