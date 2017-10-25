@@ -13,8 +13,8 @@ Oct 24, 2017
 
 Oct 25, 2017
 	Yesterday :
-	Today     :
-	Obstacles :
+	Today     : Design Architecture. Add productBacklog.
+	Obstacles : Can't implement Multitouch in native Java
 
 Oct 26, 2017
 	Yesterday :
