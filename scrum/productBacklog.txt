@@ -178,6 +178,36 @@ I WANT   : To have the edit tab functionality including:
 SO THAT  : I can easily copy/paste images and fix mistaken clicks
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
+TYPE     : USER STORY 11
+NAME     : Hotkey functionality
+OWNER    : 
+PRIORITY : 4
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To have the hotkey functionality including:
+				cut/copy/paste
+				Holding shift for secondary functions such as:
+					Oval tool draws ovals and hold shift while using it to constrain to circles
+					Rectangle tool draws rectangle and hold shift while using it to constrain to squares
+					Triangle tool draws triangles and hold shift for equilateral triangles
+SO THAT  : I have a simpler interface with less icons and more control
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 12
+NAME     : Selection
+OWNER    : 
+PRIORITY : 4
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To be able to select a portion of the screen and
+		   		Move it
+		   		Copy it
+		   		Cut it
+		   		Rotate it
+		   		
+SO THAT  : I can easily edit drawings
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
 TYPE     : BUG 1
 NAME     : Icons instead of text for drawing mode selection
 OWNER    : 
