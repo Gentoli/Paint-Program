@@ -204,7 +204,6 @@ I WANT   : To be able to select a portion of the screen and
 		   		Copy it
 		   		Cut it
 		   		Rotate it
-		   		
 SO THAT  : I can easily edit drawings
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
