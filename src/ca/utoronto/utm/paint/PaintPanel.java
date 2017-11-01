@@ -16,19 +16,21 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 	private int i=0;
 	private PaintModel model; // slight departure from MVC, because of the way painting works
 	private View view; // So we can talk to our parent or other components of the view
-
+	private Circle circle;
 	private String mode; // modifies how we interpret input (could be better?)
-	private Circle circle; // the circle we are building
+	ArrayList<Shape> shapes;
+	ArrayList<Shape> tempStorage;
 	
 	public PaintPanel(PaintModel model, View view){
 		this.setBackground(Color.blue);
 		this.setPreferredSize(new Dimension(300,300));
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
-		
-		this.mode="Circle"; // bad code here?
-		
 		this.model = model;
+		
+		shapes = this.model.getShapes();
+		//tempStorage = new ArrayList<Shape>();
+		this.mode = "Circle";
 		this.model.addObserver(this);
 		
 		this.view=view;
@@ -48,25 +50,22 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 		g2d.setColor(Color.white);
         g2d.drawString ("i="+i, 50, 75);
 		i=i+1;
-
-		// Draw Lines
-		ArrayList<Point> points = this.model.getPoints();
-		for(int i=0;i<points.size()-1; i++){
-			Point p1=points.get(i);
-			Point p2=points.get(i+1);
-			g2d.drawLine(p1.getX(), p1.getY(), p2.getX(), p2.getY());
+		//System.out.println(shapes.size());
+		for(Shape shape : shapes) {
+			if(shape instanceof Circle) {
+				Point point = ((Circle) shape).getCenter();
+				int r = ((Circle) shape).getRadius();
+				g.drawOval(point.getX()-2*r/2,point.getY()-2*r/2,2*r,2*r);//multiple radius by 2 because it takes in id
+			}
 		}
-		
-		// Draw Circles
-		ArrayList<Circle> circles = this.model.getCircles();
-		for(Circle c: this.model.getCircles()){
-			int x = c.getCentre().getX();
-			int y = c.getCentre().getY();
-			int radius = c.getRadius();
-			//g2d.drawOval(x, y, radius, radius);
-			g2d.drawOval(x-radius, y-radius, 2*radius, 2*radius);
+		for(Shape shape: tempStorage) {
+			if(shape instanceof Circle) {
+				Point point = ((Circle) shape).getCenter();
+				int r = ((Circle) shape).getRadius();
+				g.drawOval(point.getX()-2*r/2,point.getY()-2*r/2,2*r,2*r);//multiple radius by 2 because it takes in id
+			}
 		}
-		
+		tempStorage.clear();
 		g2d.dispose();
 	}
 
@@ -74,6 +73,7 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 	public void update(Observable o, Object arg) {
 		// Not exactly how MVC works, but similar.
 		this.repaint(); // Schedule a call to paintComponent
+		
 	}
 	
 	/**
@@ -97,7 +97,10 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 		if(this.mode=="Squiggle"){
 			this.model.addPoint(new Point(e.getX(), e.getY()));
 		} else if(this.mode=="Circle"){
-			
+			int radius = (int)(Math.sqrt(Math.pow(this.circle.getCenter().getX()-e.getX(),2) + Math.pow(this.circle.getCenter().getY()-e.getY(),2)));
+			this.circle.setRadius(radius);
+			//this.tempStorage.add(new Circle(this.circle.getCenter(),this.circle.getRadius()));
+			this.model.addCircle(circle);
 		}
 	}
 
@@ -107,7 +110,6 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 		if(this.mode=="Squiggle"){
 			
 		} else if(this.mode=="Circle"){
-			
 		}
 	}
 
@@ -116,10 +118,10 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 		if(this.mode=="Squiggle"){
 			
 		} else if(this.mode=="Circle"){
-			// Problematic notion of radius and centre!!
-			Point centre = new Point(e.getX(), e.getY());
+			// Problematic notion of radius and center!!
+			Point center = new Point(e.getX(), e.getY());
 			int radius = 0;
-			this.circle=new Circle(centre, 0);
+			this.circle=new Circle(center, 0);
 		}
 	}
 
@@ -128,14 +130,13 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 		if(this.mode=="Squiggle"){
 			
 		} else if(this.mode=="Circle"){
-			if(this.circle!=null){
-				// Problematic notion of radius and centre!!
-				//int radius = Math.abs(this.circle.getCentre().getX()-e.getX());
-				int radius = (int)(Math.sqrt(Math.pow(this.circle.getCentre().getX()-e.getX(),2) + Math.pow(this.circle.getCentre().getY()-e.getY(),2)));
+				// Problematic notion of radius and center!!
+				//int radius = Math.abs(this.circle.getcenter().getX()-e.getX());
+				int radius = (int)(Math.sqrt(Math.pow(this.circle.getCenter().getX()-e.getX(),2) + Math.pow(this.circle.getCenter().getY()-e.getY(),2)));
 				this.circle.setRadius(radius);
 				this.model.addCircle(this.circle);
 				this.circle=null;
-			}
+			
 		}
 		
 	}

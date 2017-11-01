@@ -5,7 +5,7 @@ import java.util.Observable;
 
 public class PaintModel extends Observable {
 	private ArrayList<Point> points=new ArrayList<Point>();
-	private ArrayList<Circle> circles=new ArrayList<Circle>();
+	private ArrayList<Shape> shapes=new ArrayList<Shape>();
 	
 	
 	public void addPoint(Point p){
@@ -18,11 +18,11 @@ public class PaintModel extends Observable {
 	}
 	
 	public void addCircle(Circle c){
-		this.circles.add(c);
+		this.shapes.add(c);
 		this.setChanged();
 		this.notifyObservers();
 	}
-	public ArrayList<Circle> getCircles(){
-		return circles;
+	public ArrayList<Shape> getShapes(){
+		return shapes;
 	}
 }

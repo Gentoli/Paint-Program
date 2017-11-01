@@ -35,7 +35,6 @@ public class View extends JFrame implements ActionListener {
 		c.add(this.shapeChooserPanel,BorderLayout.WEST);
 	
 		this.model=model;
-		
 		this.paintPanel = new PaintPanel(model, this);
 		c.add(this.paintPanel, BorderLayout.CENTER);
 		
