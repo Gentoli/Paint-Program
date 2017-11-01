@@ -2,7 +2,7 @@
 # to the appropriate Sprint below, after the 
 # Sprint Planning Meeting.
 
-# Sprint 1 October 30, 2017
+# Sprint 1 October 31, 2017
 # Sprint 1 Backlog UserStories go below
 --------------------------------------------------------------------------
 TYPE     : USER STORY 1
