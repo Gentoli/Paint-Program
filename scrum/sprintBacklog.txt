@@ -2,6 +2,107 @@
 # to the appropriate Sprint below, after the 
 # Sprint Planning Meeting.
 
-# Sprint 1 October 23, 2017
+# Sprint 1 October 30, 2017
 # Sprint 1 Backlog UserStories go below
+--------------------------------------------------------------------------
+TYPE     : USER STORY 1
+NAME     : Draw Circle
+OWNER    : Kurtis
+PRIORITY : 1
+ESTIMATE : 1 hour
+AS A     : user
+I WANT   : To click the center of the circle, drag, and release to specify
+           a circle to be drawn in the current style.
+SO THAT  : I can add circles to my canvas
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 2
+NAME     : Draw Circle Feedback
+OWNER    : Nick
+PRIORITY : 1
+ESTIMATE : 1 hour
+AS A     : user
+I WANT   : As a user is specifying a Circle, during the drag, a 'current'
+           circle should be on display. As the user drags, the 'current'
+           circle changes in real time so that a circle is drawn with
+           centre at users initial circle click, with radius out to
+           the current dragged mouse position.
+SO THAT  : I can see the circle I am about to build on release of the mouse
+           button.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 3
+NAME     : Draw Rectangle
+OWNER    : Kurtis
+PRIORITY : 1
+ESTIMATE : 1 hour
+AS A     : user
+I WANT   : To click on one corner of a rectangle, drag, and release to 
+		   specify two corners of a rectangle to be drawn in the current style.
+SO THAT  : I can add rectangles to my canvas
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 4
+NAME     : Draw Rectangle Feedback
+OWNER    : Nick
+PRIORITY : 1
+ESTIMATE : 1 hour
+AS A     : user
+I WANT   : Similarly to Draw Circle Feedback, display the rectangle in mid construction.
+SO THAT  : I can see the rectangle I am about to build on release of the mouse button.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 2
+NAME     : Drawing selection mode not indicated
+OWNER    : Jarod
+PRIORITY : 4
+ESTIMATE : 1 hour
+ISSUE    : Currently ,you can't tell which mode "Circle", "Rectangle", ...
+           is currently selected. Is JButton correct, is there a way
+           to highlight the currently selected mode?
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 3
+NAME     : Architecture behind choosing selection mode is poor
+OWNER    : Kurtis, Nick, Jarod
+PRIORITY : 1
+ESTIMATE : 3 hours
+ISSUE    : Code is not modular and is difficult to expand. Need a better
+           architecture behind selecting a drawing mode, and handling
+           the drawing events. Consider some design patterns here.
+           Refactor ShapeChooserPanel and PaintPanel to get rid of the
+           'if' blocks in the PaintPanel mouse event code.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 4
+NAME     : Architecture behind Model is poor
+OWNER    : Jarod, Nick, Kurtis
+PRIORITY : 1
+ESTIMATE : 3 hours
+ISSUE    : Having a list of different types of drawable things in the
+           model is cumbersome. In fact, it is currently incorrect, with
+           Squiggle's not drawing properly. Need to re-architect the Model
+           so that it is more flexible, and easier to work with.
+           Consider some design patterns, or change of responsibility
+           here.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 5
+NAME     : Squiggle is broken
+OWNER    : Jarod
+PRIORITY : 1
+ESTIMATE : 1 hour
+ISSUE    : Squiggles are connected to each other by a straight line. Each drag
+		   of the mouse should be a separate squiggle. Possibly
+           the issue is with the representation of the squiggles in the Model.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 7
+NAME     : Layers of drawing are fixed
+OWNER    : Kurtis
+PRIORITY : 2
+ESTIMATE : 1 hour
+ISSUE    : The first thing drawn should be behind the second thing drawn on top 
+		   of it, but instead points are drawn first, then circles on top of it.
+--------------------------------------------------------------------------
 

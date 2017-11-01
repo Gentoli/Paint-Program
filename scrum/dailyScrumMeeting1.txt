@@ -1,14 +1,14 @@
 # Fill in, commit and push each day.
-# Group Member: FILL THIS IN
+# Group Member: Jarod Legault
 
 Oct 23, 2017
 	Yesterday :
-	Today     :
+	Today     : Didn't work on anything
 	Obstacles :
 
 Oct 24, 2017
 	Yesterday :
-	Today     :
+	Today     : Didn't work on anything
 	Obstacles :
 
 Oct 25, 2017
@@ -17,39 +17,39 @@ Oct 25, 2017
 	Obstacles : Picking the right design pattern is difficult
 
 Oct 26, 2017
-	Yesterday :
-	Today     :
-	Obstacles :
+	Yesterday : General work and talking with group
+	Today     : Picked design patterns/architecture, reading and understanding code
+	Obstacles : Scheduling group work times and assigning tasks
 
 Oct 27, 2017
-	Yesterday :
-	Today     :
-	Obstacles :
+	Yesterday : Fixed Circle drawing bug, added Shape class for better architecture
+	Today     : Researched ways to make the task easier, such as JavaFX
+	Obstacles : Turns out we aren't allowed to use JavaFX
 
 Oct 28, 2017
-	Yesterday :
-	Today     :
+	Yesterday : 
+	Today     : Didn't work on anything
 	Obstacles :
 
 Oct 29, 2017
 	Yesterday :
-	Today     :
+	Today     : Didn't work on anything
 	Obstacles :
 
 Oct 30, 2017
 	Yesterday :
-	Today     :
+	Today     : Didn't work on anything
 	Obstacles :
 
 Oct 31, 2017
-	Yesterday :
-	Today     :
-	Obstacles :
+	Yesterday : 
+	Today     : Meeting with group and finalizing ideas
+	Obstacles : Trying to decide on how much we can do on this project without having too much on our plate
 
 Nov 1, 2017
-	Yesterday :
-	Today     :
-	Obstacles :
+	Yesterday : Finalized plans and work for the sprint
+	Today     : Working on user stories and implementing architecture
+	Obstacles : Trying to work on bugs/implementing things without the architecture fully implemented is difficult
 	
 Nov 2, 2017
 	Yesterday :
