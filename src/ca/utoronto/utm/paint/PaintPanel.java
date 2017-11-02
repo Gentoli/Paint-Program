@@ -19,6 +19,7 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 
 	private String mode; // modifies how we interpret input (could be better?)
 	private Circle circle; // the circle we are building
+	private ArrayList<Shape> shapes;
 	
 	public PaintPanel(PaintModel model, View view){
 		this.setBackground(Color.blue);
@@ -27,9 +28,9 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 		this.addMouseMotionListener(this);
 		
 		this.mode="Circle"; // bad code here?
-		
 		this.model = model;
 		this.model.addObserver(this);
+		this.shapes = model.getShapes();
 		
 		this.view=view;
 	}
@@ -42,32 +43,7 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 		// the javadoc to see more of what this can do for you!!
 		
         super.paintComponent(g); //paint background
-        Graphics2D g2d = (Graphics2D) g; // lets use the advanced api
-		// setBackground (Color.blue); 
-		// Origin is at the top left of the window 50 over, 75 down
-		g2d.setColor(Color.white);
-        g2d.drawString ("i="+i, 50, 75);
-		i=i+1;
-
-		// Draw Lines
-		ArrayList<Point> points = this.model.getPoints();
-		for(int i=0;i<points.size()-1; i++){
-			Point p1=points.get(i);
-			Point p2=points.get(i+1);
-			g2d.drawLine(p1.getX(), p1.getY(), p2.getX(), p2.getY());
-		}
-		
-		// Draw Circles
-		ArrayList<Circle> circles = this.model.getCircles();
-		for(Circle c: this.model.getCircles()){
-			int x = c.getCentre().getX();
-			int y = c.getCentre().getY();
-			int radius = c.getRadius();
-			//g2d.drawOval(x, y, radius, radius);
-			g2d.drawOval(x-radius, y-radius, 2*radius, 2*radius);
-		}
-		
-		g2d.dispose();
+       
 	}
 
 	@Override
@@ -116,10 +92,6 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 		if(this.mode=="Squiggle"){
 			
 		} else if(this.mode=="Circle"){
-			// Problematic notion of radius and centre!!
-			Point centre = new Point(e.getX(), e.getY());
-			int radius = 0;
-			this.circle=new Circle(centre, 0);
 		}
 	}
 
@@ -129,12 +101,6 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 			
 		} else if(this.mode=="Circle"){
 			if(this.circle!=null){
-				// Problematic notion of radius and centre!!
-				//int radius = Math.abs(this.circle.getCentre().getX()-e.getX());
-				int radius = (int)(Math.sqrt(Math.pow(this.circle.getCentre().getX()-e.getX(),2) + Math.pow(this.circle.getCentre().getY()-e.getY(),2)));
-				this.circle.setRadius(radius);
-				this.model.addCircle(this.circle);
-				this.circle=null;
 			}
 		}
 		
