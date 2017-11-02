@@ -74,7 +74,7 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 		if(this.mode=="Squiggle"){
 			this.model.addPoint(new Point(e.getX(), e.getY()));
 		} else if(this.mode=="Circle"){
-			int radius = (int)(Math.sqrt(Math.pow(this.circle.getCenter().getX()-e.getX(),2) + Math.pow(this.circle.getCenter().getY()-e.getY(),2)));
+			int radius = (int)(Math.sqrt(Math.pow(this.circle.getPoint().getX()-e.getX(),2) + Math.pow(this.circle.getPoint().getY()-e.getY(),2)));
 			this.circle.setRadius(radius);
 			//this.tempStorage.add(new Circle(this.circle.getCenter(),this.circle.getRadius()));
 			this.model.addCircle(circle);
@@ -109,7 +109,7 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 		} else if(this.mode=="Circle"){
 				// Problematic notion of radius and center!!
 				//int radius = Math.abs(this.circle.getcenter().getX()-e.getX());
-				int radius = (int)(Math.sqrt(Math.pow(this.circle.getCenter().getX()-e.getX(),2) + Math.pow(this.circle.getCenter().getY()-e.getY(),2)));
+				int radius = (int)(Math.sqrt(Math.pow(this.circle.getPoint().getX()-e.getX(),2) + Math.pow(this.circle.getPoint().getY()-e.getY(),2)));
 				this.circle.setRadius(radius);
 				this.model.addCircle(this.circle);
 				this.circle=null;

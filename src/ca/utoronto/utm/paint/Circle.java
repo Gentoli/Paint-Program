@@ -9,7 +9,8 @@ public class Circle extends Shape{
 	public Circle(Point centre, int radius){
 		super(centre,new Dimension(radius,radius));
 	}
-
+	
+	
 	@Override
 	public void print(Graphics g) {
 		// TODO Auto-generated method stub
@@ -30,5 +31,7 @@ public class Circle extends Shape{
 		
 	}
 
-
+	public void setRadius(int radius) {
+		dimension = new Dimension(radius,radius);
+	}
 }
