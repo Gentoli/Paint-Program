@@ -58,14 +58,6 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 				g.drawOval(point.getX()-2*r/2,point.getY()-2*r/2,2*r,2*r);//multiple radius by 2 because it takes in id
 			}
 		}
-		for(Shape shape: tempStorage) {
-			if(shape instanceof Circle) {
-				Point point = ((Circle) shape).getCenter();
-				int r = ((Circle) shape).getRadius();
-				g.drawOval(point.getX()-2*r/2,point.getY()-2*r/2,2*r,2*r);//multiple radius by 2 because it takes in id
-			}
-		}
-		tempStorage.clear();
 		g2d.dispose();
 	}
 
