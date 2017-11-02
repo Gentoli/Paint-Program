@@ -7,7 +7,7 @@
 --------------------------------------------------------------------------
 TYPE     : USER STORY 1
 NAME     : Draw Circle
-OWNER    : 
+OWNER    : Kurtis
 PRIORITY : 1
 ESTIMATE : 1 hour
 AS A     : user
@@ -18,7 +18,7 @@ SO THAT  : I can add circles to my canvas
 --------------------------------------------------------------------------
 TYPE     : USER STORY 2
 NAME     : Draw Circle Feedback
-OWNER    : 
+OWNER    : Shuyi
 PRIORITY : 1
 ESTIMATE : 1 hour
 AS A     : user
@@ -33,7 +33,7 @@ SO THAT  : I can see the circle I am about to build on release of the mouse
 --------------------------------------------------------------------------
 TYPE     : USER STORY 3
 NAME     : Draw Rectangle
-OWNER    : 
+OWNER    : Kurtis
 PRIORITY : 1
 ESTIMATE : 1 hour
 AS A     : user
@@ -44,7 +44,7 @@ SO THAT  : I can add rectangles to my canvas
 --------------------------------------------------------------------------
 TYPE     : USER STORY 4
 NAME     : Draw Rectangle Feedback
-OWNER    : 
+OWNER    : Shuyi
 PRIORITY : 1
 ESTIMATE : 1 hour
 AS A     : user
@@ -54,7 +54,7 @@ SO THAT  : I can see the rectangle I am about to build on release of the mouse b
 --------------------------------------------------------------------------
 TYPE     : USER STORY 5
 NAME     : Color selector
-OWNER    : 
+OWNER    : Jarod
 PRIORITY : 2
 ESTIMATE : 2 hours
 AS A     : user
@@ -78,7 +78,7 @@ SO THAT  : I can change the color of my drawings
 --------------------------------------------------------------------------
 TYPE     : USER STORY 6
 NAME     : Fill style selector
-OWNER    : 
+OWNER    : Sanjar
 PRIORITY : 2
 ESTIMATE : 2 hours
 AS A     : user
@@ -102,7 +102,7 @@ SO THAT  : I can draw shapes that are filled in without filling them in manually
 --------------------------------------------------------------------------
 TYPE     : USER STORY 7
 NAME     : Line thickness selector
-OWNER    : 
+OWNER    : Sanjar
 PRIORITY : 2
 ESTIMATE : 2 hours
 AS A     : user
@@ -180,7 +180,7 @@ SO THAT  : I can easily copy/paste images and fix mistaken clicks
 --------------------------------------------------------------------------
 TYPE     : USER STORY 11
 NAME     : Hotkey functionality
-OWNER    : 
+OWNER    : Shuyi
 PRIORITY : 4
 ESTIMATE : 2 hours
 AS A     : user
@@ -215,19 +215,9 @@ ESTIMATE : 1hour
 ISSUE    : Would be nice to have icons instead of "Circle", "Rectangle", ...
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : BUG 2
-NAME     : Drawing selection mode not indicated
-OWNER    : 
-PRIORITY : 4
-ESTIMATE : 1 hour
-ISSUE    : Currently ,you can't tell which mode "Circle", "Rectangle", ...
-           is currently selected. Is JButton correct, is there a way
-           to highlight the currently selected mode?
---------------------------------------------------------------------------
---------------------------------------------------------------------------
 TYPE     : BUG 3
 NAME     : Architecture behind choosing selection mode is poor
-OWNER    : 
+OWNER    : Kurtis, Shuyi, Jarod, Sanjar
 PRIORITY : 1
 ESTIMATE : 3 hours
 ISSUE    : Code is not modular and is difficult to expand. Need a better
@@ -239,7 +229,7 @@ ISSUE    : Code is not modular and is difficult to expand. Need a better
 --------------------------------------------------------------------------
 TYPE     : BUG 4
 NAME     : Architecture behind Model is poor
-OWNER    : 
+OWNER    : Jarod, Shuyi, Kurtis, Sanjar
 PRIORITY : 1
 ESTIMATE : 3 hours
 ISSUE    : Having a list of different types of drawable things in the
@@ -252,7 +242,7 @@ ISSUE    : Having a list of different types of drawable things in the
 --------------------------------------------------------------------------
 TYPE     : BUG 5
 NAME     : Squiggle is broken
-OWNER    : 
+OWNER    : Jarod
 PRIORITY : 1
 ESTIMATE : 1 hour
 ISSUE    : Squiggles are connected to each other by a straight line. Each drag
@@ -262,7 +252,7 @@ ISSUE    : Squiggles are connected to each other by a straight line. Each drag
 --------------------------------------------------------------------------
 TYPE     : BUG 7
 NAME     : Layers of drawing are fixed
-OWNER    : 
+OWNER    : Kurtis
 PRIORITY : 2
 ESTIMATE : 1 hour
 ISSUE    : The first thing drawn should be behind the second thing drawn on top 
@@ -279,6 +269,16 @@ ESTIMATE : 1 hour
 ISSUE    : The first click should specify the center of the circle, with
            a drag for the radius. This is not the case in the current
            implementation.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 2
+NAME     : Drawing selection mode not indicated
+OWNER    : Jarod
+PRIORITY : 4
+ESTIMATE : 1 hour
+ISSUE    : Currently ,you can't tell which mode "Circle", "Rectangle", ...
+           is currently selected. Is JButton correct, is there a way
+           to highlight the currently selected mode?
 --------------------------------------------------------------------------
 
 # OMITTED USER STORIES/BUGS BELOW   ###########################################

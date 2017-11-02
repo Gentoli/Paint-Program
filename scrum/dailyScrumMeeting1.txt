@@ -52,9 +52,9 @@ Nov 1, 2017
 	Obstacles : Trying to work on bugs/implementing things without the architecture fully implemented is difficult
 	
 Nov 2, 2017
-	Yesterday :
-	Today     :
-	Obstacles :
+	Yesterday : Finished Bug 2, mode selected indicator
+	Today     : Start implementing color choosing panel
+	Obstacles : Working as a team with git
 	
 Nov 3, 2017
 	Yesterday :
