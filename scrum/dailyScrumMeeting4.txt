@@ -47,9 +47,9 @@ Oct 31, 2017
 	Obstacles :
 
 Nov 1, 2017
-	Yesterday :
-	Today     :
-	Obstacles :
+	Yesterday :Nothing. Had Midterms to study for. Also something with git wasn't working so my members couldn't see me. fixed it.
+	Today     :Looking at user story one to draw circles. Looking over the code to understand the functions and architecture.
+	Obstacles :Understanding the entire code and bigger picture of assignment. Undestanding Scribble.
 	
 Nov 2, 2017
 	Yesterday :

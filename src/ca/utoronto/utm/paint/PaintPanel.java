@@ -15,18 +15,19 @@ import java.util.Observer;
 class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseListener  {
 	private PaintModel model; // slight departure from MVC, because of the way painting works
 	private View view; // So we can talk to our parent or other components of the view
-	private Circle circle;
 	private String mode; // modifies how we interpret input (could be better?)
 	ArrayList<Shape> shapes;
 	ArrayList<Shape> tempStorage;
-	
+	private Color colour;
+	private Circle circle; // the circle we are building
+
 	public PaintPanel(PaintModel model, View view){
-		this.setBackground(Color.blue);
+		this.setBackground(Color.white);
 		this.setPreferredSize(new Dimension(300,300));
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 		this.model = model;
-		
+
 		shapes = this.model.getShapes();
 		//tempStorage = new ArrayList<Shape>();
 		this.mode = "Circle";
@@ -49,7 +50,7 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 	public void update(Observable o, Object arg) {
 		// Not exactly how MVC works, but similar.
 		this.repaint(); // Schedule a call to paintComponent
-		
+
 	}
 	
 	/**
@@ -73,7 +74,7 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 		if(this.mode=="Squiggle"){
 			this.model.addPoint(new Point(e.getX(), e.getY()));
 		} else if(this.mode=="Circle"){
-			int radius = (int)(Math.sqrt(Math.pow(this.circle.getCenter().getX()-e.getX(),2) + Math.pow(this.circle.getCenter().getY()-e.getY(),2)));
+			int radius = (int)(Math.sqrt(Math.pow(this.circle.getPoint().getX()-e.getX(),2) + Math.pow(this.circle.getPoint().getY()-e.getY(),2)));
 			this.circle.setRadius(radius);
 			//this.tempStorage.add(new Circle(this.circle.getCenter(),this.circle.getRadius()));
 			this.model.addCircle(circle);
@@ -108,11 +109,11 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 		} else if(this.mode=="Circle"){
 				// Problematic notion of radius and center!!
 				//int radius = Math.abs(this.circle.getcenter().getX()-e.getX());
-				int radius = (int)(Math.sqrt(Math.pow(this.circle.getCenter().getX()-e.getX(),2) + Math.pow(this.circle.getCenter().getY()-e.getY(),2)));
+				int radius = (int)(Math.sqrt(Math.pow(this.circle.getPoint().getX()-e.getX(),2) + Math.pow(this.circle.getPoint().getY()-e.getY(),2)));
 				this.circle.setRadius(radius);
 				this.model.addCircle(this.circle);
 				this.circle=null;
-			
+
 		}
 		
 	}
@@ -133,5 +134,9 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 		} else if(this.mode=="Circle"){
 			
 		}
+	}
+
+	public void setColor(Color newColor) {
+		this.colour = newColor;
 	}
 }

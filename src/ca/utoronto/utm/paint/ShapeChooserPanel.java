@@ -10,27 +10,34 @@ import java.awt.event.ActionListener;
 
 class ShapeChooserPanel extends JPanel implements ActionListener {
 	private View view; // So we can talk to our parent or other components of the view
+	private JButton lastPressed;
 	
-	public ShapeChooserPanel(View view) {	
+	public ShapeChooserPanel(View view) {
 		this.view=view;
 		
 		String[] buttonLabels = { "Circle", "Rectangle", "Square", "Squiggle", "Polyline" };
 		this.setLayout(new GridLayout(buttonLabels.length, 1));
+
 		for (String label : buttonLabels) {
 			JButton button = new JButton(label);
 			this.add(button);
 			button.addActionListener(this);
-		}
+		} 
+		
 	}
-	
 	/**
 	 * Controller aspect of this
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		this.view.getPaintPanel().setMode(e.getActionCommand());
+		((JButton) e.getSource()).setEnabled(false);
+		if (lastPressed != null)
+			lastPressed.setEnabled(true);
+		lastPressed = (JButton) e.getSource();
 		System.out.println(e.getActionCommand());
 	}
 
 	
 }
+

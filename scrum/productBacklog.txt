@@ -228,7 +228,7 @@ ISSUE    : Currently ,you can't tell which mode "Circle", "Rectangle", ...
 TYPE     : BUG 3
 NAME     : Architecture behind choosing selection mode is poor
 OWNER    : 
-PRIORITY : 3
+PRIORITY : 1
 ESTIMATE : 3 hours
 ISSUE    : Code is not modular and is difficult to expand. Need a better
            architecture behind selecting a drawing mode, and handling
@@ -240,7 +240,7 @@ ISSUE    : Code is not modular and is difficult to expand. Need a better
 TYPE     : BUG 4
 NAME     : Architecture behind Model is poor
 OWNER    : 
-PRIORITY : 3
+PRIORITY : 1
 ESTIMATE : 3 hours
 ISSUE    : Having a list of different types of drawable things in the
            model is cumbersome. In fact, it is currently incorrect, with
@@ -260,16 +260,6 @@ ISSUE    : Squiggles are connected to each other by a straight line. Each drag
            the issue is with the representation of the squiggles in the Model.
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : BUG 6
-NAME     : Circle drawing is broken
-OWNER    : 
-PRIORITY : 1
-ESTIMATE : 1 hour
-ISSUE    : The first click should specify the center of the circle, with
-           a drag for the radius. This is not the case in the current
-           implementation.
---------------------------------------------------------------------------
---------------------------------------------------------------------------
 TYPE     : BUG 7
 NAME     : Layers of drawing are fixed
 OWNER    : 
@@ -280,6 +270,16 @@ ISSUE    : The first thing drawn should be behind the second thing drawn on top
 --------------------------------------------------------------------------
 
 # COMPLETED USER STORIES/BUGS BELOW ###########################################
+--------------------------------------------------------------------------
+TYPE     : BUG 6
+NAME     : Circle drawing is broken
+OWNER    : Jarod
+PRIORITY : 1
+ESTIMATE : 1 hour
+ISSUE    : The first click should specify the center of the circle, with
+           a drag for the radius. This is not the case in the current
+           implementation.
+--------------------------------------------------------------------------
 
 # OMITTED USER STORIES/BUGS BELOW   ###########################################
 

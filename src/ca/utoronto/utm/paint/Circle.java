@@ -1,30 +1,22 @@
 package ca.utoronto.utm.paint;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 
-public class Circle extends Shape {
-	private int radius;
+public class Circle extends Shape{
 	
-	public Circle(Point center, int radius){
-		super(center);
-		this.radius = radius;
+	public Circle(Point centre, int radius){
+		super(centre,new Dimension(radius,radius));
 	}
-
-	public Point getCenter() {
-		return point;
-	}
-
-	public void setCentre(Point point) {
-		this.point = point;
-	}
-
-	public int getRadius() {
-		return radius;
-	}
-
-	public void setRadius(int radius) {
-		this.radius = radius;
+	
+	
+	@Override
+	public void print(Graphics g) {
+		// TODO Auto-generated method stub
+		int radius = 2*(int)dimension.getWidth();
+		g.drawOval(point.getX()-radius, point.getY()-radius, radius, radius);
+		
 	}
 
 	@Override
@@ -39,10 +31,7 @@ public class Circle extends Shape {
 		
 	}
 
-	@Override
-	public void print(Graphics g) {
-		// TODO Auto-generated method stub
-		
+	public void setRadius(int radius) {
+		dimension = new Dimension(radius,radius);
 	}
-
 }

@@ -8,7 +8,7 @@ import java.util.Observable;
 
 public class PaintModel extends Observable {
 	private ArrayList<Point> points=new ArrayList<Point>();
-	private ArrayList<Shape> shapes=new ArrayList<Shape>();
+	private ArrayList<Shape> shapes =new ArrayList<Shape>();
 	
 	
 	public void addPoint(Point p){
@@ -29,18 +29,14 @@ public class PaintModel extends Observable {
 		return shapes;
 	}
 	public void paint(Graphics g) {
-		Graphics2D g2d = (Graphics2D) g; // lets use the advanced api
-		// setBackground (Color.blue); 
-		// Origin is at the top left of the window 50 over, 75 down
-		g2d.setColor(Color.white);
-		//System.out.println(shapes.size());
-		for(Shape shape : shapes) {
-			if(shape instanceof Circle) {
-				Point point = ((Circle) shape).getCenter();
-				int r = ((Circle) shape).getRadius();
-				g.drawOval(point.getX()-2*r/2,point.getY()-2*r/2,2*r,2*r);//multiple radius by 2 because it takes in id
+		 Graphics2D g2d = (Graphics2D) g; // lets use the advanced api
+			// setBackground (Color.blue); 
+			// Origin is at the top left of the window 50 over, 75 down
+			g2d.setColor(Color.white);
+			for(Shape shape: shapes){
+				shape.print(g);
 			}
-		}
-		g2d.dispose();
+			
+			g2d.dispose();
 	}
 }
