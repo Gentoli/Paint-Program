@@ -1,0 +1,7 @@
+arnold@cs.toronto.edu,1
+arsala.bangash@utoronto.ca,OpenGroup1
+luke.sawczak@alum.utoronto.ca,EZ100
+s.sharmin@mail.utoronto.ca,19CPCNC
+s.sharmin@mail.utoronto.ca,The10thTree
+swapnil.shah@mail.utoronto.ca,ArraysStartAt1
+ylzhang@cs.toronto.edu,120percent
