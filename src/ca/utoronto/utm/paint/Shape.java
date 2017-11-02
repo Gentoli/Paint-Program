@@ -11,6 +11,10 @@ public abstract class Shape {
         this.point = point;
         this.dimension = dimension;
     }
+
+	public Shape(Point point) {
+		this.point = point;
+	}
 	
     public Point getPoint() {
 		return point;
