@@ -13,7 +13,6 @@ import java.util.Observer;
 // https://docs.oracle.com/javase/tutorial/2d/
 
 class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseListener  {
-	private int i=0;
 	private PaintModel model; // slight departure from MVC, because of the way painting works
 	private View view; // So we can talk to our parent or other components of the view
 	private Circle circle;
@@ -42,23 +41,8 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 	public void paintComponent(Graphics g) {
 		// Use g to draw on the JPanel, lookup java.awt.Graphics in
 		// the javadoc to see more of what this can do for you!!
-		
         super.paintComponent(g); //paint background
-        Graphics2D g2d = (Graphics2D) g; // lets use the advanced api
-		// setBackground (Color.blue); 
-		// Origin is at the top left of the window 50 over, 75 down
-		g2d.setColor(Color.white);
-        g2d.drawString ("i="+i, 50, 75);
-		i=i+1;
-		//System.out.println(shapes.size());
-		for(Shape shape : shapes) {
-			if(shape instanceof Circle) {
-				Point point = ((Circle) shape).getCenter();
-				int r = ((Circle) shape).getRadius();
-				g.drawOval(point.getX()-2*r/2,point.getY()-2*r/2,2*r,2*r);//multiple radius by 2 because it takes in id
-			}
-		}
-		g2d.dispose();
+        this.model.paint(g);
 	}
 
 	@Override
