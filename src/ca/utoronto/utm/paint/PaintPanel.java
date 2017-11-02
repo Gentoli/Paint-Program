@@ -18,10 +18,11 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 	private View view; // So we can talk to our parent or other components of the view
 
 	private String mode; // modifies how we interpret input (could be better?)
+	private Color colour;
 	private Circle circle; // the circle we are building
 	
 	public PaintPanel(PaintModel model, View view){
-		this.setBackground(Color.blue);
+		this.setBackground(Color.white);
 		this.setPreferredSize(new Dimension(300,300));
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
@@ -45,7 +46,7 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
         Graphics2D g2d = (Graphics2D) g; // lets use the advanced api
 		// setBackground (Color.blue); 
 		// Origin is at the top left of the window 50 over, 75 down
-		g2d.setColor(Color.white);
+		g2d.setColor(colour);
         g2d.drawString ("i="+i, 50, 75);
 		i=i+1;
 
@@ -156,5 +157,9 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 		} else if(this.mode=="Circle"){
 			
 		}
+	}
+
+	public void setColor(Color newColor) {
+		this.colour = newColor;
 	}
 }
