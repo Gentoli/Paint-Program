@@ -9,7 +9,7 @@ import java.lang.reflect.Method;
 public class WindowsTouch {
 	static {
 		System.out.println(System.getProperty("user.dir"));
-		System.load("C:\\Users\\Shuyi\\source\\repos\\Touch\\x64\\Debug\\JNI.dll");
+		System.load(System.getProperty("user.dir")+"\\JNI.dll");
 	}
 
 	private static native void Init(long hWnd);
