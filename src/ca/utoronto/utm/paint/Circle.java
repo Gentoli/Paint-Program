@@ -1,28 +1,37 @@
 package ca.utoronto.utm.paint;
 
-public class Circle {
-	private Point centre;
-	private int radius;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.event.MouseEvent;
+
+public class Circle extends Shape{
 	
 	public Circle(Point centre, int radius){
-		this.centre = centre;
-		this.radius = radius;
+		super(centre,new Dimension(radius,radius));
+	}
+	
+	
+	@Override
+	public void print(Graphics g) {
+		// TODO Auto-generated method stub
+		int radius = 2*(int)dimension.getWidth();
+		g.drawOval(point.getX()-radius, point.getY()-radius, radius, radius);
+		
 	}
 
-	public Point getCentre() {
-		return centre;
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
-	public void setCentre(Point centre) {
-		this.centre = centre;
-	}
-
-	public int getRadius() {
-		return radius;
+	@Override
+	public void mouseUp(MouseEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public void setRadius(int radius) {
-		this.radius = radius;
+		dimension = new Dimension(radius,radius);
 	}
-
 }

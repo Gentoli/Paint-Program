@@ -5,13 +5,36 @@ import java.awt.event.MouseEvent;
 
 public abstract class Shape {
     protected Point point;
-
-    public Shape(Point point) {
+    protected Dimension dimension;
+    
+	public Shape(Point point,Dimension dimension) {
         this.point = point;
+        this.dimension = dimension;
     }
 
-    public abstract void print(Graphics g);
+	public Shape(Point point) {
+		this.point = point;
+	}
+	
+    public Point getPoint() {
+		return point;
+	}
 
+	public void setPoint(Point point) {
+		this.point = point;
+	}
+
+	public Dimension getDimension() {
+		return dimension;
+	}
+
+	public void setDimension(Dimension dimension) {
+		this.dimension = dimension;
+	}
+
+
+    public abstract void print(Graphics g);
+    
     public abstract void mouseMoved(MouseEvent e);
     public abstract void mouseUp(MouseEvent e);
 }
