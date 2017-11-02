@@ -15,8 +15,9 @@ import java.util.Vector;
 public class WindowsTouch {
 	static {
 		System.out.println(System.getProperty("user.dir"));
-		System.load(System.getProperty("user.dir")+"\\Assignment2\\JNI.dll");
+		//System.load(System.getProperty("user.dir")+"\\Assignment2\\JNI.dll");
 	}
+// jarod [C:\Program Files\Java\jdk1.8.0_131\jre\bin\zip.dll, C:\Program Files\Java\jdk1.8.0_131\jre\bin\instrument.dll, C:\Program Files\JetBrains\IntelliJ IDEA Community Edition 2017.2.4\bin\breakgen64.dll, C:\Program Files\Java\jdk1.8.0_131\jre\bin\net.dll, C:\Program Files\Java\jdk1.8.0_131\jre\bin\awt.dll, C:\Program Files\Java\jdk1.8.0_131\jre\bin\fontmanager.dll, C:\Program Files\Java\jdk1.8.0_131\jre\bin\nio.dll, C:\Program Files\Java\jdk1.8.0_131\jre\bin\t2k.dll]
 
 	private static native void Init(long hWnd);
 	private static WindowsTouch instance;
@@ -30,7 +31,7 @@ public class WindowsTouch {
 		jf.setDefaultCloseOperation(3);
 		jf.add(b);
 		jf.pack();
-		Init(getHWnd(jf));
+		//Init(getHWnd(jf));
 		jf.setVisible(true);
 
 		try {
