@@ -4,20 +4,25 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 
-public class Circle extends Shape{
+public class Ellipse extends Shape{
 	
-	public Circle(Point centre, int radius){
-		super(centre,new Dimension(radius,radius));
+	public Ellipse(Point centre, Point endPoint){
+		super(centre, endPoint);
 	}
 	
 	
 	@Override
 	public void print(Graphics g) {
 		// TODO Auto-generated method stub
-		int radius = 2*(int)dimension.getWidth();
+		int radius = 2*(int)(Math.sqrt(Math.pow(point.getX()- endPoint.getX(),2) + Math.pow(point.getY()- endPoint.getY(),2)));
 		g.drawOval(point.getX()-radius, point.getY()-radius, radius, radius);
 		
 	}
+//	public void printOval(Graphics g) {
+//		// TODO Auto-generated method stub
+//		g.drawOval(point.getX()-endPoint.getX(), point.getY()-endPoint.getY(), radius, radius);
+//
+//	}
 
 	@Override
 	public void mouseMoved(MouseEvent e) {
@@ -31,7 +36,7 @@ public class Circle extends Shape{
 		
 	}
 
-	public void setRadius(int radius) {
-		dimension = new Dimension(radius,radius);
+	public void setEndPoint(Point point) {
+		endPoint = point;
 	}
 }
