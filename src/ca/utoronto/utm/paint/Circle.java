@@ -10,7 +10,6 @@ public class Circle extends Shape{
 		super(centre,new Dimension(radius,radius));
 	}
 	
-	
 	@Override
 	public void print(Graphics g) {
 		// TODO Auto-generated method stub

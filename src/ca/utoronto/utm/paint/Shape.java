@@ -6,11 +6,11 @@ import java.awt.event.MouseEvent;
 public abstract class Shape {
     protected Point point;
     protected Dimension dimension;
-    
+
 	public Shape(Point point,Dimension dimension) {
-        this.point = point;
-        this.dimension = dimension;
-    }
+		this.point = point;
+		this.dimension = dimension;
+	}
 
 	public Shape(Point point) {
 		this.point = point;

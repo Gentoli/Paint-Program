@@ -22,7 +22,7 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 	private Circle circle; // the circle we are building
 
 	public PaintPanel(PaintModel model, View view){
-		this.setBackground(Color.white);
+		this.setBackground(Color.red);
 		this.setPreferredSize(new Dimension(300,300));
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
@@ -34,6 +34,10 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 		this.model.addObserver(this);
 		
 		this.view=view;
+		shapes.add(new RegularPolygon(new Point(200,200),new Dimension(200,200),3));
+		shapes.add(new Circle(new Point(200,200), 1));
+		//shapes.add(new Triangle(new Point(100,100),new Dimension(20,20)));
+		this.repaint();
 	}
 
 	/**
@@ -43,7 +47,9 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 		// Use g to draw on the JPanel, lookup java.awt.Graphics in
 		// the javadoc to see more of what this can do for you!!
         super.paintComponent(g); //paint background
+
         this.model.paint(g);
+		g.setColor(Color.black);
 	}
 
 	@Override
