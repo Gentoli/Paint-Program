@@ -32,6 +32,15 @@ public abstract class Shape {
 		this.dimension = dimension;
 	}
 
+	public void translateOrigin(int x, int y) {
+		point.setX(point.getX()+x);
+		point.setY(point.getY()+y);
+	}
+
+	public void translateDimension(int x, int y) {
+		dimension.setSize(dimension.getWidth()+x, dimension.getHeight()+y);
+	}
+
 
     public abstract void print(Graphics g);
     
