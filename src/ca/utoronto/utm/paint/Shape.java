@@ -33,8 +33,7 @@ public abstract class Shape {
 	}
 
 	public void translateOrigin(int x, int y) {
-		point.setX(point.getX()+x);
-		point.setY(point.getY()+y);
+		point.translate(x,y);
 	}
 
 	public void translateDimension(int x, int y) {

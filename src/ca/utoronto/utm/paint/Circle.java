@@ -2,6 +2,7 @@ package ca.utoronto.utm.paint;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 
 public class Circle extends Shape{
@@ -15,7 +16,7 @@ public class Circle extends Shape{
 	public void print(Graphics g) {
 		// TODO Auto-generated method stub
 		int radius = 2*(int)dimension.getWidth();
-		g.drawOval(point.getX()-radius, point.getY()-radius, radius, radius);
+		g.drawOval(point.x-radius, point.y-radius, radius, radius);
 		
 	}
 
