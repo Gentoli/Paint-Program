@@ -9,16 +9,17 @@ public abstract class Shape {
     protected int xEnd,yEnd;
     protected Color colour;
     protected float lineThickness;
+	protected boolean fill;
     protected Stroke stroke;
-    protected boolean fill;
 
-	public Shape(int x, int y, int xEnd, int yEnd, Color colour, float lineThickness, Stroke stroke) {
+	public Shape(int x, int y, int xEnd, int yEnd, Color colour, float lineThickness, boolean fill, Stroke stroke) {
 		this.x = x;
 		this.y = y;
 		this.xEnd = xEnd;
 		this.yEnd = yEnd;
 		this.colour = colour;
 		this.lineThickness = lineThickness;
+		this.fill = fill;
 		this.stroke = stroke;
 	}
 

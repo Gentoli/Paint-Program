@@ -11,16 +11,16 @@ import java.util.Map;
 public class ShapeBuilder {
 
 	private static Map<String, Class<? extends Shape>> classMap;
-	private final static Class[] shapConst = {int.class, int.class, int.class, int.class, Color.class, float.class, Stroke.class,int.class};
-	private final static Class[] polyConst = {int.class, int.class, int.class, int.class, Color.class, float.class, Stroke.class};
-	private final static String[] subClasses = {};
-
+	private final static Class[] shapConst = {int.class, int.class, int.class, int.class, Color.class, float.class,boolean.class, Stroke.class,int.class};
+	private final static Class[] polyConst = {int.class, int.class, int.class, int.class, Color.class, float.class,boolean.class, Stroke.class};
+	private final static String[] subClasses = {"RegularPolygon"};
+	private final static String pack = "ca.utoronto.utm.paint.";
 
 	static{
 		Map<String, Class<? extends Shape>> map = new HashMap<String, Class<? extends Shape>>();
 		for(String s:subClasses) {
 			try {
-				map.put(s,Class.forName(s).asSubclass(Shape.class));
+				map.put(s,Class.forName(pack+s).asSubclass(Shape.class));
 			} catch(ClassNotFoundException e) {
 				e.printStackTrace();
 			};
@@ -33,6 +33,8 @@ public class ShapeBuilder {
     private int x, y, xEnd, yEnd;
     private Stroke stroke;
     private boolean fill;
+	private int edges;
+
 
     public ShapeBuilder(String type, int x, int y) {
 	    shape = classMap.get(type);
@@ -57,7 +59,10 @@ public class ShapeBuilder {
     }
 
     public ShapeBuilder setYEnd(int yEnd) {
-        this.yEnd = yEnd;
+	    this.yEnd = yEnd;
+	    return this;
+    }
+    
     public ShapeBuilder setFill(boolean fill) {
         this.fill = fill;
         return this;
@@ -74,10 +79,10 @@ public class ShapeBuilder {
 	    try {
 			if(shape==RegularPolygon.class){
 				c=shape.getConstructor(polyConst);
-				s=(Shape)c.newInstance(x,y,xEnd,yEnd,colour,lineThickness,stroke,edges);
+				s=(Shape)c.newInstance(x,y,xEnd,yEnd,colour,lineThickness,fill,stroke,edges);
 			}else {
 				c=shape.getConstructor(shapConst);
-				s=(Shape)c.newInstance(x,y,xEnd,yEnd,colour,lineThickness,stroke);
+				s=(Shape)c.newInstance(x,y,xEnd,yEnd,colour,lineThickness,fill,stroke);
 			}
 			return s;
 	    } catch(NoSuchMethodException e) {
@@ -92,6 +97,10 @@ public class ShapeBuilder {
 	    return null;
     }
 
+	public ShapeBuilder setEdges(int edges) {
+		this.edges = edges;
+		return this;
+	}
 }
 
 
