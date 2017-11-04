@@ -11,10 +11,11 @@ public class Ellipse extends Shape{
 	
 	
 	@Override
-	public void print(Graphics g) {
+	public void print(Graphics2D g2) {
 		// TODO Auto-generated method stub
+		prepare(g2);
 		int radius = (int)(Math.sqrt(Math.pow(point.x- endPoint.x,2) + Math.pow(point.y- endPoint.y,2)));
-		g.drawOval(point.x-radius, point.y-radius, 2*radius, 2*radius);
+		g2.drawOval(point.x-radius, point.y-radius, 2*radius, 2*radius);
 		
 	}
 //	public void printOval(Graphics g) {

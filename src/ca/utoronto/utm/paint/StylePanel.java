@@ -10,7 +10,9 @@ import java.awt.event.ComponentListener;
 public class StylePanel extends JPanel implements ActionListener {
 
     private View view;
+    private JPanel lineThicknessPanel;
     private JLabel lineThicknessLabel;
+    private JTextField lineThicknessText;
     private JSlider lineThicknessSlider;
     private JLabel fillLabel;
     private JCheckBox fillCheckBox;
@@ -27,8 +29,21 @@ public class StylePanel extends JPanel implements ActionListener {
         this.setLayout(new GridBagLayout());
         this.setPreferredSize(new Dimension(0,100));
 
+        lineThicknessPanel = new JPanel();
         lineThicknessLabel = new JLabel("Line Thickness");
-        lineThicknessLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        //lineThicknessLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        lineThicknessText = new JTextField("1", 3);
+        lineThicknessText.addActionListener(e -> {
+            try {
+                view.getPaintPanel().setLineThickness(Float.valueOf(((JTextField)e.getSource()).getText()));
+            }
+            catch(Exception exception) {
+                ((JTextField)e.getSource()).setText("1");
+                view.getPaintPanel().setLineThickness(1);
+            }
+        });
+        lineThicknessPanel.add(lineThicknessLabel);
+        lineThicknessPanel.add(lineThicknessText);
         lineThicknessSlider = new JSlider(1, 1024);
 
         fillLabel = new JLabel("Fill Shapes");
@@ -52,7 +67,7 @@ public class StylePanel extends JPanel implements ActionListener {
         c.weightx = 1;
         c.gridx = 0;
         c.gridy = 0;
-        this.add(lineThicknessLabel, c);
+        this.add(lineThicknessPanel, c);
         c.gridx = 1;
         this.add(new JLabel(), c);
         c.gridx = 2;

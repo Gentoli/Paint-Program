@@ -22,6 +22,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	private String mode; // modifies how we interpret input (could be better?)
 
 	private Color colour;
+	private float lineThickness;
 	private Shape[] shapes = new Shape[WindowsPointer.POINTER_MAX];
 	//private Ellipse ellipse; // the ellipse we are building
 
@@ -77,6 +78,8 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	public void setColor(Color newColor) {
 		this.colour = newColor;
 	}
+
+	public void setLineThickness(float lineThickness) { this.lineThickness = lineThickness; }
 
 	@Override
 	public void pointerUpdated(PointerEvent e) {

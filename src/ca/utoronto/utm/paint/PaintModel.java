@@ -1,9 +1,6 @@
 package ca.utoronto.utm.paint;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -38,7 +35,6 @@ public class PaintModel extends Observable {
 			g2.setColor(Color.black);
 			synchronized(this) {
 				for(Shape s : shapes) {
-					g2.setColor(s.getColour());
 					s.print(g2);
 				}
 			}

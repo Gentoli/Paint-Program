@@ -7,23 +7,26 @@ public abstract class Shape {
     protected Point point;
     protected Point endPoint;
     protected Color colour;
+    protected float lineThickness;
+    protected Stroke stroke;
 
-	public Shape(Point point,Point endPoint, Color colour) {
+	public Shape(Point point,Point endPoint, Color colour, float lineThickness) {
 		this.point = point;
 		this.endPoint = endPoint;
 		this.colour = colour;
+		this.lineThickness = lineThickness;
 	}
 
-	public Shape(Point point,Color colour) {
-		this(point, point,colour);
+	public Shape(Point point,Color colour, float lineThickness) {
+		this(point, point,colour, lineThickness);
 	}
 
 	public Shape(Point point,Point endPoint) {
-        this(point,endPoint,null);
+        this(point,endPoint,null,1);
     }
 
 	public Shape(Point point) {
-		this(point, point,null);
+		this(point, point, null,1);
 	}
 	
     public Point getPoint() {
@@ -54,6 +57,10 @@ public abstract class Shape {
 		endPoint.translate(x,y);
 	}
 
+	protected void prepare(Graphics2D g2) {
+		g2.setColor(colour);
+		g2.setStroke(stroke);
+	}
 
     public abstract void print(Graphics g);
     
