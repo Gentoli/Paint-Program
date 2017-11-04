@@ -57,9 +57,9 @@ Nov 2, 2017
 	Obstacles : Working as a team with git
 	
 Nov 3, 2017
-	Yesterday :
-	Today     :
-	Obstacles :
+	Yesterday : Finished implementing color choosing panel
+	Today     : Start implementing style choosing panel
+	Obstacles : Adding features while avoiding clutter in the GUI
 
 Nov 4, 2017
 	Yesterday :
