@@ -2,6 +2,7 @@ package ca.utoronto.utm.paint;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Stroke;
 
 public abstract class Shape {
@@ -82,6 +83,12 @@ public abstract class Shape {
 	protected void prepare(Graphics2D g2) {
 		g2.setColor(colour);
 		g2.setStroke(stroke);
+	}
+
+	public Point rotate(double x, double y, double angle){
+		double retX = x*Math.cos(angle) - y*Math.sin(angle);
+		double retY = x*Math.sin(angle) + y*Math.cos(angle);
+		return new Point((int)retX,(int)retY);
 	}
 
     public abstract void print(Graphics2D g2);

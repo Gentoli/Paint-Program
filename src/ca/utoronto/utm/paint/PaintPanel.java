@@ -75,7 +75,6 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 		this.mode=mode;
 	}
 
-
 	public void setColor(Color newColor) {
 		this.colour = newColor;
 	}
