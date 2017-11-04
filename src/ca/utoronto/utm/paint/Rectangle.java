@@ -13,7 +13,7 @@ public class Rectangle extends Shape{
 	@Override
 	public void print(Graphics g) {
 		// TODO Auto-generated method stub
-		g.drawRect(point.getX(), point.getY(), (int) endPoint.getX(), (int) endPoint.getY());
+		g.drawRect(point.x, point.y, (int) endPoint.x, (int) endPoint.y);
 	}
 
 	@Override

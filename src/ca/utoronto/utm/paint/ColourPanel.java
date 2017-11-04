@@ -1,14 +1,14 @@
 package ca.utoronto.utm.paint;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.*;
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JColorChooser;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.colorchooser.*;
+import java.awt.Color;
+import java.awt.Dimension;
 
 public class ColourPanel extends JFrame implements ChangeListener{
 
