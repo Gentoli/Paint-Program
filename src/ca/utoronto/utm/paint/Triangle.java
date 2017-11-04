@@ -1,35 +1,26 @@
 package ca.utoronto.utm.paint;
 
-import java.awt.*;
-import java.awt.event.MouseEvent;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Point;
 
 public class Triangle extends Shape{
     Point[] verticies;
-    public Triangle(Point point, Dimension dimension){
-        super(point,dimension);
+    public Triangle(Point point, Point endPoint){
+        //super(point,endPoint);
         verticies = new Point[3];
         calculateVerticies();
     }
 
     private void calculateVerticies(){
-        verticies[0] = new Point(point.getX() + (int)dimension.getWidth()/2, point.getY());//top
-        verticies[1] = new Point(point.getX() + (int)dimension.getWidth(), point.getY() + (int)dimension.getHeight());//bottom right
-        verticies[2] = new Point(point.getX(), point.getY() + (int)dimension.getHeight());//bottom left
+        verticies[0] = new Point(x + xEnd/2, y);//top
+        verticies[1] = new Point(x + xEnd, y + yEnd);//bottom right
+        verticies[2] = new Point(x, y + yEnd);//bottom left
     }
     @Override
-    public void print(Graphics g) {
-        g.drawLine(verticies[0].getX(), verticies[0].getY(), verticies[1].getX(), verticies[1].getY());
-        g.drawLine(verticies[1].getX(), verticies[1].getY(), verticies[2].getX(), verticies[2].getY());
-        g.drawLine(verticies[2].getX(), verticies[2].getY(), verticies[0].getX(), verticies[0].getY());
-    }
-
-    @Override
-    public void mouseMoved(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseUp(MouseEvent e) {
-
+    public void print(Graphics2D g2) {
+        g2.drawLine(verticies[0].x, verticies[0].y, verticies[1].x, verticies[1].y);
+        g2.drawLine(verticies[1].x, verticies[1].y, verticies[2].x, verticies[2].y);
+        g2.drawLine(verticies[2].x, verticies[2].y, verticies[0].x, verticies[0].y);
     }
 }

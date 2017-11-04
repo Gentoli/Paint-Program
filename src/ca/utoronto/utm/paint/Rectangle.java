@@ -1,31 +1,20 @@
 package ca.utoronto.utm.paint;
 
-import java.awt.Dimension;
+import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.event.MouseEvent;
+import java.awt.Graphics2D;
+import java.awt.Point;
 
 public class Rectangle extends Shape{
 	
-	public Rectangle(Point point, Dimension dimension){
-		super(point,dimension);
+	public Rectangle(Point point, Point endPoint, Color colour){
+		///super(point,endPoint, colour);
 	}
 
 
 	@Override
-	public void print(Graphics g) {
+	public void print(Graphics2D g2) {
 		// TODO Auto-generated method stub
-		g.drawRect(point.getX(), point.getY(), (int) endPoint.getWidth(), (int) endPoint.getHeight());
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseUp(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		g2.drawRect(x, y, xEnd, yEnd);
 	}
 }

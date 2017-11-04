@@ -1,57 +1,75 @@
 package ca.utoronto.utm.paint;
 
-import java.awt.*;
-import java.awt.event.MouseEvent;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Stroke;
 
 public abstract class Shape {
-    protected Point point;
-    protected Point endPoint;
-    protected int thickness;
+    protected int x,y;
+    protected int xEnd,yEnd;
+    protected Color colour;
+    protected float lineThickness;
+    protected Stroke stroke;
 
-	public Shape(Point point,Point endPoint,int thickness) {
-        this.point = point;
-        this.endPoint = endPoint;
-        this.thickness = thickness;
-    }
-
-	public Shape(Point point) {
-		this.point = point;
-	}
-	
-    public Point getPoint() {
-		return point;
+	public int getX() {
+		return x;
 	}
 
-	public void setPoint(Point point) {
-		this.point = point;
+	public void setX(int x) {
+		this.x = x;
 	}
 
-	public Point getEndPoint() {
-		return endPoint;
+	public int getY() {
+		return y;
 	}
 
-	public void setEndPoint(Point endPoint) {
-		this.endPoint = endPoint;
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public int getxEnd() {
+		return xEnd;
+	}
+
+	public void setxEnd(int xEnd) {
+		this.xEnd = xEnd;
+	}
+
+	public int getyEnd() {
+		return yEnd;
+	}
+
+	public void setyEnd(int yEnd) {
+		this.yEnd = yEnd;
+	}
+
+	public Color getColour() { return colour; }
+
+	public void setColour(Color colour) { this.colour = colour; }
+
+	public void setLineThickness(float lineThickness) {
+		this.lineThickness = lineThickness;
+	}
+
+	public void setStroke(Stroke stroke) {
+		this.stroke = stroke;
 	}
 
 	public void translateOrigin(int x, int y) {
-		point.setX(point.getX()+x);
-		point.setY(point.getY()+y);
+		this.x+=x;
+		this.y+=y;
 	}
 
 	public void translateEndPoint(int x, int y) {
-		endPoint.setX(endPoint.getX()+x);
-		endPoint.setY(endPoint.getY()+y);
+		this.xEnd+=x;
+		this.yEnd+=y;
 	}
 
-	public Point rotate(double x, double y, double angle){
-		double retX = x*Math.cos(angle) - y*Math.sin(angle);
-		double retY = x*Math.sin(angle) + y*Math.cos(angle);
-		return new Point((int)retX,(int)retY);
+	protected void prepare(Graphics2D g2) {
+		g2.setColor(colour);
+		g2.setStroke(stroke);
 	}
 
-    public abstract void print(Graphics g);
-    
-    public abstract void mouseMoved(MouseEvent e);
-    public abstract void mouseUp(MouseEvent e);
+    public abstract void print(Graphics2D g2);
 }
