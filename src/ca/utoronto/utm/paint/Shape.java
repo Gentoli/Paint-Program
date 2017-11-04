@@ -1,48 +1,45 @@
 package ca.utoronto.utm.paint;
 
-import java.awt.*;
-import java.awt.event.MouseEvent;
+import java.awt.Color;
+import java.awt.Graphics;
 
 public abstract class Shape {
-    protected Point point;
-    protected Point endPoint;
+    protected int x,y;
+    protected int xEnd,yEnd;
     protected Color colour;
     protected float lineThickness;
     protected Stroke stroke;
 
-	public Shape(Point point,Point endPoint, Color colour, float lineThickness) {
-		this.point = point;
-		this.endPoint = endPoint;
-		this.colour = colour;
-		this.lineThickness = lineThickness;
+	public int getX() {
+		return x;
 	}
 
-	public Shape(Point point,Color colour, float lineThickness) {
-		this(point, point,colour, lineThickness);
+	public void setX(int x) {
+		this.x = x;
 	}
 
-	public Shape(Point point,Point endPoint) {
-        this(point,endPoint,null,1);
-    }
-
-	public Shape(Point point) {
-		this(point, point, null,1);
-	}
-	
-    public Point getPoint() {
-		return point;
+	public int getY() {
+		return y;
 	}
 
-	public void setPoint(Point point) {
-		this.point = point;
+	public void setY(int y) {
+		this.y = y;
 	}
 
-	public Point getEndPoint() {
-		return endPoint;
+	public int getxEnd() {
+		return xEnd;
 	}
 
-	public void setEndPoint(Point endPoint) {
-		this.endPoint = endPoint;
+	public void setxEnd(int xEnd) {
+		this.xEnd = xEnd;
+	}
+
+	public int getyEnd() {
+		return yEnd;
+	}
+
+	public void setyEnd(int yEnd) {
+		this.yEnd = yEnd;
 	}
 
 	public Color getColour() { return colour; }
@@ -50,11 +47,13 @@ public abstract class Shape {
 	public void setColour(Color colour) { this.colour = colour; }
 
 	public void translateOrigin(int x, int y) {
-		point.translate(x,y);
+		this.x+=x;
+		this.y+=y;
 	}
 
 	public void translateEndPoint(int x, int y) {
-		endPoint.translate(x,y);
+		this.xEnd+=x;
+		this.yEnd+=y;
 	}
 
 	protected void prepare(Graphics2D g2) {
@@ -63,7 +62,4 @@ public abstract class Shape {
 	}
 
     public abstract void print(Graphics g);
-    
-    public abstract void mouseMoved(MouseEvent e);
-    public abstract void mouseUp(MouseEvent e);
 }
