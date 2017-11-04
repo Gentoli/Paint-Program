@@ -2,7 +2,6 @@ package ca.utoronto.utm.paint;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Point;
 import java.awt.event.MouseEvent;
 
 public class Rectangle extends Shape{
@@ -15,7 +14,7 @@ public class Rectangle extends Shape{
 	@Override
 	public void print(Graphics g) {
 		// TODO Auto-generated method stub
-		g.drawRect(point.x, point.y, (int)dimension.getWidth(), (int)dimension.getHeight());
+		g.drawRect(point.getX(), point.getY(), (int) endPoint.getWidth(), (int) endPoint.getHeight());
 	}
 
 	@Override

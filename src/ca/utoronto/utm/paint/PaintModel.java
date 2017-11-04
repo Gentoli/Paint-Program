@@ -21,7 +21,7 @@ public class PaintModel extends Observable {
 		return points;
 	}
 	
-	public void addCircle(Circle c){
+	public void addEllipse(Ellipse c){
 		this.shapes.add(c);
 		this.setChanged();
 		this.notifyObservers();
@@ -33,7 +33,7 @@ public class PaintModel extends Observable {
 		 Graphics2D g2d = (Graphics2D) g; // lets use the advanced api
 			// setBackground (Color.blue); 
 			// Origin is at the top left of the window 50 over, 75 down
-			g2d.setColor(Color.white);
+			g2d.setColor(Color.black);
 			for(Shape shape: shapes){
 				shape.print(g);
 			}
