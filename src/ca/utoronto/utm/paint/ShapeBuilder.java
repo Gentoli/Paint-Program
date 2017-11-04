@@ -1,6 +1,5 @@
 package ca.utoronto.utm.paint;
 
-import jdk.nashorn.internal.ir.annotations.Immutable;
 
 import java.awt.Color;
 import java.awt.Stroke;
@@ -33,6 +32,7 @@ public class ShapeBuilder {
     private float lineThickness;
     private int x, y, xEnd, yEnd;
     private Stroke stroke;
+    private boolean fill;
 
     public ShapeBuilder(String type, int x, int y) {
 	    shape = classMap.get(type);
@@ -58,6 +58,8 @@ public class ShapeBuilder {
 
     public ShapeBuilder setYEnd(int yEnd) {
         this.yEnd = yEnd;
+    public ShapeBuilder setFill(boolean fill) {
+        this.fill = fill;
         return this;
     }
 
