@@ -71,7 +71,6 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 		this.mode=mode;
 	}
 
-
 	public void setColor(Color newColor) {
 		this.colour = newColor;
 	}
@@ -80,21 +79,22 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 
 	@Override
 	public void pointerUpdated(PointerEvent e) {
+		/*
 		switch(e.getID()){
 			case MouseEvent.MOUSE_PRESSED:
 				shapes[e.getPointerId()]=new Ellipse(new Point(e.getX(),e.getY()),colour);
 				break;
 			case MouseEvent.MOUSE_MOVED:
 				//System.out.println("create");
-				shapes[e.getPointerId()].setEndPoint(new Point(e.getX(),e.getY()));
+				//shapes[e.getPointerId()].setEndPoint(new Point(e.getX(),e.getY()));
 				//System.out.println("em");
 				break;
 			case MouseEvent.MOUSE_RELEASED:
-				shapes[e.getPointerId()].setEndPoint(new Point(e.getX(),e.getY()));
+				//shapes[e.getPointerId()].setEndPoint(new Point(e.getX(),e.getY()));
 				model.addShape(shapes[e.getPointerId()]);
 				shapes[e.getPointerId()]=null;
 				break;
 		}
-		repaint();
+		repaint();*/
 	}
 }

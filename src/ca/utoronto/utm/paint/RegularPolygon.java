@@ -8,28 +8,57 @@ public class RegularPolygon extends Shape {
     public int[] verticiesY;
     public float[] intercepts;
     public float[] slopes;
+    private boolean centered;
 
-    public RegularPolygon(Point point, Point endPoint, int verticies, int thickness) {
-        super(point, endPoint, thickness);
+    public RegularPolygon(Point point, Point endPoint, int verticies, int thickness, boolean centered) {
+        //super(point, endPoint, thickness);
         this.verticiesX = new int[verticies];
         this.verticiesY = new int[verticies];
         this.intercepts = new float[verticies];
         this.slopes = new float[verticies];
+        this.centered = centered;
         calculateVerticies();
     }
 
     private void calculateVerticies() {
         double angles = 2 * Math.PI / verticiesX.length;
-        double radius = Math.sqrt(Math.pow(endPoint.getX() - point.getX(), 2) + Math.pow(endPoint.getY() - point.getY(), 2));
-        double mouseAngle = Math.asin((endPoint.getX() - point.getX()) / radius);
+        double radius = Math.sqrt(Math.pow(xEnd - x, 2) + Math.pow(yEnd - y, 2));
+        double mouseAngle = Math.asin((xEnd - x) / radius);
         for (int i = 0; i < verticiesX.length; i++) {
             double x = radius * Math.sin(i * angles + mouseAngle);
             double y = radius * Math.cos(i * angles + mouseAngle);
             Point p = rotate(x, y, Math.PI);
-            verticiesX[i] = p.getX() + point.getX();
-            verticiesY[i] = p.getY() + point.getY();
+            if(centered) {
+                verticiesX[i] = this.x+p.x/2;
+                verticiesY[i] = this.y+p.y/2;
+            }else{
+                verticiesX[i] = this.x;
+                verticiesY[i] = this.y;
+            }
         }
         calculateLines(verticiesX, verticiesY);
+    }
+
+    public void stretch(int xShift, int yShift){
+        //find min
+        int xMin = verticiesX[0];
+        int yMin = verticiesY[0];
+        for(int i = 1; i < verticiesX.length; i++){
+            if(verticiesX[i] < xMin){
+                xMin = verticiesX[i];
+            }
+            if(verticiesY[i] < yMin){
+                yMin = verticiesY[i];
+            }
+        }
+        for(int i = 0; i < verticiesX.length; i++){
+            if (verticiesX[i] - xMin != 0) {
+                verticiesX[i] = verticiesX[i] + xShift;
+            }
+            if (verticiesY[i] -yMin != 0) {
+                verticiesY[i] = verticiesY[i] + yShift;
+            }// bool?true:false
+        }
     }
 
     //updates the verticies and intercepts arrays based on the vertex points
@@ -49,7 +78,7 @@ public class RegularPolygon extends Shape {
             float epsilon = 0.01f;
             // the epsilon term is to account for the precision error when comparing floats directly.
             // the thickness term is so that we check if the point is on the line within the thickness bounds of the line
-            if (Math.abs(intercepts[i] + slopes[i] * p.getX() - p.getY()) < epsilon + thickness / 2) {
+            if (Math.abs(intercepts[i] + slopes[i] * p.x - p.y) < epsilon + lineThickness / 2) {
                 return true;
             }
         }
@@ -57,9 +86,8 @@ public class RegularPolygon extends Shape {
     }
 
     @Override
-    public void print(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g;
-        g2.setStroke(new BasicStroke(thickness));
-        g2.drawPolygon(verticiesX, verticiesY, verticiesX.length);
+    public void print(Graphics2D g) {
+        g.setStroke(new BasicStroke(lineThickness));
+        g.drawPolygon(verticiesX, verticiesY, verticiesX.length);
     }
 }
