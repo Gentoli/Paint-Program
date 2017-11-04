@@ -1,7 +1,6 @@
 package ca.utoronto.utm.paint;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
 
@@ -11,6 +10,16 @@ public abstract class Shape {
     protected Color colour;
     protected float lineThickness;
     protected Stroke stroke;
+
+	public Shape(int x, int y, int xEnd, int yEnd, Color colour, float lineThickness, Stroke stroke) {
+		this.x = x;
+		this.y = y;
+		this.xEnd = xEnd;
+		this.yEnd = yEnd;
+		this.colour = colour;
+		this.lineThickness = lineThickness;
+		this.stroke = stroke;
+	}
 
 	public int getX() {
 		return x;
