@@ -20,6 +20,8 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 
 	private Color colour;
 	private float lineThickness;
+	private Stroke stroke;
+
 	private Shape[] shapes = new Shape[WindowsPointer.POINTER_MAX];
 	//private Ellipse ellipse; // the ellipse we are building
 
@@ -78,11 +80,15 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 
 	public void setLineThickness(float lineThickness) { this.lineThickness = lineThickness; }
 
+	public void setStroke(Stroke stroke) { this.stroke = stroke; }
+
 	@Override
 	public void pointerUpdated(PointerEvent e) {
 		switch(e.getID()){
 			case MouseEvent.MOUSE_PRESSED:
 				shapes[e.getPointerId()]=new Ellipse(new Point(e.getX(),e.getY()),colour);
+				ShapeBuilder shape = new ShapeBuilder().setMode(mode).setColour(colour).setLineThickness(lineThickness).setStroke(stroke);
+				shapes[e.getPointerId()] = shape.build();
 				break;
 			case MouseEvent.MOUSE_MOVED:
 				//System.out.println("create");

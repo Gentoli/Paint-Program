@@ -5,6 +5,7 @@ import java.awt.*;
 public class ShapeBuilder {
 
     private Shape shape;
+    private String mode;
     private Color colour;
     private float lineThickness;
     private int x, y, xEnd, yEnd;
@@ -16,6 +17,11 @@ public class ShapeBuilder {
 
     public ShapeBuilder setShape(Shape shape) {
         this.shape = shape;
+        return this;
+    }
+
+    public ShapeBuilder setMode(String mode) {
+        this.mode = mode;
         return this;
     }
 
