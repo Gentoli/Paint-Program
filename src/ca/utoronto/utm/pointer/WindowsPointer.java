@@ -5,13 +5,14 @@ import javax.swing.JFrame;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
-public class WindowsPointer {
+public class WindowsPointer extends MouseAdapter {
 	public static final boolean IS_TOUCH_SUPPORTED;
 	static {
 		boolean success = true;
@@ -19,6 +20,7 @@ public class WindowsPointer {
 			System.loadLibrary("JNI");
 		} catch(Error e) {
 			success=false;
+			System.out.println("JNI failed to load\n falling back to MouseListener");
 		}
 		IS_TOUCH_SUPPORTED = success;
 	}
@@ -78,12 +80,12 @@ public class WindowsPointer {
 	private static void Update(int eventId, long when, int modifiers,int xAbs, int yAbs ,int clickCount, int pointerId, int pressure){
 		WindowsPointer p = getInstance();
 		int index = p.getPointId(pointerId);
-		System.out.print("[");
-		for(int i = 0; i < p.points.length; i++) {
-			System.out.print(p.points[i]);
-			System.out.print(" ");
-		}
-		System.out.println("]");
+//		System.out.print("[");
+//		for(int i = 0; i < p.points.length; i++) {
+//			System.out.print(p.points[i]);
+//			System.out.print(" ");
+//		}
+//		System.out.println("]");
 		for(EventFactory e:p.listeners.values()){
 			e.firePointerEvent(eventId,when,modifiers,xAbs,yAbs,clickCount,index,pressure);
 		}
