@@ -43,7 +43,9 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 		// Use g to draw on the JPanel, lookup java.awt.Graphics in
 		// the javadoc to see more of what this can do for you!!
         super.paintComponent(g); //paint background
-        this.model.paint(g);
+		Graphics2D g2 = (Graphics2D)g;
+		g2.setStroke(new BasicStroke());
+        this.model.paint(g2);
 	}
 
 	@Override
@@ -97,7 +99,7 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 			// Problematic notion of radius and center!!
 			Point center = new Point(e.getX(), e.getY());
 			int radius = 0;
-			this.ellipse=new Ellipse(center, 0);
+			this.ellipse=new Ellipse(center, center, colour);
 		}
 	}
 
@@ -108,8 +110,8 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 		} else if(this.mode=="Ellipse"){
 				// Problematic notion of radius and center!!
 				//int radius = Math.abs(this.ellipse.getcenter().getX()-e.getX());
-				int radius = (int)(Math.sqrt(Math.pow(this.ellipse.getPoint().getX()-e.getX(),2) + Math.pow(this.ellipse.getPoint().getY()-e.getY(),2)));
-				this.ellipse.setRadius(radius);
+				//int radius = (int)(Math.sqrt(Math.pow(this.ellipse.getPoint().getX()-e.getX(),2) + Math.pow(this.ellipse.getPoint().getY()-e.getY(),2)));
+				this.ellipse.setEndPoint(new Point(e.getX(), e.getY()));
 				this.model.addEllipse(this.ellipse);
 				this.ellipse=null;
 

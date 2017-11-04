@@ -6,10 +6,12 @@ import java.awt.event.MouseEvent;
 public abstract class Shape {
     protected Point point;
     protected Point endPoint;
+    protected Color colour;
     
-	public Shape(Point point,Point endPoint) {
+	public Shape(Point point,Point endPoint, Color colour) {
         this.point = point;
         this.endPoint = endPoint;
+        this.colour = colour;
     }
 
 	public Shape(Point point) {
@@ -31,6 +33,10 @@ public abstract class Shape {
 	public void setEndPoint(Point endPoint) {
 		this.endPoint = endPoint;
 	}
+
+	public Color getColour() { return colour; }
+
+	public void setColour(Color colour) { this.colour = colour; }
 
 	public void translateOrigin(int x, int y) {
 		point.setX(point.getX()+x);
