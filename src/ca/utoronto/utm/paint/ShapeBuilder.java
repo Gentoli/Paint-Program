@@ -10,6 +10,7 @@ public class ShapeBuilder {
     private float lineThickness;
     private int x, y, xEnd, yEnd;
     private Stroke stroke;
+    private boolean fill;
 
     public ShapeBuilder() {
 
@@ -35,23 +36,8 @@ public class ShapeBuilder {
         return this;
     }
 
-    public ShapeBuilder setX(int x) {
-        this.x = x;
-        return this;
-    }
-
-    public ShapeBuilder setY(int y) {
-        this.y = y;
-        return this;
-    }
-
-    public ShapeBuilder setXEnd(int xEnd) {
-        this.xEnd = xEnd;
-        return this;
-    }
-
-    public ShapeBuilder setYEnd(int yEnd) {
-        this.yEnd = yEnd;
+    public ShapeBuilder setFill(boolean fill) {
+        this.fill = fill;
         return this;
     }
 

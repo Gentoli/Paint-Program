@@ -11,6 +11,7 @@ public abstract class Shape {
     protected Color colour;
     protected float lineThickness;
     protected Stroke stroke;
+    protected boolean fill;
 
 	public int getX() {
 		return x;
@@ -55,6 +56,8 @@ public abstract class Shape {
 	public void setStroke(Stroke stroke) {
 		this.stroke = stroke;
 	}
+
+	public void setFill(boolean fill) { this.fill = fill; }
 
 	public void translateOrigin(int x, int y) {
 		this.x+=x;
