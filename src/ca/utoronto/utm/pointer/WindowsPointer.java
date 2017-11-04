@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Frame;
+import java.awt.event.MouseEvent;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
@@ -24,31 +25,38 @@ public class WindowsPointer {
 
 	//SwingUtilities.convertPointFromScreen
 
-	private WindowsPointer(){};
+	private WindowsPointer(){
+		for(int i = 0; i < points.length; i++) {
+			points[i]=-1;
+		}
+	};
 
 	private static native void Init(long hWnd);
 
 	private Frame frame;
 
-	private void setFrame(Frame frame){
+	public void setFrame(Frame frame){
+		if(frame==null)
+			throw new IllegalArgumentException("null frame");
 		if(this.frame==frame)
 			return;
 		this.frame = frame;
 		Init(getHWnd(frame));
-		listeners.clear();
+		//listeners.clear();
 	}
 
 	private static WindowsPointer instance;
 
-	private int[] points = new int[20];
+	public static final int POINTER_MAX=20;
+
+	private int[] points = new int[POINTER_MAX];
 
 	private Map<Component,EventFactory> listeners = new HashMap<Component,EventFactory>();
-	static JButton  b;
 	public static void main(String[] args){
 		WindowsPointer w = getInstance();
 		JFrame jf = new JFrame();
 
-		b = new JButton();
+		JButton b = new JButton();
 		b.addActionListener(e ->  {
 			//System.out.println(Thread.currentThread().getId());
 		});
@@ -70,15 +78,19 @@ public class WindowsPointer {
 	private static void Update(int eventId, long when, int modifiers,int xAbs, int yAbs ,int clickCount, int pointerId, int pressure){
 		WindowsPointer p = getInstance();
 		int index = p.getPointId(pointerId);
-
+		System.out.print("[");
+		for(int i = 0; i < p.points.length; i++) {
+			System.out.print(p.points[i]);
+			System.out.print(" ");
+		}
+		System.out.println("]");
 		for(EventFactory e:p.listeners.values()){
 			e.firePointerEvent(eventId,when,modifiers,xAbs,yAbs,clickCount,index,pressure);
 		}
-		//InputEvent.SHIFT_DOWN_MASK;
-	}
 
-	private static void release(int id){
-		getInstance().releasePoint(id);
+		if(eventId == MouseEvent.MOUSE_EXITED)
+			p.releasePoint(index);
+		//InputEvent.SHIFT_DOWN_MASK;
 	}
 
 	public void addListener(PointerListener pointerListener,Component component){
@@ -107,10 +119,7 @@ public class WindowsPointer {
 	}
 
 	private void releasePoint(int id){
-		for(int i = 0; i < points.length; i++) {
-			if(points[i]==id)
-				points[i]=-1;
-		}
+		points[id] = -1;
 	}
 
 	public synchronized static WindowsPointer getInstance() {
