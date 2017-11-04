@@ -5,10 +5,7 @@ import ca.utoronto.utm.pointer.PointerListener;
 import ca.utoronto.utm.pointer.WindowsPointer;
 
 import javax.swing.JPanel;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Point;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.util.Observable;
 import java.util.Observer;
@@ -50,9 +47,10 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 		// Use g to draw on the JPanel, lookup java.awt.Graphics in
 		// the javadoc to see more of what this can do for you!!
         super.paintComponent(g); //paint background
+		Graphics2D g2 = (Graphics2D)g;
 		for(Shape s:shapes) {
 			if(s!=null) {
-				s.print(g);
+				s.print(g2);
 				System.out.println("1");
 			}
 		}

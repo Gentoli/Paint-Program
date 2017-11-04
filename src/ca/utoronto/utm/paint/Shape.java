@@ -2,6 +2,8 @@ package ca.utoronto.utm.paint;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Stroke;
 
 public abstract class Shape {
     protected int x,y;
@@ -46,6 +48,14 @@ public abstract class Shape {
 
 	public void setColour(Color colour) { this.colour = colour; }
 
+	public void setLineThickness(float lineThickness) {
+		this.lineThickness = lineThickness;
+	}
+
+	public void setStroke(Stroke stroke) {
+		this.stroke = stroke;
+	}
+
 	public void translateOrigin(int x, int y) {
 		this.x+=x;
 		this.y+=y;
@@ -61,5 +71,5 @@ public abstract class Shape {
 		g2.setStroke(stroke);
 	}
 
-    public abstract void print(Graphics g);
+    public abstract void print(Graphics2D g2);
 }

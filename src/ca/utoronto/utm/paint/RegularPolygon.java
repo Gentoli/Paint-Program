@@ -1,6 +1,7 @@
 package ca.utoronto.utm.paint;
 
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 
 public class RegularPolygon extends Shape {
@@ -21,13 +22,13 @@ public class RegularPolygon extends Shape {
         }
     }
     @Override
-    public void print(Graphics g) {
+    public void print(Graphics2D g2) {
         for(int i = 0; i < verticies.length-1; i++){
             if(i == verticies.length-2){
                 int last = verticies.length-1;
-                g.drawLine(verticies[last].x+x,verticies[last].y+y,verticies[0].x+x,verticies[0].y + y);
+                g2.drawLine(verticies[last].x+x,verticies[last].y+y,verticies[0].x+x,verticies[0].y + y);
             }
-            g.drawLine(verticies[i].x+x,verticies[i].y+y,verticies[i+1].x+x,verticies[i+1].y+y);
+            g2.drawLine(verticies[i].x+x,verticies[i].y+y,verticies[i+1].x+x,verticies[i+1].y+y);
         }
     }
 }

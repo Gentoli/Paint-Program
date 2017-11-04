@@ -2,6 +2,7 @@ package ca.utoronto.utm.paint;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Point;
 
 public class Rectangle extends Shape{
@@ -12,8 +13,8 @@ public class Rectangle extends Shape{
 
 
 	@Override
-	public void print(Graphics g) {
+	public void print(Graphics2D g2) {
 		// TODO Auto-generated method stub
-		g.drawRect(x, y, xEnd, yEnd);
+		g2.drawRect(x, y, xEnd, yEnd);
 	}
 }
