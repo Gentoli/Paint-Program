@@ -6,10 +6,12 @@ import java.awt.event.MouseEvent;
 public abstract class Shape {
     protected Point point;
     protected Point endPoint;
+    protected int thickness;
 
-	public Shape(Point point,Point endPoint) {
+	public Shape(Point point,Point endPoint,int thickness) {
         this.point = point;
         this.endPoint = endPoint;
+        this.thickness = thickness;
     }
 
 	public Shape(Point point) {
@@ -42,6 +44,11 @@ public abstract class Shape {
 		endPoint.setY(endPoint.getY()+y);
 	}
 
+	public Point rotate(double x, double y, double angle){
+		double retX = x*Math.cos(angle) - y*Math.sin(angle);
+		double retY = x*Math.sin(angle) + y*Math.cos(angle);
+		return new Point((int)retX,(int)retY);
+	}
 
     public abstract void print(Graphics g);
     

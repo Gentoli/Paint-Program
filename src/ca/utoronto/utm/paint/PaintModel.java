@@ -19,12 +19,7 @@ public class PaintModel extends Observable {
 	public ArrayList<Point> getPoints(){
 		return points;
 	}
-	
-	public void addEllipse(Ellipse c){
-		this.shapes.add(c);
-		this.setChanged();
-		this.notifyObservers();
-	}
+
 	public ArrayList<Shape> getShapes(){
 		return shapes;
 	}
@@ -36,7 +31,6 @@ public class PaintModel extends Observable {
 			for(Shape shape: shapes){
 				shape.print(g);
 			}
-			
 			g2d.dispose();
 	}
 }

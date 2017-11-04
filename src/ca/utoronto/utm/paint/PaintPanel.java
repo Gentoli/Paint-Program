@@ -19,7 +19,6 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 	ArrayList<Shape> shapes;
 	ArrayList<Shape> tempStorage;
 	private Color colour;
-	private Ellipse ellipse; // the ellipse we are building
 
 	public PaintPanel(PaintModel model, View view){
 		this.setBackground(Color.red);
@@ -34,8 +33,7 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 		this.model.addObserver(this);
 		
 		this.view=view;
-		shapes.add(new RegularPolygon(new Point(200,200),new Dimension(200,200),3));
-		shapes.add(new Circle(new Point(200,200), 1));
+		shapes.add(new RegularPolygon(new Point(200,200),new Point(200,150),3,3));
 		//shapes.add(new Triangle(new Point(100,100),new Dimension(20,20)));
 		this.repaint();
 	}
@@ -77,13 +75,7 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 	}
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		if(this.mode=="Squiggle"){
-			this.model.addPoint(new Point(e.getX(), e.getY()));
-		} else if(this.mode=="Ellipse"){
-			this.ellipse.setEndPoint(new Point(e.getX(), e.getY()));
-			//this.tempStorage.add(new Ellipse(this.ellipse.getCenter(),this.ellipse.getRadius()));
-			this.model.addEllipse(ellipse);
-		}
+
 	}
 
 	// MouseListener below
@@ -103,7 +95,7 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 			// Problematic notion of radius and center!!
 			Point center = new Point(e.getX(), e.getY());
 			int radius = 0;
-			this.ellipse=new Ellipse(center, 0);
+			//this.ellipse=new Ellipse(center, 0);
 		}
 	}
 
@@ -112,12 +104,6 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 		if(this.mode=="Squiggle"){
 			
 		} else if(this.mode=="Ellipse"){
-				// Problematic notion of radius and center!!
-				//int radius = Math.abs(this.ellipse.getcenter().getX()-e.getX());
-				int radius = (int)(Math.sqrt(Math.pow(this.ellipse.getPoint().getX()-e.getX(),2) + Math.pow(this.ellipse.getPoint().getY()-e.getY(),2)));
-				this.ellipse.setRadius(radius);
-				this.model.addEllipse(this.ellipse);
-				this.ellipse=null;
 
 		}
 		

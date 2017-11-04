@@ -4,31 +4,59 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public class RegularPolygon extends Shape {
-    public Point[] verticies;
-    public RegularPolygon(Point point, Dimension dimension, int verticies){
-        super(point,dimension);
-        this.verticies = new Point[verticies];
+    public int[] verticiesX;
+    public int[] verticiesY;
+    public float[] intercepts;
+    public float[] slopes;
+    public RegularPolygon(Point point, Point endPoint, int verticies, int thickness){
+        super(point,endPoint,thickness);
+        this.verticiesX = new int[verticies];
+        this.verticiesY = new int[verticies];
+        this.intercepts = new float[verticies];
+        this.slopes = new float[verticies];
         calculateVerticies();
     }
 
     private void calculateVerticies(){
-        double angles = 2*Math.PI/verticies.length;
-        double radius = dimension.getWidth()/2;
-        for(int i = 0; i < verticies.length; i++){
-            double x = 2*radius*Math.sin(i*angles);
-            double y = 2*radius*Math.cos(i*angles);
-            verticies[i] = new Point((int)x,(int)y);
+        double angles = 2*Math.PI/verticiesX.length;
+        double radius = Math.sqrt(Math.pow(endPoint.getX()-point.getX(),2)+Math.pow(endPoint.getY()-point.getY(),2));
+        double mouseAngle = Math.asin((endPoint.getX()-point.getX())/radius);
+        for(int i = 0; i < verticiesX.length; i++){
+            double x = radius*Math.sin(i*angles+mouseAngle);
+            double y = radius*Math.cos(i*angles+mouseAngle);
+            Point p = rotate(x,y,Math.PI);
+            verticiesX[i] = p.getX()+point.getX();
+            verticiesY[i] = p.getY()+point.getY();
         }
+        calculateLines(verticiesX,verticiesY);
+    }
+    //updates the verticies and intercepts arrays based on the vertex points
+    public void calculateLines(int[] verticiesX, int[] verticiesY){
+        for(int i = 0; i < verticiesX.length; i++){
+            if(i == verticiesX.length-1){
+                slopes[i] = (verticiesY[0] - verticiesY[i])/ (verticiesX[0] - verticiesX[i]);
+            }else {
+                slopes[i] = (verticiesY[i + 1] - verticiesY[i]) / (verticiesX[i + 1] - verticiesX[i]);//m = rise/run
+            }
+            intercepts[i] = verticiesY[i] - slopes[i]*verticiesX[i];// b = y-mx
+        }
+    }
+    public boolean intersectEdge(Point p){
+        for(int i = 0; i < verticiesX.length; i++){
+            float epsilon = 0.01f;
+            // the epsilon term is to account for the precision error when comparing floats directly.
+            // the thickness term is so that we check if the point is on the line within the thickness bounds of the line
+            if(Math.abs(intercepts[i] + slopes[i]*p.getX() - p.getY()) < epsilon + thickness/2){
+                return true;
+            }
+        }
+        return false;
     }
     @Override
     public void print(Graphics g) {
-        for(int i = 0; i < verticies.length-1; i++){
-            if(i == verticies.length-2){
-                int last = verticies.length-1;
-                g.drawLine(verticies[last].getX()+point.x,verticies[last].getY()+point.y,verticies[0].getX()+point.x,verticies[0].getY() + point.y);
-            }
-            g.drawLine(verticies[i].getX()+point.x,verticies[i].getY()+point.y,verticies[i+1].getX()+point.x,verticies[i+1].getY()+point.y);
-        }
+        Graphics2D g2 = (Graphics2D)g;
+        g2.setStroke(new BasicStroke(thickness));
+        g2.drawPolygon(verticiesX,verticiesY,verticiesX.length);
     }
 
     @Override
