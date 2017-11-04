@@ -48,15 +48,14 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 		// the javadoc to see more of what this can do for you!!
         super.paintComponent(g); //paint background
 		Graphics2D g2 = (Graphics2D)g;
+        this.model.paint(g2);
+
 		for(Shape s:shapes) {
 			if(s!=null) {
 				s.print(g2);
-				System.out.println("1");
 			}
 		}
-        this.model.paint(g);
-
-
+		g2.dispose();
 	}
 
 	@Override

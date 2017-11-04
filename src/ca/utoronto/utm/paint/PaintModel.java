@@ -28,8 +28,7 @@ public class PaintModel extends Observable {
 	public  ArrayList<Shape> getShapes(){
 		return shapes;
 	}
-	public void paint(Graphics g) {
-		 Graphics2D g2 = (Graphics2D) g; // lets use the advanced api
+	public void paint(Graphics2D g2) {
 			// setBackground (Color.blue); 
 			// Origin is at the top left of the window 50 over, 75 down
 			g2.setColor(Color.black);
@@ -38,7 +37,5 @@ public class PaintModel extends Observable {
 					s.print(g2);
 				}
 			}
-			
-			g2.dispose();
 	}
 }
