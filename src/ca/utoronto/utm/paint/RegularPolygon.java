@@ -10,7 +10,10 @@ public class RegularPolygon extends Shape {
     public float[] slopes;
     private boolean centered;
 
-    public RegularPolygon(Point point, Point endPoint, int verticies, int thickness, boolean centered) {
+    public RegularPolygon(Point point, Point endPoint, int verticies, int thickness, boolean centered, boolean symmetric) {
+        if(centered){
+            symmetric = true;
+        }
         //super(point, endPoint, thickness);
         this.verticiesX = new int[verticies];
         this.verticiesY = new int[verticies];
