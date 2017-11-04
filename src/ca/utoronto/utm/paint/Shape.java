@@ -14,12 +14,16 @@ public abstract class Shape {
 		this.colour = colour;
 	}
 
+	public Shape(Point point,Color colour) {
+		this(point, point,colour);
+	}
+
 	public Shape(Point point,Point endPoint) {
         this(point,endPoint,null);
     }
 
 	public Shape(Point point) {
-		this.point = point;
+		this(point, point,null);
 	}
 	
     public Point getPoint() {

@@ -1,10 +1,15 @@
 package ca.utoronto.utm.paint;
 
-import javax.swing.*;
+import ca.utoronto.utm.pointer.WindowsPointer;
 
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 /**
  * This is the top level View+Controller, it contains other aspects of the View+Controller.
  * @author arnold
@@ -27,7 +32,9 @@ public class View extends JFrame implements ActionListener {
 		super("Paint"); // set the title and do other JFrame init
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setJMenuBar(createMenuBar());
-		
+
+
+
 		Container c=this.getContentPane();
 		this.shapeChooserPanel = new ShapeChooserPanel(this);
 		c.add(this.shapeChooserPanel,BorderLayout.WEST);
@@ -47,6 +54,8 @@ public class View extends JFrame implements ActionListener {
 		//this.setLocationRelativeTo(null);
 
 		this.pack();
+
+			WindowsPointer.getInstance().setFrame(this);
 		// this.setSize(200,200);
 		this.setVisible(true);
 	}

@@ -5,8 +5,8 @@ import java.awt.event.MouseEvent;
 
 public class Ellipse extends Shape{
 	
-	public Ellipse(Point centre, Point endPoint, Color colour){
-		super(centre, endPoint, colour);
+	public Ellipse(Point centre, Color colour){
+		super(centre,centre, colour);
 	}
 	
 	

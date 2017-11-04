@@ -10,7 +10,7 @@ import java.util.Observable;
 public class PaintModel extends Observable {
 	private ArrayList<Point> points=new ArrayList<Point>();
 	private ArrayList<Shape> shapes =new ArrayList<Shape>();
-	
+
 	
 	public void addPoint(Point p){
 		this.points.add(p);
@@ -21,12 +21,14 @@ public class PaintModel extends Observable {
 		return points;
 	}
 	
-	public void addEllipse(Ellipse c){
-		this.shapes.add(c);
+	public void addShape(Shape c){
+		synchronized(this) {
+			this.shapes.add(c);
+		}
 		this.setChanged();
 		this.notifyObservers();
 	}
-	public ArrayList<Shape> getShapes(){
+	public  ArrayList<Shape> getShapes(){
 		return shapes;
 	}
 	public void paint(Graphics g) {
@@ -34,9 +36,11 @@ public class PaintModel extends Observable {
 			// setBackground (Color.blue); 
 			// Origin is at the top left of the window 50 over, 75 down
 			g2.setColor(Color.black);
-			for(Shape shape: shapes){
-				g2.setColor(shape.getColour());
-				shape.print(g2);
+			synchronized(this) {
+				for(Shape s : shapes) {
+					g2.setColor(s.getColour());
+					s.print(g2);
+				}
 			}
 			
 			g2.dispose();
