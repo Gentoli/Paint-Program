@@ -5,12 +5,12 @@ import java.awt.event.MouseEvent;
 
 public abstract class Shape {
     protected Point point;
-    protected Dimension dimension;
+    protected Point endPoint;
 
-	public Shape(Point point,Dimension dimension) {
-		this.point = point;
-		this.dimension = dimension;
-	}
+	public Shape(Point point,Point endPoint) {
+        this.point = point;
+        this.endPoint = endPoint;
+    }
 
 	public Shape(Point point) {
 		this.point = point;
@@ -24,12 +24,22 @@ public abstract class Shape {
 		this.point = point;
 	}
 
-	public Dimension getDimension() {
-		return dimension;
+	public Point getEndPoint() {
+		return endPoint;
 	}
 
-	public void setDimension(Dimension dimension) {
-		this.dimension = dimension;
+	public void setEndPoint(Point endPoint) {
+		this.endPoint = endPoint;
+	}
+
+	public void translateOrigin(int x, int y) {
+		point.setX(point.getX()+x);
+		point.setY(point.getY()+y);
+	}
+
+	public void translateEndPoint(int x, int y) {
+		endPoint.setX(endPoint.getX()+x);
+		endPoint.setY(endPoint.getY()+y);
 	}
 
 

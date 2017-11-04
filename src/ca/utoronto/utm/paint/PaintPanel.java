@@ -19,7 +19,7 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 	ArrayList<Shape> shapes;
 	ArrayList<Shape> tempStorage;
 	private Color colour;
-	private Circle circle; // the circle we are building
+	private Ellipse ellipse; // the ellipse we are building
 
 	public PaintPanel(PaintModel model, View view){
 		this.setBackground(Color.red);
@@ -30,7 +30,7 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 
 		shapes = this.model.getShapes();
 		//tempStorage = new ArrayList<Shape>();
-		this.mode = "Circle";
+		this.mode = "Ellipse";
 		this.model.addObserver(this);
 		
 		this.view=view;
@@ -71,7 +71,7 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 	public void mouseMoved(MouseEvent e) {
 		if(this.mode=="Squiggle"){
 			
-		} else if(this.mode=="Circle"){
+		} else if(this.mode=="Ellipse"){
 			
 		}
 	}
@@ -79,11 +79,10 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 	public void mouseDragged(MouseEvent e) {
 		if(this.mode=="Squiggle"){
 			this.model.addPoint(new Point(e.getX(), e.getY()));
-		} else if(this.mode=="Circle"){
-			int radius = (int)(Math.sqrt(Math.pow(this.circle.getPoint().getX()-e.getX(),2) + Math.pow(this.circle.getPoint().getY()-e.getY(),2)));
-			this.circle.setRadius(radius);
-			//this.tempStorage.add(new Circle(this.circle.getCenter(),this.circle.getRadius()));
-			this.model.addCircle(circle);
+		} else if(this.mode=="Ellipse"){
+			this.ellipse.setEndPoint(new Point(e.getX(), e.getY()));
+			//this.tempStorage.add(new Ellipse(this.ellipse.getCenter(),this.ellipse.getRadius()));
+			this.model.addEllipse(ellipse);
 		}
 	}
 
@@ -92,7 +91,7 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 	public void mouseClicked(MouseEvent e) {
 		if(this.mode=="Squiggle"){
 			
-		} else if(this.mode=="Circle"){
+		} else if(this.mode=="Ellipse"){
 		}
 	}
 
@@ -100,11 +99,11 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 	public void mousePressed(MouseEvent e) {
 		if(this.mode=="Squiggle"){
 			
-		} else if(this.mode=="Circle"){
+		} else if(this.mode=="Ellipse"){
 			// Problematic notion of radius and center!!
 			Point center = new Point(e.getX(), e.getY());
 			int radius = 0;
-			this.circle=new Circle(center, 0);
+			this.ellipse=new Ellipse(center, 0);
 		}
 	}
 
@@ -112,13 +111,13 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 	public void mouseReleased(MouseEvent e) {
 		if(this.mode=="Squiggle"){
 			
-		} else if(this.mode=="Circle"){
+		} else if(this.mode=="Ellipse"){
 				// Problematic notion of radius and center!!
-				//int radius = Math.abs(this.circle.getcenter().getX()-e.getX());
-				int radius = (int)(Math.sqrt(Math.pow(this.circle.getPoint().getX()-e.getX(),2) + Math.pow(this.circle.getPoint().getY()-e.getY(),2)));
-				this.circle.setRadius(radius);
-				this.model.addCircle(this.circle);
-				this.circle=null;
+				//int radius = Math.abs(this.ellipse.getcenter().getX()-e.getX());
+				int radius = (int)(Math.sqrt(Math.pow(this.ellipse.getPoint().getX()-e.getX(),2) + Math.pow(this.ellipse.getPoint().getY()-e.getY(),2)));
+				this.ellipse.setRadius(radius);
+				this.model.addEllipse(this.ellipse);
+				this.ellipse=null;
 
 		}
 		
@@ -128,7 +127,7 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 	public void mouseEntered(MouseEvent e) {
 		if(this.mode=="Squiggle"){
 			
-		} else if(this.mode=="Circle"){
+		} else if(this.mode=="Ellipse"){
 			
 		}
 	}
@@ -137,7 +136,7 @@ class PaintPanel extends JPanel implements Observer, MouseMotionListener, MouseL
 	public void mouseExited(MouseEvent e) {
 		if(this.mode=="Squiggle"){
 			
-		} else if(this.mode=="Circle"){
+		} else if(this.mode=="Ellipse"){
 			
 		}
 	}
