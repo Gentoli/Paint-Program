@@ -111,6 +111,9 @@ class Sides extends JTextField  {
 		});
 		addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
+				if (!Character.isDigit((e.getKeyChar()))) {
+					e.consume();
+				}
 				String s = getText();
 				if (s.length() >= 10) {
 					e.consume();
