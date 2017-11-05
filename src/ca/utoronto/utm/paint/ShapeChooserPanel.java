@@ -9,7 +9,10 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 // https://docs.oracle.com/javase/8/docs/api/java/awt/Graphics2D.html
 // https://docs.oracle.com/javase/tutorial/2d/
@@ -102,6 +105,8 @@ class Sides extends JTextField implements ActionListener,KeyListener {
 
 			@Override
 			public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
+				//System.out.println(text.length());
+				//System.out.println(length);
 				if (offset < TEXT_NOT_TO_TOUCH.length()) {
 //					length = Math.max(0, length - TEXT_NOT_TO_TOUCH.length());
 //					offset = TEXT_NOT_TO_TOUCH.length();

@@ -82,7 +82,6 @@ public class PaintModel extends Observable implements ComponentListener {
 	}
 
 	private void resize(int x,int y){
-		System.out.println("resized");
 		synchronized(image) {
 			BufferedImage i = new BufferedImage(x, y, 1);
 			Graphics2D g = i.createGraphics();
@@ -95,9 +94,12 @@ public class PaintModel extends Observable implements ComponentListener {
 
 	@Override
 	public void componentResized(ComponentEvent e) {
-		Dimension d = e.getComponent().getSize();
-		if(d.height>image.getHeight()||d.width>image.getWidth()){
-			resize(d.width,d.height);
+		synchronized(image) {
+			Dimension d = e.getComponent().getSize();
+			int x=d.width,y=d.height;
+			if(x > image.getHeight() || y> image.getWidth()) {
+				resize(Math.max(x,image.getWidth()), Math.max(y,image.getHeight()));
+			}
 		}
 	}
 

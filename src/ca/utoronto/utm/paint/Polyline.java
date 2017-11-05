@@ -16,16 +16,15 @@ public class Polyline extends Shape{
     public void addPoint(Point point){
         p.add(point);
     }
-    public void addBreak(){
-        p.add(null);
-    }
     @Override
     public void print(Graphics2D g2) {
         for(int i = 0; i < p.size()-1; i++){
-            if(p.get(i+1) == null){
-                i+=2;
-            }
             g2.drawLine(p.get(i).x,p.get(i).y,p.get(i+1).x,p.get(i+1).y);
         }
     }
+    @Override
+    public void setEnd(int x,int y){
+        addPoint(new Point(x,y));
+    }
+
 }
