@@ -14,6 +14,7 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -31,6 +32,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	private boolean fill = false;
 
 	private Shape[] shapes = new Shape[WindowsPointer.POINTER_MAX];
+	private boolean isStarted = false;
 	//private Ellipse ellipse; // the ellipse we are building
 
 	public PaintPanel(PaintModel model, View view){
@@ -112,10 +114,15 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	public void pointerUpdated(PointerEvent e) {
 		switch(e.getID()){
 			case MouseEvent.MOUSE_PRESSED:
-				shapes[e.getPointerId()] =	new ShapeBuilder(mode,e.getX(),e.getY()).setColour(colour)
-						.setCenter((e.getModifiers()& InputEvent.ALT_MASK)!=0).setLineThickness(lineThickness)
-						.setFill(fill).setStroke(stroke).setRight((e.getModifiers()& InputEvent.SHIFT_MASK)!=0).build();
-				//shapes[e.getPointerId()] = shape.build();
+				if(mode < -1){
+
+				}else {
+					isStarted = false;
+					shapes[e.getPointerId()] = new ShapeBuilder(mode, e.getX(), e.getY()).setColour(colour)
+							.setCenter((e.getModifiers() & InputEvent.ALT_MASK) != 0).setLineThickness(lineThickness)
+							.setFill(fill).setStroke(stroke).setRight((e.getModifiers() & InputEvent.SHIFT_MASK) != 0).build();
+					//shapes[e.getPointerId()] = shape.build();
+				}
 				break;
 			case MouseEvent.MOUSE_MOVED:
 				if(shapes[e.getPointerId()]!=null){
