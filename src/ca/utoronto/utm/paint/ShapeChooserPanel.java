@@ -19,8 +19,7 @@ import java.awt.event.KeyEvent;
 class ShapeChooserPanel extends JPanel implements ActionListener {
 	private View view; // So we can talk to our parent or other components of the view
 	private JButton lastPressed;
-	private static final String TEXT_NOT_TO_TOUCH = "Sides: ";
-	private JTextField sides;
+	private Sides sides;
 
 	public ShapeChooserPanel(View view) {
 		this.view=view;
@@ -33,8 +32,39 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 			button.addActionListener(this);
 		}
 
-		sides = new JTextField(TEXT_NOT_TO_TOUCH + "5",8);
-		((AbstractDocument) sides.getDocument()).setDocumentFilter(new DocumentFilter() {
+		sides = new Sides(view);
+
+		this.add(sides);
+	}
+
+
+
+	/**
+	 * Controller aspect of this
+	 */
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		this.view.getPaintPanel().setMode(e.getActionCommand());
+		((JButton) e.getSource()).setEnabled(false);
+		if (lastPressed != null)
+			lastPressed.setEnabled(true);
+		lastPressed = (JButton) e.getSource();
+		sides.setValue(((ShapeButton)e.getSource()).getShapeNum());
+
+	}
+
+
+}
+
+class Sides extends JTextField  {
+
+	private static final String TEXT_NOT_TO_TOUCH = "Sides: ";
+	private View view;
+	private int value = 5;
+	public Sides(View view){
+		super(TEXT_NOT_TO_TOUCH + "5",8);
+		this.view = view;
+		((AbstractDocument) getDocument()).setDocumentFilter(new DocumentFilter() {
 			@Override
 			public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
 				if (offset < TEXT_NOT_TO_TOUCH.length()) {
@@ -63,7 +93,7 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 				}
 			}
 		});
-		sides.addActionListener(e -> {
+		addActionListener(e -> {
 			try {
 				int value = Integer.valueOf(((JTextField)e.getSource()).getText());
 				if (value > 100) {
@@ -79,32 +109,19 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 				view.getPaintPanel().setEdges(5);
 			}
 		});
-		sides.addKeyListener(new KeyAdapter() {
+		addKeyListener(new KeyAdapter() {
 			public void keyTyped(KeyEvent e) {
-				String s = sides.getText();
+				String s = getText();
 				if (s.length() >= 10) {
 					e.consume();
 				}
 			}
 		});
-		this.add(sides);
+
+
 	}
-
-
-
-	/**
-	 * Controller aspect of this
-	 */
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		this.view.getPaintPanel().setMode(e.getActionCommand());
-		((JButton) e.getSource()).setEnabled(false);
-		if (lastPressed != null)
-			lastPressed.setEnabled(true);
-		lastPressed = (JButton) e.getSource();
-		sides.setText(String.valueOf(Math.max(((ShapeButton)e.getSource()).getShapeNum(),0)));
+	void setValue(int value){
+		this.value = value;
+		setText(String.valueOf(Math.max(value,0)));
 	}
-
-	
 }
-
