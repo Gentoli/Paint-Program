@@ -13,6 +13,6 @@ public class ClearMask implements Drawable {
 
 	@Override
 	public void print(Graphics g) {
-		g.drawRect(0,0,width, height);
+		g.fillRect(0,0,width, height);
 	}
 }
