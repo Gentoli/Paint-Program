@@ -72,8 +72,8 @@ class Sides extends JTextField implements ActionListener,KeyListener {
 
 			@Override
 			public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
-				System.out.println(text.length());
-				System.out.println(length);
+				//System.out.println(text.length());
+				//System.out.println(length);
 				if (offset < TEXT_NOT_TO_TOUCH.length()) {
 //					length = Math.max(0, length - TEXT_NOT_TO_TOUCH.length());
 //					offset = TEXT_NOT_TO_TOUCH.length();
@@ -109,7 +109,7 @@ class Sides extends JTextField implements ActionListener,KeyListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("act");
+		//System.out.println("act");
 		try {
 			int value = Integer.valueOf(getText().substring(7));
 			if (value > 100) {

@@ -62,7 +62,7 @@ public class ShapeBuilder {
 
 
     public ShapeBuilder(int type, int x, int y) {
-		System.out.println(type);
+		//System.out.println(type);
 		if(type<1)
 	    	shape=classes[Math.abs(type)];
 	    else
