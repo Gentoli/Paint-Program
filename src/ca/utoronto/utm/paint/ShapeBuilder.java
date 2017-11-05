@@ -11,9 +11,9 @@ import java.util.Map;
 public class ShapeBuilder {
 
 	private static Map<String, Class<? extends Shape>> classMap;
-	private final static Class[] shapConst = {int.class, int.class, int.class, int.class, Color.class, float.class,boolean.class, Stroke.class,int.class};
-	private final static Class[] polyConst = {int.class, int.class, int.class, int.class, Color.class, float.class,boolean.class, Stroke.class};
-	private final static String[] subClasses = {"RegularPolygon"};
+	private final static Class[] shapConst = {int.class, int.class, int.class, int.class, Color.class, float.class,boolean.class, Stroke.class};
+	private final static Class[] polyConst = {int.class, int.class, int.class, int.class, Color.class, float.class,boolean.class, Stroke.class,int.class};
+	private final static String[] subClasses = {"RegularPolygon","Ellipse"};
 	private final static String pack = "ca.utoronto.utm.paint.";
 
 	static{
@@ -37,10 +37,16 @@ public class ShapeBuilder {
 
 
     public ShapeBuilder(String type, int x, int y) {
-	    shape = classMap.get(type);
-
+	    //shape = classMap.get(type);
+	    try {
+		    shape=Class.forName(pack+subClasses[0]).asSubclass(Shape.class);
+	    } catch(ClassNotFoundException e) {
+		    e.printStackTrace();
+	    }
 	    this.x=x;
 	    this.y=y;
+	    xEnd=x;
+	    yEnd=y;
     }
 
     public ShapeBuilder setColour(Color colour) {
@@ -76,8 +82,11 @@ public class ShapeBuilder {
     public Shape build(){
     	Constructor c;
 	    Shape s;
+//	    System.out.println(shape);
+//	    System.out.println(RegularPolygon.class);
+//	    System.out.println(shape==(RegularPolygon.class));
 	    try {
-			if(shape==RegularPolygon.class){
+			if(shape==(RegularPolygon.class)){
 				c=shape.getConstructor(polyConst);
 				s=(Shape)c.newInstance(x,y,xEnd,yEnd,colour,lineThickness,fill,stroke,edges);
 			}else {
