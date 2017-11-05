@@ -1,23 +1,19 @@
 package ca.utoronto.utm.paint;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JColorChooser;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.Color;
 import java.awt.Dimension;
 
-public class ColourPanel extends JFrame implements ChangeListener{
+public class ColourPanel extends JDialog implements ChangeListener{
 
 	private View view;
 	private JColorChooser tcc;
 	private JButton openColourPanel;
 
 	public ColourPanel(View view, JButton openColourPanel) {
-		
+		super(view);
 		this.view = view;
 		this.openColourPanel = openColourPanel;
 		tcc = new JColorChooser();

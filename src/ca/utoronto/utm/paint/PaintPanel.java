@@ -30,7 +30,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	public PaintPanel(PaintModel model, View view){
 
 		this.setBackground(Color.white);
-		this.setPreferredSize(new Dimension(300,300));
+		this.setPreferredSize(new Dimension(500,300));
 
 		//WindowsPointer.getInstance().addListener(this,this);
 		this.model = model;

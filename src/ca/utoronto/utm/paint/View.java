@@ -42,7 +42,7 @@ public class View extends JFrame implements ActionListener {
 
 //		openColourPanel = new JButton("Extend Colour Panel");
 //		openColourPanel.addActionListener(this);
-		this.stylePanel = new StylePanel(this);
+		this.stylePanel = new StylePanel(this, model);
 		c.add(this.stylePanel, BorderLayout.SOUTH);
 
 		//this.colourPanel = new ColourPanel(this);
