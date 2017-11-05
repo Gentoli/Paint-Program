@@ -78,21 +78,29 @@ public class View extends JFrame implements ActionListener {
 
 		// a group of JMenuItems
 		menuItem = new JMenuItem("New");
-		menuItem.addActionListener(this);
+		menuItem.addActionListener(e -> {
+			model.clear();
+		});
 		menu.add(menuItem);
 
 		menuItem = new JMenuItem("Open");
-		menuItem.addActionListener(this);
+		menuItem.addActionListener(e -> {
+
+		});
 		menu.add(menuItem);
 
 		menuItem = new JMenuItem("Save");
-		menuItem.addActionListener(this);
+		menuItem.addActionListener(e -> {
+
+		});
 		menu.add(menuItem);
 
 		menu.addSeparator();// -------------
 
 		menuItem = new JMenuItem("Exit");
-		menuItem.addActionListener(this);
+		menuItem.addActionListener(e -> {
+			this.dispose();
+		});
 		menu.add(menuItem);
 
 		menuBar.add(menu);
@@ -101,25 +109,35 @@ public class View extends JFrame implements ActionListener {
 
 		// a group of JMenuItems
 		menuItem = new JMenuItem("Cut");
-		menuItem.addActionListener(this);
+		menuItem.addActionListener(e -> {
+
+		});
 		menu.add(menuItem);
 
 		menuItem = new JMenuItem("Copy");
-		menuItem.addActionListener(this);
+		menuItem.addActionListener(e -> {
+
+		});
 		menu.add(menuItem);
 
 		menuItem = new JMenuItem("Paste");
-		menuItem.addActionListener(this);
+		menuItem.addActionListener(e -> {
+
+		});
 		menu.add(menuItem);
 
 		menu.addSeparator();// -------------
 
 		menuItem = new JMenuItem("Undo");
-		menuItem.addActionListener(this);
+		menuItem.addActionListener(e -> {
+			model.undo();
+		});
 		menu.add(menuItem);
 
 		menuItem = new JMenuItem("Redo");
-		menuItem.addActionListener(this);
+		menuItem.addActionListener(e -> {
+			model.redo();
+		});
 		menu.add(menuItem);
 
 		menuBar.add(menu);
@@ -131,16 +149,4 @@ public class View extends JFrame implements ActionListener {
 
 	}
 
-//	public void actionPerformed(ActionEvent e) {
-//		if (colourPanel.isVisible()) {
-//			colourPanel.setVisible(false);
-//			openColourPanel.setText("Extend Colour Panel");
-//		}
-//		else {
-//			colourPanel.setLocation(this.getLocationOnScreen().x, this.getLocationOnScreen().y + this.getHeight());
-//			colourPanel.setVisible(true);
-//			openColourPanel.setText("Close Colour Panel");
-//		}
-//		System.out.println(e.getActionCommand());
-//	}
 }

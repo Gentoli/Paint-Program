@@ -117,7 +117,7 @@ public class StylePanel extends JPanel implements Observer {
             undo.setEnabled(model.canUndo());
         });
         redo = new JButton("Redo");
-        undo.setEnabled(false);
+        redo.setEnabled(false);
         redo.addActionListener(e -> {
             model.redo();
             redo.setEnabled(model.canRedo());

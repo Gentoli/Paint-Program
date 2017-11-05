@@ -1,5 +1,6 @@
 package ca.utoronto.utm.paint;
 
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class ClearMask implements Drawable {
@@ -13,6 +14,7 @@ public class ClearMask implements Drawable {
 
 	@Override
 	public void print(Graphics g) {
-		g.drawRect(0,0,width, height);
+		g.setColor(Color.white);
+		g.fillRect(0,0,width, height);
 	}
 }

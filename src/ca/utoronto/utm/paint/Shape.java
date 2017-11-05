@@ -55,6 +55,14 @@ public abstract class Shape implements Drawable {
 		yEnd=y;
 	}
 
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
 	public Color getColour() { return colour; }
 
 	public void setColour(Color colour) { this.colour = colour; }
