@@ -97,7 +97,6 @@ public class StylePanel extends JPanel {
             else {
                 colourPanel.setLocation(this.getLocationOnScreen().x + this.getWidth() - 450, this.getLocationOnScreen().y + this.getHeight() - 285);
                 colourPanel.setVisible(true);
-                colourPanel.setAlwaysOnTop(true);
                 openColourPanel.setText("Close Colour Panel");
             }
             System.out.println(e.getActionCommand());
