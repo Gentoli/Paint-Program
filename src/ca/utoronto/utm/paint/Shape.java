@@ -2,11 +2,12 @@ package ca.utoronto.utm.paint;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Stroke;
 
-public abstract class Shape {
+public abstract class Shape implements Drawable {
     protected int x,y;
     protected int xEnd,yEnd;
     protected Color colour;
@@ -29,16 +30,8 @@ public abstract class Shape {
 		return x;
 	}
 
-	public void setX(int x) {
-		this.x = x;
-	}
-
 	public int getY() {
 		return y;
-	}
-
-	public void setY(int y) {
-		this.y = y;
 	}
 
 	public int getXEnd() {
@@ -106,4 +99,9 @@ public abstract class Shape {
 	}
 
     public abstract void print(Graphics2D g2);
+
+	@Override
+	public void print(Graphics g) {
+		this.print((Graphics2D)g);
+	}
 }

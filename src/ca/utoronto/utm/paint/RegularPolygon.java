@@ -1,33 +1,36 @@
 package ca.utoronto.utm.paint;
 
-import java.awt.*;
-import java.awt.event.MouseEvent;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Stroke;
 
 public class RegularPolygon extends Shape {
     public int[] verticiesX;
     public int[] verticiesY;
     public float[] intercepts;
     public float[] slopes;
-    private boolean centered;
+	private boolean center;
 
-    public RegularPolygon(int x, int y, int xEnd, int yEnd, Color colour, float lineThickness, boolean fill, Stroke stroke,int verticies) {
+    public RegularPolygon(int x, int y, int xEnd, int yEnd, Color colour, float lineThickness, boolean fill, Stroke stroke,int vertices,boolean center) {
         super(x, y, xEnd, yEnd, colour, lineThickness, fill, stroke);
         //System.out.println(x+" "+y+" "+xEnd+" "+yEnd);
-        this.verticiesX = new int[verticies];
-        this.verticiesY = new int[verticies];
-        this.intercepts = new float[verticies];
-        this.slopes = new float[verticies];
-        this.centered = centered;
+        this.verticiesX = new int[vertices];
+        this.verticiesY = new int[vertices];
+        this.intercepts = new float[vertices];
+        this.slopes = new float[vertices];
+	    this.center = center;
         calculateVerticies();
     }
 
     private void calculateVerticies() {
 
         double angles = 2 * Math.PI / verticiesX.length;
-        double radius = centered?Math.sqrt(Math.pow(getWidth(), 2) + Math.pow(getHeight(), 2)):Math.min(getWidth(),getHeight())/2;
-        double mouseAngle = centered?Math.atan2(-getHeight(), getWidth()):0;
-        int offsetX = centered?0:getWidth()/2;
-        int offsetY = centered?0:getHeight()/2;
+        double radius = center?Math.sqrt(Math.pow(getWidth(), 2) + Math.pow(getHeight(), 2)):Math.min(getWidth(),getHeight())/2;
+        double mouseAngle = center?Math.atan2(-getHeight(), getWidth()):0;
+        int offsetX = center?0:getWidth()/2;
+        int offsetY = center?0:getHeight()/2;
 
         for (int i = 0; i < verticiesX.length; i++) {
             double x = radius * Math.sin(i * angles + mouseAngle);
@@ -87,10 +90,10 @@ public class RegularPolygon extends Shape {
 
     @Override
     public void print(Graphics2D g) {
+    	prepare(g);
         g.setStroke(new BasicStroke(lineThickness));
         calculateVerticies();
         g.drawPolygon(verticiesX, verticiesY, verticiesX.length);
-        g.drawRect(x,y,getWidth(),getHeight());
     }
 }
 

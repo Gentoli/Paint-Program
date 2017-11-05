@@ -5,48 +5,68 @@ import java.awt.Color;
 import java.awt.Stroke;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
 
 public class ShapeBuilder {
 
-	private static Map<String, Class<? extends Shape>> classMap;
-	private final static Class[] shapConst = {int.class, int.class, int.class, int.class, Color.class, float.class,boolean.class, Stroke.class};
-	private final static Class[] polyConst = {int.class, int.class, int.class, int.class, Color.class, float.class,boolean.class, Stroke.class,int.class};
-	private final static String[] subClasses = {"RegularPolygon","Ellipse"};
+	private static Constructor<? extends Shape>[] classes;
+	private final static Class[] shapConst = {int.class, int.class, int.class, int.class, Color.class, float.class,boolean.class,Stroke.class};
+	private final static Class[] polyConst = {int.class, int.class, int.class, int.class, Color.class, float.class,boolean.class, Stroke.class,int.class ,boolean.class};
+	private final static String[] subClasses = {"RegularPolygon","Ellipse","Polyline"};
 	private final static String pack = "ca.utoronto.utm.paint.";
+	// PolyLine, Squiggle,Polygon, Rectangle, Circle
+	private final static int[] SHAPES = {-2,-1,0,4,100};
+
+	public static int getShape(int index){
+		return SHAPES[index];
+	}
+
+	public static int getShapeCount(){
+		return SHAPES.length;
+	}
 
 	static{
-		Map<String, Class<? extends Shape>> map = new HashMap<String, Class<? extends Shape>>();
-		for(String s:subClasses) {
-			try {
-				map.put(s,Class.forName(pack+s).asSubclass(Shape.class));
-			} catch(ClassNotFoundException e) {
-				e.printStackTrace();
-			};
-
+		classes = new Constructor[Arrays.binarySearch(SHAPES, 0)];
+		try {
+			classes[0]= Class.forName(pack+subClasses[0]).asSubclass(Shape.class).getConstructor(polyConst);
+		} catch(NoSuchMethodException | ClassNotFoundException e) {
+			e.printStackTrace();
 		}
+		for(int i = 1; i < classes.length; i++) {
+			try {
+				classes[i]=Class.forName(pack+subClasses[classes.length-i]).asSubclass(Shape.class).getConstructor(shapConst);
+			} catch(ClassNotFoundException | NoSuchMethodException e) {
+				e.printStackTrace();
+			}
+		}
+
 	}
-    private Class <? extends Shape>  shape;
+    private Constructor <? extends Shape>  shape;
     private Color colour;
     private float lineThickness;
     private int x, y, xEnd, yEnd;
     private Stroke stroke;
     private boolean fill;
+
+	public ShapeBuilder setCenter(boolean center) {
+		this.center = center;
+		return this;
+	}
+
+	private boolean center;
 	private int edges;
 
 
-    public ShapeBuilder(String type, int x, int y) {
-	    //shape = classMap.get(type);
-	    try {
-		    shape=Class.forName(pack+subClasses[0]).asSubclass(Shape.class);
-	    } catch(ClassNotFoundException e) {
-		    e.printStackTrace();
-	    }
+    public ShapeBuilder(int type, int x, int y) {
+	    if(type<1)
+	    	shape=classes[Math.abs(type)];
+	    else
+	    	shape=classes[0];
 	    this.x=x;
 	    this.y=y;
 	    xEnd=x;
 	    yEnd=y;
+	    edges=type;
     }
 
     public ShapeBuilder setColour(Color colour) {
@@ -80,27 +100,12 @@ public class ShapeBuilder {
     }
 
     public Shape build(){
-    	Constructor c;
-	    Shape s;
-//	    System.out.println(shape);
-//	    System.out.println(RegularPolygon.class);
-//	    System.out.println(shape==(RegularPolygon.class));
 	    try {
-			if(shape==(RegularPolygon.class)){
-				c=shape.getConstructor(polyConst);
-				s=(Shape)c.newInstance(x,y,xEnd,yEnd,colour,lineThickness,fill,stroke,edges);
-			}else {
-				c=shape.getConstructor(shapConst);
-				s=(Shape)c.newInstance(x,y,xEnd,yEnd,colour,lineThickness,fill,stroke);
-			}
-			return s;
-	    } catch(NoSuchMethodException e) {
-		    e.printStackTrace();
-	    } catch(IllegalAccessException e) {
-		    e.printStackTrace();
-	    } catch(InstantiationException e) {
-		    e.printStackTrace();
-	    } catch(InvocationTargetException e) {
+		    if(edges==0)
+			    return shape.newInstance(x,y,xEnd,yEnd,colour,lineThickness,fill,stroke);
+		    else
+			    return shape.newInstance(x,y,xEnd,yEnd,colour,lineThickness,fill,stroke,edges,center);
+	    } catch(InstantiationException | IllegalAccessException | InvocationTargetException e) {
 		    e.printStackTrace();
 	    }
 	    return null;

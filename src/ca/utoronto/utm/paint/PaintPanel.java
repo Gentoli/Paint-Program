@@ -38,9 +38,9 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 		//tempStorage = new ArrayList<Shape>();
 		this.mode = "Ellipse";
 		this.model.addObserver(this);
-
+		colour=Color.black;
 		this.view=view;
-
+		addComponentListener(model);
 		WindowsPointer.getInstance().addListener(this,this);
 	}
 
@@ -93,8 +93,8 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	public void pointerUpdated(PointerEvent e) {
 		switch(e.getID()){
 			case MouseEvent.MOUSE_PRESSED:
-				shapes[e.getPointerId()] =	new ShapeBuilder(mode,e.getX(),e.getY()).setColour(colour)
-						.setLineThickness(lineThickness).setFill(fill).setStroke(stroke).setEdges(edges).build();
+				shapes[e.getPointerId()] =	new ShapeBuilder(100,e.getX(),e.getY()).setColour(colour)
+						.setLineThickness(lineThickness).setFill(fill).setStroke(stroke).build();
 				//shapes[e.getPointerId()] = shape.build();
 				break;
 			case MouseEvent.MOUSE_MOVED:
@@ -108,7 +108,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 			case MouseEvent.MOUSE_RELEASED:
 				if(shapes[e.getPointerId()]!=null){
 					shapes[e.getPointerId()].setEnd(e.getX(),e.getY());
-					model.addShape(shapes[e.getPointerId()]);
+					model.addPrint(shapes[e.getPointerId()]);
 					shapes[e.getPointerId()]=null;
 				}
 				//shapes[e.getPointerId()].setEndPoint(new Point(e.getX(),e.getY()));
