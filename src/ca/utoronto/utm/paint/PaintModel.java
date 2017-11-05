@@ -23,7 +23,7 @@ public class PaintModel extends Observable implements ComponentListener {
 	public void addPrint(Drawable c){
 		synchronized(drawables) {
 			drawables.add(c);
-			while(drawables.size()>5) {
+			while(drawables.size()>50) {
 				synchronized(image) {
 					Graphics2D g = image.createGraphics();
 					drawables.poll().print(g);
@@ -46,6 +46,7 @@ public class PaintModel extends Observable implements ComponentListener {
 
 	public void undo(){
 		synchronized(drawables) {
+			if(!drawables.isEmpty())
 			undo.add(drawables.removeLast());
 		}
 		this.setChanged();
@@ -54,6 +55,7 @@ public class PaintModel extends Observable implements ComponentListener {
 
 	public void redo(){
 		synchronized(drawables) {
+			if(!undo.isEmpty())
 			drawables.add(undo.removeLast());
 		}
 		this.setChanged();

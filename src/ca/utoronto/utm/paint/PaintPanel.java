@@ -5,7 +5,14 @@ import ca.utoronto.utm.pointer.PointerListener;
 import ca.utoronto.utm.pointer.WindowsPointer;
 
 import javax.swing.JPanel;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Stroke;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.Observable;
 import java.util.Observer;
@@ -16,13 +23,12 @@ import java.util.Observer;
 class PaintPanel extends JPanel implements Observer, PointerListener {
 	private PaintModel model; // slight departure from MVC, because of the way painting works
 	private View view; // So we can talk to our parent or other components of the view
-	private String mode; // modifies how we interpret input (could be better?)
+	private int mode; // modifies how we interpret input (could be better?)
 
 	private Color colour;
 	private float lineThickness;
 	private Stroke stroke;
 	private boolean fill = false;
-	private int edges = 10;
 
 	private Shape[] shapes = new Shape[WindowsPointer.POINTER_MAX];
 	//private Ellipse ellipse; // the ellipse we are building
@@ -31,12 +37,27 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 
 		this.setBackground(Color.white);
 		this.setPreferredSize(new Dimension(500,300));
-
+		view.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.isControlDown()) {
+					switch(e.getKeyCode()) {
+						case 90:
+							model.undo();
+							break;
+						case 89:
+							model.redo();
+							break;
+					}
+				}
+			}
+		});
+		view.setFocusable(true);
 		//WindowsPointer.getInstance().addListener(this,this);
 		this.model = model;
 		//shapes = this.model.getShapes();
 		//tempStorage = new ArrayList<Shape>();
-		this.mode = "Ellipse";
+		this.mode = 4;
 		this.model.addObserver(this);
 		colour=Color.black;
 		this.view=view;
@@ -71,7 +92,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	/**
 	 *  Controller aspect of this
 	 */
-	public void setMode(String mode){
+	public void setMode(int mode){
 		this.mode=mode;
 	}
 
@@ -83,8 +104,6 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 
 	public void setStroke(Stroke stroke) { this.stroke = stroke; }
 
-	public void setEdges(int edges) { this.edges = edges; }
-
 	public void setFill(boolean fill) {
 		this.fill = fill;
 	}
@@ -93,13 +112,16 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	public void pointerUpdated(PointerEvent e) {
 		switch(e.getID()){
 			case MouseEvent.MOUSE_PRESSED:
-				shapes[e.getPointerId()] =	new ShapeBuilder(10,e.getX(),e.getY()).setColour(colour)
-						.setLineThickness(lineThickness).setFill(fill).setCenter(true).setStroke(stroke).build();
+				shapes[e.getPointerId()] =	new ShapeBuilder(mode,e.getX(),e.getY()).setColour(colour)
+						.setCenter((e.getModifiers()& InputEvent.ALT_MASK)!=0).setLineThickness(lineThickness)
+						.setFill(fill).setStroke(stroke).setRight((e.getModifiers()& InputEvent.SHIFT_MASK)!=0).build();
 				//shapes[e.getPointerId()] = shape.build();
 				break;
 			case MouseEvent.MOUSE_MOVED:
 				if(shapes[e.getPointerId()]!=null){
 					shapes[e.getPointerId()].setEnd(e.getX(),e.getY());
+					shapes[e.getPointerId()].setRight((e.getModifiers()& InputEvent.SHIFT_MASK)!=0);
+					shapes[e.getPointerId()].setCenter((e.getModifiers()& InputEvent.ALT_MASK)!=0);
 				}
 				//System.out.println("create");
 				//shapes[e.getPointerId()].setEndPoint(new Point(e.getX(),e.getY()));

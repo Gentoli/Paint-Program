@@ -20,7 +20,7 @@ public class ShapeButton extends JButton {
                 g.dispose();
             }
         };
-        shape = new ShapeBuilder(this.shapeNum, 0, 0).setFill(true).build();
+        shape = new ShapeBuilder(this.shapeNum, 0, 0).setFill(false).setRight(true).build();
         this.add(canvas);
     }
 

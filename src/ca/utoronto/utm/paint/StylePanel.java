@@ -86,7 +86,7 @@ public class StylePanel extends JPanel implements Observer {
         fillLabel.setHorizontalAlignment(SwingConstants.CENTER);
         fillCheckBox = new JCheckBox();
         fillCheckBox.addActionListener(e -> {
-            view.getPaintPanel().setFill(((JCheckBox)e.getSource()).isSelected());
+            view.getPaintPanel().setFill(fillCheckBox.isSelected());
         });
         fillCheckBox.setHorizontalAlignment(SwingConstants.CENTER);
 

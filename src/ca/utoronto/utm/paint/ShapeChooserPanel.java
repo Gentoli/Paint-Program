@@ -1,17 +1,17 @@
 package ca.utoronto.utm.paint;
 
-import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
-import java.awt.*;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 // https://docs.oracle.com/javase/8/docs/api/java/awt/Graphics2D.html
 // https://docs.oracle.com/javase/tutorial/2d/
@@ -37,26 +37,22 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 		this.add(sides);
 	}
 
-
-
 	/**
 	 * Controller aspect of this
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		this.view.getPaintPanel().setMode(e.getActionCommand());
 		((JButton) e.getSource()).setEnabled(false);
 		if (lastPressed != null)
 			lastPressed.setEnabled(true);
 		lastPressed = (JButton) e.getSource();
 		sides.setValue(((ShapeButton)e.getSource()).getShapeNum());
-
 	}
 
 
 }
 
-class Sides extends JTextField  {
+class Sides extends JTextField implements ActionListener,KeyListener {
 
 	private static final String TEXT_NOT_TO_TOUCH = "Sides: ";
 	private View view;
@@ -76,37 +72,59 @@ class Sides extends JTextField  {
 			@Override
 			public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
 				if (offset < TEXT_NOT_TO_TOUCH.length()) {
-					length = Math.max(0, length - TEXT_NOT_TO_TOUCH.length());
-					offset = TEXT_NOT_TO_TOUCH.length();
+//					length = Math.max(0, length - TEXT_NOT_TO_TOUCH.length());
+//					offset = TEXT_NOT_TO_TOUCH.length();
+					length = Math.min(getText().length()-TEXT_NOT_TO_TOUCH.length(),length);
+					offset = getText().length()-length;
 				}
 				super.replace(fb, offset, length, text, attrs);
+				actionPerformed(null);
 			}
 
 			@Override
 			public void remove(DocumentFilter.FilterBypass fb, int offset, int length) throws BadLocationException {
 				if (offset < TEXT_NOT_TO_TOUCH.length()) {
-					length = Math.max(0, length + offset - TEXT_NOT_TO_TOUCH.length());
-					offset = TEXT_NOT_TO_TOUCH.length();
+//					length = Math.max(0, length + offset - TEXT_NOT_TO_TOUCH.length());
+//					offset = TEXT_NOT_TO_TOUCH.length();
+					length = Math.min(getText().length()-TEXT_NOT_TO_TOUCH.length(),length);
+					offset = getText().length()-length;
 				}
 				if (length > 0) {
 					super.remove(fb, offset, length);
 				}
+				actionPerformed(null);
 			}
 		});
-		addActionListener(e -> {
-			try {
-				int value = Integer.valueOf(((JTextField)e.getSource()).getText());
-				if (value > 100) {
-					value = 100;
-				}
-				if (value < 1) {
-					value = 3;
-				}
-				view.getPaintPanel().setEdges(Integer.valueOf(((JTextField)e.getSource()).getText()));
+		addActionListener(this);
+		addKeyListener(this);
+	}
+	public void setValue(int value){
+		this.value = value;
+		setText(String.valueOf(Math.max(value,0)));
+		view.getPaintPanel().setMode(value);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		System.out.println("act");
+		try {
+			int value = Integer.valueOf(getText().substring(7));
+			if (value > 100) {
+				value = 100;
+			}
+			if (value < 1) {
+				value = 3;
+			}
+			if(e!=null) {
+				setValue(value);
+			}else {
+				view.getPaintPanel().setMode(value);
+				this.value=value;
 			}
 			catch(Exception exception) {
-				((JTextField)e.getSource()).setText("5");
-				view.getPaintPanel().setEdges(5);
+				//exception.printStackTrace();
+				if(e!=null)
+					setValue(5);
 			}
 		});
 		addKeyListener(new KeyAdapter() {
@@ -120,11 +138,24 @@ class Sides extends JTextField  {
 				}
 			}
 		});
+		}
+	}
 
+	@Override
+	public void keyTyped(KeyEvent e) {
+		String s = getText();
+		if (s.length() >= 10) {
+			e.consume();
+		}
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
 
 	}
-	void setValue(int value){
-		this.value = value;
-		setText(String.valueOf(Math.max(value,0)));
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+
 	}
 }

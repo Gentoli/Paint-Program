@@ -14,7 +14,7 @@ public class ClearMask implements Drawable {
 
 	@Override
 	public void print(Graphics g) {
-		g.setColor(Color.white);
+		g.setColor(Color.WHITE);
 		g.fillRect(0,0,width, height);
 	}
 }
