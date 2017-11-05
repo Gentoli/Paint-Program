@@ -4,6 +4,7 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Polygon;
 import java.awt.Stroke;
 
 public class RegularPolygon extends Shape {
@@ -11,33 +12,42 @@ public class RegularPolygon extends Shape {
     public int[] verticiesY;
     public float[] intercepts;
     public float[] slopes;
-	private boolean center;
+    private Polygon polygon;
 
-    public RegularPolygon(int x, int y, Color colour, float lineThickness, boolean fill, Stroke stroke,int vertices,boolean center) {
+    public RegularPolygon(int x, int y, Color colour, float lineThickness, boolean fill, Stroke stroke,int vertices,boolean center,boolean right) {
         super(x, y, colour, lineThickness, fill, stroke);
-        //System.out.println(x+" "+y+" "+xEnd+" "+yEnd);
         this.verticiesX = new int[vertices];
         this.verticiesY = new int[vertices];
+        polygon=new Polygon();
+        polygon.npoints=vertices;
+        polygon.xpoints=verticiesX;
+        polygon.ypoints=verticiesY;
         this.intercepts = new float[vertices];
         this.slopes = new float[vertices];
 	    this.center = center;
+	    this.right = right;
         calculateVerticies();
     }
 
     private void calculateVerticies() {
+        double angles = 2 * Math.PI / polygon.npoints;
+        int absMin = Math.min(Math.abs(getWidth()),Math.abs(getHeight()));
+        double radiusSquared = center?Math.pow(getWidth(), 2) + Math.pow(getHeight(),2):2*Math.pow(absMin/2,2);
+        double radius = center||polygon.npoints==4?Math.sqrt(radiusSquared):absMin/2;
+        double mouseAngle = center?Math.atan2(-getHeight(), getWidth())-Math.PI/2:(polygon.npoints==4?Math.PI/4:0);
+        int offsetX = center?x:getXMid();
+        int offsetY = center?y:getYMid();
+        double rFactor=polygon.npoints==4?Math.sqrt(2):2;
+        double xFactor=center||right?1:Math.abs(getWidth())/(rFactor*radius);
+        double yFactor=center||right?1:Math.abs(getHeight())/(rFactor*radius);
 
-        double angles = 2 * Math.PI / verticiesX.length;
-        double radius = center?Math.sqrt(Math.pow(getWidth(), 2) + Math.pow(getHeight(), 2)):Math.min(getWidth(),getHeight())/2;
-        double mouseAngle = center?Math.atan2(-getHeight(), getWidth())-Math.PI/2:Math.PI/4;
-        int offsetX = center?0:getWidth()/2;
-        int offsetY = center?0:getHeight()/2;
 
-        for (int i = 0; i < verticiesX.length; i++) {
-            double x = radius * Math.sin(i * angles + mouseAngle);
-            double y = radius * Math.cos(i * angles + mouseAngle);
+        for (int i = 0; i < polygon.npoints; i++) {
+            double x = radius * Math.sin(i * angles + mouseAngle) * xFactor;
+            double y = radius * Math.cos(i * angles + mouseAngle) * yFactor;
             Point p = rotate(x, y, Math.PI);
-            verticiesX[i] = this.x+p.x+offsetX;
-            verticiesY[i] = this.y+p.y+offsetY;
+            verticiesX[i] = p.x+offsetX;
+            verticiesY[i] = p.y+offsetY;
         }
         //calculateLines(verticiesX, verticiesY);
     }
@@ -93,7 +103,11 @@ public class RegularPolygon extends Shape {
     	prepare(g);
         g.setStroke(new BasicStroke(lineThickness));
         calculateVerticies();
-        g.drawPolygon(verticiesX, verticiesY, verticiesX.length);
+        if(fill)
+            g.fillPolygon(polygon);
+        else
+        g.drawPolygon(polygon);
+        //g.drawRect(x,y,getWidth(),getHeight());
     }
 }
 

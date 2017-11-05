@@ -14,6 +14,8 @@ public abstract class Shape implements Drawable {
     protected float lineThickness;
 	protected boolean fill;
     protected Stroke stroke;
+	protected boolean center;
+	protected boolean right;
 
 	public Shape(int x, int y, Color colour, float lineThickness, boolean fill, Stroke stroke) {
 		this.x = x;
@@ -61,6 +63,14 @@ public abstract class Shape implements Drawable {
 
 	public void setY(int y) {
 		this.y = y;
+	}
+
+	public int getXMid(){
+		return x+getWidth()/2;
+	}
+
+	public int getYMid(){
+		return y+(getHeight())/2;
 	}
 
 	public Color getColour() { return colour; }
@@ -111,5 +121,13 @@ public abstract class Shape implements Drawable {
 	@Override
 	public void print(Graphics g) {
 		this.print((Graphics2D)g);
+	}
+
+	public void setCenter(boolean center) {
+		this.center = center;
+	}
+
+	public void setRight(boolean right) {
+		this.right = right;
 	}
 }

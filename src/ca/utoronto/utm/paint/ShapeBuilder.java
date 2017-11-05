@@ -11,7 +11,7 @@ public class ShapeBuilder {
 
 	private static Constructor<? extends Shape>[] classes;
 	private final static Class[] shapConst = {int.class, int.class, Color.class, float.class,boolean.class,Stroke.class};
-	private final static Class[] polyConst = {int.class, int.class, Color.class, float.class,boolean.class, Stroke.class,int.class ,boolean.class};
+	private final static Class[] polyConst = {int.class, int.class, Color.class, float.class,boolean.class, Stroke.class,int.class ,boolean.class,boolean.class};
 	private final static String[] subClasses = {"RegularPolygon","Ellipse","Polyline"};
 	private final static String pack = "ca.utoronto.utm.paint.";
 	// PolyLine, Squiggle,Polygon, Rectangle, Circle
@@ -47,6 +47,7 @@ public class ShapeBuilder {
     private int x, y;
     private Stroke stroke;
     private boolean fill;
+	private boolean right;
 
 	public ShapeBuilder setCenter(boolean center) {
 		this.center = center;
@@ -93,7 +94,7 @@ public class ShapeBuilder {
 		    if(edges<0)
 			    return shape.newInstance(x,y,colour,lineThickness,fill,stroke);
 		    else
-			    return shape.newInstance(x,y,colour,lineThickness,fill,stroke,edges,center);
+			    return shape.newInstance(x,y,colour,lineThickness,fill,stroke,edges,center,right);
 	    } catch(InstantiationException | IllegalAccessException | InvocationTargetException e) {
 		    e.printStackTrace();
 	    }
@@ -102,6 +103,11 @@ public class ShapeBuilder {
 
 	public ShapeBuilder setEdges(int edges) {
 		this.edges = edges;
+		return this;
+	}
+
+	public ShapeBuilder setRight(boolean right) {
+		this.right = right;
 		return this;
 	}
 }

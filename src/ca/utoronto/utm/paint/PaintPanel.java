@@ -10,6 +10,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
+import java.awt.event.InputEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -28,7 +29,6 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	private float lineThickness;
 	private Stroke stroke;
 	private boolean fill = false;
-	private int edges = 10;
 
 	private Shape[] shapes = new Shape[WindowsPointer.POINTER_MAX];
 	//private Ellipse ellipse; // the ellipse we are building
@@ -104,8 +104,6 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 
 	public void setStroke(Stroke stroke) { this.stroke = stroke; }
 
-	public void setEdges(int edges) { this.edges = edges; }
-
 	public void setFill(boolean fill) {
 		this.fill = fill;
 	}
@@ -114,13 +112,16 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	public void pointerUpdated(PointerEvent e) {
 		switch(e.getID()){
 			case MouseEvent.MOUSE_PRESSED:
-				shapes[e.getPointerId()] =	new ShapeBuilder(10,e.getX(),e.getY()).setColour(colour)
-						.setLineThickness(lineThickness).setFill(fill).setCenter(true).setStroke(stroke).build();
+				shapes[e.getPointerId()] =	new ShapeBuilder(mode,e.getX(),e.getY()).setColour(colour)
+						.setCenter((e.getModifiers()& InputEvent.ALT_MASK)!=0).setLineThickness(lineThickness)
+						.setFill(fill).setStroke(stroke).setRight((e.getModifiers()& InputEvent.SHIFT_MASK)!=0).build();
 				//shapes[e.getPointerId()] = shape.build();
 				break;
 			case MouseEvent.MOUSE_MOVED:
 				if(shapes[e.getPointerId()]!=null){
 					shapes[e.getPointerId()].setEnd(e.getX(),e.getY());
+					shapes[e.getPointerId()].setRight((e.getModifiers()& InputEvent.SHIFT_MASK)!=0);
+					shapes[e.getPointerId()].setCenter((e.getModifiers()& InputEvent.ALT_MASK)!=0);
 				}
 				//System.out.println("create");
 				//shapes[e.getPointerId()].setEndPoint(new Point(e.getX(),e.getY()));
