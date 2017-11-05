@@ -27,7 +27,6 @@ public class ShapeBuilder {
 
 	static{
 		classes = new Constructor[Arrays.binarySearch(SHAPES, 0)+1];
-		System.out.println(classes.length);
 		try {
 			classes[0]= Class.forName(pack+subClasses[0]).asSubclass(Shape.class).getConstructor(polyConst);
 		} catch(NoSuchMethodException | ClassNotFoundException e) {
@@ -39,7 +38,6 @@ public class ShapeBuilder {
 			} catch(ClassNotFoundException | NoSuchMethodException e) {
 				e.printStackTrace();
 			}
-			System.out.println(classes[i]);
 		}
 
 	}

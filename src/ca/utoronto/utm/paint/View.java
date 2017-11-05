@@ -10,13 +10,15 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * This is the top level View+Controller, it contains other aspects of the View+Controller.
  * @author arnold
  *
  */
-public class View extends JFrame implements ActionListener {
+public class View extends JFrame implements Observer {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -27,6 +29,8 @@ public class View extends JFrame implements ActionListener {
 	private ShapeChooserPanel shapeChooserPanel;
 	//private ColourPanel colourPanel;
 	private StylePanel stylePanel;
+	private JMenuItem menuUndo;
+	private JMenuItem menuRedo;
 	//private JButton openColourPanel;
 	
 	public View(PaintModel model) {
@@ -53,7 +57,7 @@ public class View extends JFrame implements ActionListener {
 		c.add(this.paintPanel, BorderLayout.CENTER);
 		
 		//this.setLocationRelativeTo(null);
-
+		model.addObserver(this);
 		this.pack();
 
 			WindowsPointer.getInstance().setFrame(this);
@@ -128,25 +132,30 @@ public class View extends JFrame implements ActionListener {
 
 		menu.addSeparator();// -------------
 
-		menuItem = new JMenuItem("Undo");
-		menuItem.addActionListener(e -> {
+		menuUndo = new JMenuItem("Undo");
+		menuUndo.setEnabled(false);
+		menuUndo.addActionListener(e -> {
 			model.undo();
+			menuUndo.setEnabled(model.canUndo());
 		});
-		menu.add(menuItem);
+		menu.add(menuUndo);
 
-		menuItem = new JMenuItem("Redo");
-		menuItem.addActionListener(e -> {
+		menuRedo = new JMenuItem("Redo");
+		menuRedo.setEnabled(false);
+		menuRedo.addActionListener(e -> {
 			model.redo();
+			menuRedo.setEnabled(model.canRedo());
 		});
-		menu.add(menuItem);
+		menu.add(menuRedo);
 
 		menuBar.add(menu);
 
 		return menuBar;
 	}
 
-	public void actionPerformed(ActionEvent e) {
-
+	@Override
+	public void update(Observable o, Object arg) {
+		menuUndo.setEnabled(model.canUndo());
+		menuRedo.setEnabled(model.canRedo());
 	}
-
 }

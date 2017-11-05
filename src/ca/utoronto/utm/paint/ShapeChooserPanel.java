@@ -22,7 +22,7 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 	private static final String TEXT_NOT_TO_TOUCH = "Sides: ";
 	public ShapeChooserPanel(View view) {
 		this.view=view;
-		String[] buttonLabels = { "Selection", "Circle", "Rectangle", "Square", "Squiggle", "Polyline", "Polygon"};
+		String[] buttonLabels = { "Selection", "Polyline", "Squiggle", "Polygon", "Rectangle", "Circle"};
 		this.setLayout(new GridLayout(buttonLabels.length + 1, 1));
 
 		for (int index = 0; index < ShapeBuilder.getShapeCount(); index++) {
