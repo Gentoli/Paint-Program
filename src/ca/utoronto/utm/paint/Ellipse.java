@@ -1,17 +1,14 @@
 package ca.utoronto.utm.paint;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
+import java.awt.*;
 
 public class Ellipse extends Shape{
-	
-	public Ellipse(Point centre, Color colour){
-		//super(centre,centre, colour);
+
+
+	public Ellipse(int x, int y, int xEnd, int yEnd, Color colour, float lineThickness, boolean fill, Stroke stroke) {
+		super(x, y, xEnd, yEnd, colour, lineThickness, fill, stroke);
 	}
-	
-	
+
 	@Override
 	public void print(Graphics2D g2) {
 		// TODO Auto-generated method stub
