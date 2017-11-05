@@ -97,5 +97,13 @@ public abstract class Shape {
 		return new Point((int)retX,(int)retY);
 	}
 
+	public int getWidth(){
+		return xEnd-x;
+	}
+
+	public int getHeight(){
+		return yEnd-y;
+	}
+
     public abstract void print(Graphics2D g2);
 }
