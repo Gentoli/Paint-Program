@@ -39,7 +39,7 @@ public class RegularPolygon extends Shape {
         double rFactor=polygon.npoints==4?Math.sqrt(2):2;
         double xFactor=center||right?1:Math.abs(getWidth())/(rFactor*radius);
         double yFactor=center||right?1:Math.abs(getHeight())/(rFactor*radius);
-        int flip = getHeight()<0?-1:1;
+        int flip = center?1:getHeight()<0?-1:1;
         for (int i = 0; i < polygon.npoints; i++) {
             double x = radius * Math.sin(i * angles + mouseAngle) * xFactor;
             double y = flip*radius * Math.cos(i * angles + mouseAngle) * yFactor;
