@@ -9,10 +9,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 
 // https://docs.oracle.com/javase/8/docs/api/java/awt/Graphics2D.html
 // https://docs.oracle.com/javase/tutorial/2d/

@@ -110,7 +110,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 		this.lineThickness = lineThickness;
 	}
 
-	public void setStroke(int strokeStyle) {
+	public void setStrokeStyle(int strokeStyle) {
 		this.strokeStyle = strokeStyle;
 	}
 
@@ -131,7 +131,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 					default:
 						shapes[shapeId] = new ShapeBuilder(mode, e.getX(), e.getY()).setColour(colour)
 								.setCenter((e.getModifiers() & InputEvent.ALT_MASK) != 0).setLineThickness(lineThickness * e.getPressure())
-								.setFill(fill).setStroke(strokeStyle).setRight((e.getModifiers() & InputEvent.SHIFT_MASK) != 0).build();
+								.setFill(fill).setStrokeStyle(strokeStyle).setRight((e.getModifiers() & InputEvent.SHIFT_MASK) != 0).build();
 				}
 				break;
 			case MouseEvent.MOUSE_MOVED:
