@@ -22,9 +22,8 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 	private static final String TEXT_NOT_TO_TOUCH = "Sides: ";
 	public ShapeChooserPanel(View view) {
 		this.view=view;
-		
 		String[] buttonLabels = { "Circle", "Rectangle", "Square", "Squiggle", "Polyline", "Polygon"};
-		this.setLayout(new GridLayout(buttonLabels.length, 1));
+		this.setLayout(new GridLayout(buttonLabels.length + 1, 1));
 
 		for (String label : buttonLabels) {
 			JButton button = new JButton(label);
@@ -33,34 +32,6 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 		}
 
 		JTextField sides = new JTextField(TEXT_NOT_TO_TOUCH + "5",8);
-		sides.getDocument().addDocumentListener(new DocumentListener() {
-														@Override
-			public void insertUpdate(DocumentEvent e) {
-															sides.setText("Sides: " + "500");
-				try {
-					int value = Integer.valueOf(sides.getText().substring(7));
-					if (value > 100) {
-						value = 100;
-					}
-					if (value < 1) {
-						value = 3;
-					}
-					view.getPaintPanel().setEdges(Integer.valueOf(sides.getText()));
-				}
-				catch(Exception exception) {
-				}
-			}
-
-			@Override
-			public void removeUpdate(DocumentEvent e) {
-
-			}
-
-			@Override
-			public void changedUpdate(DocumentEvent e) {
-
-			}
-		});
 		((AbstractDocument) sides.getDocument()).setDocumentFilter(new DocumentFilter() {
 			@Override
 			public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
