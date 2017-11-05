@@ -6,7 +6,7 @@ import java.awt.event.*;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
-public class StylePanel extends JPanel implements ActionListener {
+public class StylePanel extends JPanel {
 
     private View view;
     private JPanel lineThicknessPanel;
@@ -26,7 +26,7 @@ public class StylePanel extends JPanel implements ActionListener {
         this.view = view;
 
         this.setLayout(new GridBagLayout());
-        this.setPreferredSize(new Dimension(0,100));
+        this.setPreferredSize(new Dimension(0,75));
 
         lineThicknessPanel = new JPanel();
         lineThicknessLabel = new JLabel("Line Thickness");
@@ -58,10 +58,6 @@ public class StylePanel extends JPanel implements ActionListener {
                         e.consume();
                 }
                 String s = lineThicknessText.getText();
-                if (s.length() == 3) {
-                    System.out.println(s.substring(2));
-                    System.out.println(s.substring(1));
-                }
                 if (s.length() >= 3 && (!s.substring(s.length()-1).equals(".") || s.substring(s.length()-2).equals(".."))) {
                     e.consume();
                 }
@@ -93,7 +89,19 @@ public class StylePanel extends JPanel implements ActionListener {
         colourLabel = new JLabel("Choose Colour");
         colourLabel.setHorizontalAlignment(SwingConstants.CENTER);
         openColourPanel = new JButton("Extend Colour Panel");
-        openColourPanel.addActionListener(this);
+        openColourPanel.addActionListener(e -> {
+            if (colourPanel.isVisible()) {
+                colourPanel.setVisible(false);
+                openColourPanel.setText("Extend Colour Panel");
+            }
+            else {
+                colourPanel.setLocation(this.getLocationOnScreen().x + this.getWidth() - 450, this.getLocationOnScreen().y + this.getHeight() - 285);
+                colourPanel.setVisible(true);
+                colourPanel.setAlwaysOnTop(true);
+                openColourPanel.setText("Close Colour Panel");
+            }
+            System.out.println(e.getActionCommand());
+        });
         this.colourPanel = new ColourPanel(view, openColourPanel);
 
 
@@ -102,29 +110,55 @@ public class StylePanel extends JPanel implements ActionListener {
         c.weightx = 1;
         c.gridx = 0;
         c.gridy = 0;
-        this.add(lineThicknessPanel, c);
+        this.add(new JLabel(), c);
         c.gridx = 1;
-        this.add(new JLabel(), c);
+        this.add(lineThicknessPanel, c);
         c.gridx = 2;
-        this.add(fillLabel, c);
+        c.fill = GridBagConstraints.VERTICAL;
+        this.add(new JSeparator(SwingConstants.VERTICAL), c);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        this.add(new JLabel(), c);
         c.gridx = 3;
-        this.add(new JLabel(), c);
+        this.add(fillLabel, c);
         c.gridx = 4;
-        this.add(styleLabel, c);
-        c.gridx = 5;
+        c.fill = GridBagConstraints.VERTICAL;
+        this.add(new JSeparator(SwingConstants.VERTICAL), c);
+        c.fill = GridBagConstraints.HORIZONTAL;
         this.add(new JLabel(), c);
-        c.gridx = 0;
+        c.gridx = 5;
+        this.add(styleLabel, c);
+        c.gridx = 6;
+        c.fill = GridBagConstraints.VERTICAL;
+        this.add(new JSeparator(SwingConstants.VERTICAL), c);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        this.add(new JLabel(), c);
+        c.gridx = 1;
         c.gridy = 1;
         this.add(lineThicknessSlider, c);
         c.gridx = 2;
+        c.fill = GridBagConstraints.VERTICAL;
+        this.add(new JSeparator(SwingConstants.VERTICAL), c);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 3;
         this.add(fillCheckBox, c);
         c.gridx = 4;
+        c.fill = GridBagConstraints.VERTICAL;
+        this.add(new JSeparator(SwingConstants.VERTICAL), c);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 5;
         this.add(styleComboBox, c);
         c.gridx = 6;
+        c.fill = GridBagConstraints.VERTICAL;
+        this.add(new JSeparator(SwingConstants.VERTICAL), c);
+        c.fill = GridBagConstraints.HORIZONTAL;
+        c.gridx = 7;
         c.gridy = 0;
         this.add(colourLabel, c);
         c.gridy = 1;
         this.add(openColourPanel, c);
+        c.gridx = 8;
+        c.gridy = 0;
+        this.add(new JLabel(), c);
 
 
         colourPanel.addComponentListener(new ComponentListener() {
@@ -154,17 +188,4 @@ public class StylePanel extends JPanel implements ActionListener {
         });
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if (colourPanel.isVisible()) {
-            colourPanel.setVisible(false);
-            openColourPanel.setText("Extend Colour Panel");
-        }
-        else {
-            colourPanel.setLocation(this.getLocationOnScreen().x, this.getLocationOnScreen().y + this.getHeight());
-            colourPanel.setVisible(true);
-            openColourPanel.setText("Close Colour Panel");
-        }
-        System.out.println(e.getActionCommand());
-    }
 }
