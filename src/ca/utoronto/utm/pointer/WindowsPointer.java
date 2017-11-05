@@ -13,16 +13,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class WindowsPointer extends MouseAdapter {
-	public static final boolean IS_TOUCH_SUPPORTED;
+	private static boolean TOUCH_SUPPORTED = true;
 	static {
-		boolean success = true;
 		try {
 			System.loadLibrary("JNI");
 		} catch(Error e) {
-			success=false;
 			System.out.println("JNI failed to load\n falling back to MouseListener");
+			TOUCH_SUPPORTED=false;
 		}
-		IS_TOUCH_SUPPORTED = success;
+	}
+
+	public boolean isIsTouchSupported(){
+		return TOUCH_SUPPORTED;
 	}
 
 	//SwingUtilities.convertPointFromScreen
@@ -43,7 +45,13 @@ public class WindowsPointer extends MouseAdapter {
 		if(this.frame==frame)
 			return;
 		this.frame = frame;
-		Init(getHWnd(frame));
+		try {
+			Init(getHWnd(frame));
+			TOUCH_SUPPORTED=true;
+		} catch(RuntimeException e) {
+			e.printStackTrace();
+			TOUCH_SUPPORTED=false;
+		}
 		//listeners.clear();
 	}
 
@@ -102,7 +110,7 @@ public class WindowsPointer extends MouseAdapter {
 	}
 
 	public void addListener(PointerListener pointerListener,Component component){
-		if(IS_TOUCH_SUPPORTED) {
+		if(TOUCH_SUPPORTED) {
 			EventFactory f = listeners.get(component);
 			if(f==null) {
 				f = new EventFactory(component);
@@ -155,7 +163,6 @@ public class WindowsPointer extends MouseAdapter {
 		} catch(IllegalAccessException|InvocationTargetException e) {
 			e.printStackTrace();
 		}
-		new RuntimeException("No HWND found for "+ c).printStackTrace();
-		return -1;
+		throw new RuntimeException("No HWND found for "+ c);
 	}
 }

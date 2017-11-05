@@ -29,7 +29,9 @@ public class MouseEventProxy extends MouseAdapter{
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		listener.pointerUpdated(new PointerEvent(e));
+		PointerEvent p = new PointerEvent(e);
+		p.eventOverride(MouseEvent.MOUSE_MOVED);
+		listener.pointerUpdated(p);
 	}
 
 	@Override

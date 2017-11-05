@@ -145,7 +145,15 @@ public class PointerEvent {
 		event.setSource(newSource);
 	}
 
+	private int overridEvent;
+
+	void eventOverride(int id){
+		overridEvent =id;
+	}
+
 	public int getID() {
+		if(overridEvent!=0)
+			return overridEvent;
 		return event.getID();
 	}
 
