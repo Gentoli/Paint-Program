@@ -1,14 +1,29 @@
 package ca.utoronto.utm.paint;
 
-import java.awt.*;
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.Point;
+import java.awt.Stroke;
 
 public abstract class Shape {
     protected int x,y;
     protected int xEnd,yEnd;
     protected Color colour;
     protected float lineThickness;
+	protected boolean fill;
     protected Stroke stroke;
 
+	public Shape(int x, int y, int xEnd, int yEnd, Color colour, float lineThickness, boolean fill, Stroke stroke) {
+		this.x = x;
+		this.y = y;
+		this.xEnd = xEnd;
+		this.yEnd = yEnd;
+		this.colour = colour;
+		this.lineThickness = lineThickness;
+		this.fill = fill;
+		this.stroke = stroke;
+	}
 
 	public int getX() {
 		return x;
@@ -26,20 +41,25 @@ public abstract class Shape {
 		this.y = y;
 	}
 
-	public int getxEnd() {
+	public int getXEnd() {
 		return xEnd;
 	}
 
-	public void setxEnd(int xEnd) {
+	public void setXEnd(int xEnd) {
 		this.xEnd = xEnd;
 	}
 
-	public int getyEnd() {
+	public int getYEnd() {
 		return yEnd;
 	}
 
-	public void setyEnd(int yEnd) {
+	public void setYEnd(int yEnd) {
 		this.yEnd = yEnd;
+	}
+
+	public void setEnd(int x,int y){
+		xEnd=x;
+		yEnd=y;
 	}
 
 	public Color getColour() { return colour; }
@@ -54,6 +74,8 @@ public abstract class Shape {
 		this.stroke = stroke;
 	}
 
+	public void setFill(boolean fill) { this.fill = fill; }
+
 	public void translateOrigin(int x, int y) {
 		this.x+=x;
 		this.y+=y;
@@ -66,7 +88,7 @@ public abstract class Shape {
 
 	protected void prepare(Graphics2D g2) {
 		g2.setColor(colour);
-		g2.setStroke(stroke);
+		g2.setStroke(stroke==null?new BasicStroke():stroke);
 	}
 
 	public Point rotate(double x, double y, double angle){

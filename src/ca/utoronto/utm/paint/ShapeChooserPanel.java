@@ -15,14 +15,26 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 	public ShapeChooserPanel(View view) {
 		this.view=view;
 		
-		String[] buttonLabels = { "Circle", "Rectangle", "Square", "Squiggle", "Polyline" };
+		String[] buttonLabels = { "Circle", "Rectangle", "Square", "Squiggle", "Polyline", "Polygon"};
 		this.setLayout(new GridLayout(buttonLabels.length, 1));
 
 		for (String label : buttonLabels) {
 			JButton button = new JButton(label);
 			this.add(button);
 			button.addActionListener(this);
-		} 
+		}
+
+		JTextField sides = new JTextField("4",2);
+		this.add(sides);
+		sides.addActionListener(e -> {
+			try {
+				view.getPaintPanel().setEdges(Integer.valueOf(((JTextField)e.getSource()).getText()));
+			}
+			catch(Exception exception) {
+				((JTextField)e.getSource()).setText("4");
+				view.getPaintPanel().setEdges(4);
+			}
+		});
 		
 	}
 	/**

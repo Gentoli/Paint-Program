@@ -32,7 +32,7 @@ public class StylePanel extends JPanel implements ActionListener {
         lineThicknessPanel = new JPanel();
         lineThicknessLabel = new JLabel("Line Thickness");
         //lineThicknessLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        lineThicknessText = new JTextField("1", 3);
+        lineThicknessText = new JTextField("1", 2);
         lineThicknessText.addActionListener(e -> {
             try {
                 view.getPaintPanel().setLineThickness(Float.valueOf(((JTextField)e.getSource()).getText()));
@@ -49,6 +49,9 @@ public class StylePanel extends JPanel implements ActionListener {
         fillLabel = new JLabel("Fill Shapes");
         fillLabel.setHorizontalAlignment(SwingConstants.CENTER);
         fillCheckBox = new JCheckBox();
+        fillCheckBox.addActionListener(e -> {
+            view.getPaintPanel().setFill(((JCheckBox)e.getSource()).isSelected());
+        });
         fillCheckBox.setHorizontalAlignment(SwingConstants.CENTER);
 
         styleLabel = new JLabel("Line Style");
