@@ -16,8 +16,9 @@ public abstract class Shape implements Drawable {
     protected Stroke stroke;
 	protected boolean center;
 	protected boolean right;
+	protected int strokeStyle;
 
-	public Shape(int x, int y, Color colour, float lineThickness, boolean fill, Stroke stroke) {
+	public Shape(int x, int y, Color colour, float lineThickness, boolean fill, int strokeStyle) {
 		this.x = x;
 		this.y = y;
 		this.xEnd = x;
@@ -25,7 +26,15 @@ public abstract class Shape implements Drawable {
 		this.colour = colour;
 		this.lineThickness = lineThickness;
 		this.fill = fill;
-		this.stroke = stroke;
+		this.strokeStyle = strokeStyle;
+		switch (strokeStyle) {
+			case 0:  this.stroke = new BasicStroke(lineThickness);
+				break;
+			case 1:  this.stroke = new BasicStroke(lineThickness, 0, 0, 10.0f, new float[] {16.0f,20.0f},0.0f);
+				break;
+			default: this.stroke = new BasicStroke(lineThickness);
+				break;
+		}
 	}
 
 	public int getX() {

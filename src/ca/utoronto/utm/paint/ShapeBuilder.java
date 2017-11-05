@@ -10,8 +10,8 @@ import java.util.Arrays;
 public class ShapeBuilder {
 
 	private static Constructor<? extends Shape>[] classes;
-	private final static Class[] shapConst = {int.class, int.class, Color.class, float.class,boolean.class,Stroke.class};
-	private final static Class[] polyConst = {int.class, int.class, Color.class, float.class,boolean.class, Stroke.class,int.class ,boolean.class,boolean.class};
+	private final static Class[] shapConst = {int.class, int.class, Color.class, float.class,boolean.class,int.class};
+	private final static Class[] polyConst = {int.class, int.class, Color.class, float.class,boolean.class, int.class,int.class ,boolean.class,boolean.class};
 	private final static String[] subClasses = {"RegularPolygon","Ellipse","Polyline"};
 	private final static String pack = "ca.utoronto.utm.paint.";
 	// PolyLine, Squiggle,Polygon, Triangle, Rectangle, Circle
@@ -45,7 +45,7 @@ public class ShapeBuilder {
     private Color colour;
     private float lineThickness;
     private int x, y;
-    private Stroke stroke;
+    private int strokeStyle;
     private boolean fill;
 	private boolean right;
 
@@ -84,17 +84,17 @@ public class ShapeBuilder {
         return this;
     }
 
-    public ShapeBuilder setStroke(Stroke stroke) {
-        this.stroke = stroke;
+    public ShapeBuilder setStrokeStyle(int strokeStyle) {
+        this.strokeStyle = strokeStyle;
         return this;
     }
 
     public Shape build(){
 	    try {
 		    if(edges<0)
-			    return shape.newInstance(x,y,colour,lineThickness,fill,stroke);
+			    return shape.newInstance(x,y,colour,lineThickness,fill,strokeStyle);
 		    else
-			    return shape.newInstance(x,y,colour,lineThickness,fill,stroke,edges,center,right);
+			    return shape.newInstance(x,y,colour,lineThickness,fill,strokeStyle,edges,center,right);
 	    } catch(InstantiationException | IllegalAccessException | InvocationTargetException e) {
 		    e.printStackTrace();
 	    }

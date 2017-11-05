@@ -5,8 +5,8 @@ import java.awt.*;
 public class Ellipse extends Shape{
 
 
-	public Ellipse(int x, int y, Color colour, float lineThickness, boolean fill, Stroke stroke) {
-		super(x, y, colour, lineThickness, fill, stroke);
+	public Ellipse(int x, int y, Color colour, float lineThickness, boolean fill, int strokeStyle) {
+		super(x, y, colour, lineThickness, fill, strokeStyle);
 	}
 
 	@Override

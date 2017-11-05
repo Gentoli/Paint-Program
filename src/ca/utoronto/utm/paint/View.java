@@ -8,6 +8,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import java.awt.BorderLayout;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.Observable;
@@ -61,6 +62,9 @@ public class View extends JFrame implements Observer {
 		this.pack();
 
 		WindowsPointer.getInstance().setFrame(this);
+		System.out.println(this.getSize());
+		this.setMinimumSize(new Dimension(624, 462));
+		System.out.println(this.getSize());
 		// this.setSize(200,200);
 		this.setVisible(true);
 		this.setFocusable(true);

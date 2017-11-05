@@ -24,7 +24,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 
 	private Color colour;
 	private float lineThickness;
-	private Stroke stroke;
+	private int strokeStyle;
 	private boolean fill = false;
 
 	private Shape[] shapes = new Shape[WindowsPointer.POINTER_MAX];
@@ -32,7 +32,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 
 	public PaintPanel(PaintModel model, View view){
 		this.setBackground(Color.white);
-		this.setPreferredSize(new Dimension(500,300));
+		this.setPreferredSize(new Dimension(516,300));
 //		addKeyListener(new KeyAdapter() {
 //			@Override
 //			public void keyPressed(KeyEvent e) {
@@ -100,7 +100,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 
 	public void setLineThickness(float lineThickness) { this.lineThickness = lineThickness; }
 
-	public void setStroke(Stroke stroke) { this.stroke = stroke; }
+	public void setStroke(int strokeStyle) { this.strokeStyle = strokeStyle; }
 
 	public void setFill(boolean fill) {
 		this.fill = fill;
@@ -112,7 +112,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 			case MouseEvent.MOUSE_PRESSED:
 				shapes[e.getPointerId()] =	new ShapeBuilder(mode,e.getX(),e.getY()).setColour(colour)
 						.setCenter((e.getModifiers()& InputEvent.ALT_MASK)!=0).setLineThickness(lineThickness)
-						.setFill(fill).setStroke(stroke).setRight((e.getModifiers()& InputEvent.SHIFT_MASK)!=0).build();
+						.setFill(fill).setStrokeStyle(strokeStyle).setRight((e.getModifiers()& InputEvent.SHIFT_MASK)!=0).build();
 				//shapes[e.getPointerId()] = shape.build();
 				break;
 			case MouseEvent.MOUSE_MOVED:

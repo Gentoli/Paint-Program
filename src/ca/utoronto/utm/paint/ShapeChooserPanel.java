@@ -7,6 +7,7 @@ import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.*;
 
@@ -24,7 +25,11 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 		String[] buttonLabels = { "Selection", "Polyline", "Squiggle", "Polygon", "Triangle", "Rectangle", "Circle"};
 		shapeButtons = new JButton[7];
 		this.setLayout(new GridLayout(buttonLabels.length + 1, 1));
+		this.setPreferredSize(new Dimension(90, 300));
 
+		shapeButtons[0] = new JButton("Selection");
+		this.add(shapeButtons[0]);
+		shapeButtons[0].addActionListener(this);
 		for (int index = 0; index < ShapeBuilder.getShapeCount(); index++) {
 			shapeButtons[index+1] = new ShapeButton(ShapeBuilder.getShape(index));
 			this.add(shapeButtons[index+1]);

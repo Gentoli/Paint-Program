@@ -62,11 +62,11 @@ Nov 3, 2017
 	Obstacles : Adding features while avoiding clutter in the GUI
 
 Nov 4, 2017
-	Yesterday :
-	Today     :
-	Obstacles :
+	Yesterday : Implemented the GUI of style panel
+	Today     : Finish implementing style choosing panel
+	Obstacles : proper formatting of the GUI
 
 Nov 5, 2017
-	Yesterday :
-	Today     :
+	Yesterday : Implemented style choosing panel and updated shape choosing panel
+	Today     : Finish and push
 	Obstacles :
