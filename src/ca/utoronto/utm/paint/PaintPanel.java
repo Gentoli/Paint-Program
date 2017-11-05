@@ -5,7 +5,13 @@ import ca.utoronto.utm.pointer.PointerListener;
 import ca.utoronto.utm.pointer.WindowsPointer;
 
 import javax.swing.JPanel;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Stroke;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.Observable;
 import java.util.Observer;
@@ -31,7 +37,22 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 
 		this.setBackground(Color.white);
 		this.setPreferredSize(new Dimension(500,300));
-
+		view.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.isControlDown()) {
+					switch(e.getKeyCode()) {
+						case 90:
+							model.undo();
+							break;
+						case 89:
+							model.redo();
+							break;
+					}
+				}
+			}
+		});
+		view.setFocusable(true);
 		//WindowsPointer.getInstance().addListener(this,this);
 		this.model = model;
 		//shapes = this.model.getShapes();
