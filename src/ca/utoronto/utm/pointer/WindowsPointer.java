@@ -77,7 +77,13 @@ public class WindowsPointer extends MouseAdapter {
 		jf.setVisible(true);
 	}
 
+	static boolean debug = true;
 	private static void Update(int eventId, long when, int modifiers,int xAbs, int yAbs ,int clickCount, int pointerId, int pressure){
+		if(debug){
+			System.out.println("update");
+			debug=false;
+		}
+
 		WindowsPointer p = getInstance();
 		int index = p.getPointId(pointerId);
 //		System.out.print("[");
