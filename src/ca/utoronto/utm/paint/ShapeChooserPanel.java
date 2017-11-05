@@ -20,6 +20,8 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 	private View view; // So we can talk to our parent or other components of the view
 	private JButton lastPressed;
 	private static final String TEXT_NOT_TO_TOUCH = "Sides: ";
+	private JTextField sides;
+
 	public ShapeChooserPanel(View view) {
 		this.view=view;
 		String[] buttonLabels = { "Selection", "Polyline", "Squiggle", "Polygon", "Rectangle", "Circle"};
@@ -31,7 +33,7 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 			button.addActionListener(this);
 		}
 
-		JTextField sides = new JTextField(TEXT_NOT_TO_TOUCH + "5",8);
+		sides = new JTextField(TEXT_NOT_TO_TOUCH + "5",8);
 		((AbstractDocument) sides.getDocument()).setDocumentFilter(new DocumentFilter() {
 			@Override
 			public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
@@ -100,7 +102,7 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 		if (lastPressed != null)
 			lastPressed.setEnabled(true);
 		lastPressed = (JButton) e.getSource();
-		System.out.println(e.getActionCommand());
+		sides.setText(String.valueOf(((ShapeButton)e.getSource()).getShapeNum()));
 	}
 
 	
