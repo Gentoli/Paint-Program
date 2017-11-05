@@ -15,11 +15,11 @@ public abstract class Shape implements Drawable {
 	protected boolean fill;
     protected Stroke stroke;
 
-	public Shape(int x, int y, int xEnd, int yEnd, Color colour, float lineThickness, boolean fill, Stroke stroke) {
+	public Shape(int x, int y, Color colour, float lineThickness, boolean fill, Stroke stroke) {
 		this.x = x;
 		this.y = y;
-		this.xEnd = xEnd;
-		this.yEnd = yEnd;
+		this.xEnd = x;
+		this.yEnd = y;
 		this.colour = colour;
 		this.lineThickness = lineThickness;
 		this.fill = fill;

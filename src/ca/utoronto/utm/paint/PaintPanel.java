@@ -22,7 +22,7 @@ import java.util.Observer;
 class PaintPanel extends JPanel implements Observer, PointerListener {
 	private PaintModel model; // slight departure from MVC, because of the way painting works
 	private View view; // So we can talk to our parent or other components of the view
-	private String mode; // modifies how we interpret input (could be better?)
+	private int mode; // modifies how we interpret input (could be better?)
 
 	private Color colour;
 	private float lineThickness;
@@ -57,7 +57,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 		this.model = model;
 		//shapes = this.model.getShapes();
 		//tempStorage = new ArrayList<Shape>();
-		this.mode = "Ellipse";
+		this.mode = 4;
 		this.model.addObserver(this);
 		colour=Color.black;
 		this.view=view;
@@ -92,7 +92,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	/**
 	 *  Controller aspect of this
 	 */
-	public void setMode(String mode){
+	public void setMode(int mode){
 		this.mode=mode;
 	}
 

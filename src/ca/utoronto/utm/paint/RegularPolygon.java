@@ -13,8 +13,8 @@ public class RegularPolygon extends Shape {
     public float[] slopes;
 	private boolean center;
 
-    public RegularPolygon(int x, int y, int xEnd, int yEnd, Color colour, float lineThickness, boolean fill, Stroke stroke,int vertices,boolean center) {
-        super(x, y, xEnd, yEnd, colour, lineThickness, fill, stroke);
+    public RegularPolygon(int x, int y, Color colour, float lineThickness, boolean fill, Stroke stroke,int vertices,boolean center) {
+        super(x, y, colour, lineThickness, fill, stroke);
         //System.out.println(x+" "+y+" "+xEnd+" "+yEnd);
         this.verticiesX = new int[vertices];
         this.verticiesY = new int[vertices];

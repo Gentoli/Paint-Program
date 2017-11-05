@@ -10,8 +10,8 @@ import java.util.Arrays;
 public class ShapeBuilder {
 
 	private static Constructor<? extends Shape>[] classes;
-	private final static Class[] shapConst = {int.class, int.class, int.class, int.class, Color.class, float.class,boolean.class,Stroke.class};
-	private final static Class[] polyConst = {int.class, int.class, int.class, int.class, Color.class, float.class,boolean.class, Stroke.class,int.class ,boolean.class};
+	private final static Class[] shapConst = {int.class, int.class, Color.class, float.class,boolean.class,Stroke.class};
+	private final static Class[] polyConst = {int.class, int.class, Color.class, float.class,boolean.class, Stroke.class,int.class ,boolean.class};
 	private final static String[] subClasses = {"RegularPolygon","Ellipse","Polyline"};
 	private final static String pack = "ca.utoronto.utm.paint.";
 	// PolyLine, Squiggle,Polygon, Rectangle, Circle
@@ -44,7 +44,7 @@ public class ShapeBuilder {
     private Constructor <? extends Shape>  shape;
     private Color colour;
     private float lineThickness;
-    private int x, y, xEnd, yEnd;
+    private int x, y;
     private Stroke stroke;
     private boolean fill;
 
@@ -65,8 +65,6 @@ public class ShapeBuilder {
 	    	shape=classes[0];
 	    this.x=x;
 	    this.y=y;
-	    xEnd=x;
-	    yEnd=y;
 	    edges=type;
     }
 
@@ -78,16 +76,6 @@ public class ShapeBuilder {
     public ShapeBuilder setLineThickness(float lineThickness) {
         this.lineThickness = lineThickness;
         return this;
-    }
-
-    public ShapeBuilder setXEnd(int xEnd) {
-        this.xEnd = xEnd;
-        return this;
-    }
-
-    public ShapeBuilder setYEnd(int yEnd) {
-	    this.yEnd = yEnd;
-	    return this;
     }
     
     public ShapeBuilder setFill(boolean fill) {
@@ -103,9 +91,9 @@ public class ShapeBuilder {
     public Shape build(){
 	    try {
 		    if(edges<0)
-			    return shape.newInstance(x,y,xEnd,yEnd,colour,lineThickness,fill,stroke);
+			    return shape.newInstance(x,y,colour,lineThickness,fill,stroke);
 		    else
-			    return shape.newInstance(x,y,xEnd,yEnd,colour,lineThickness,fill,stroke,edges,center);
+			    return shape.newInstance(x,y,colour,lineThickness,fill,stroke,edges,center);
 	    } catch(InstantiationException | IllegalAccessException | InvocationTargetException e) {
 		    e.printStackTrace();
 	    }
