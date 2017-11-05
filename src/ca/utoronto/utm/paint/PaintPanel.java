@@ -33,10 +33,10 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	private Shape[] shapes = new Shape[WindowsPointer.POINTER_MAX];
 	//private Ellipse ellipse; // the ellipse we are building
 
-	public PaintPanel(PaintModel model, View view){
+	public PaintPanel(PaintModel model, View view) {
 
 		this.setBackground(Color.white);
-		this.setPreferredSize(new Dimension(500,300));
+		this.setPreferredSize(new Dimension(500, 300));
 		view.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyPressed(KeyEvent e) {
@@ -59,24 +59,24 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 		//tempStorage = new ArrayList<Shape>();
 		this.mode = 4;
 		this.model.addObserver(this);
-		colour=Color.black;
-		this.view=view;
+		colour = Color.black;
+		this.view = view;
 		addComponentListener(model);
-		WindowsPointer.getInstance().addListener(this,this);
+		WindowsPointer.getInstance().addListener(this, this);
 	}
 
 	/**
-	 *  View aspect of this
+	 * View aspect of this
 	 */
 	public void paintComponent(Graphics g) {
 		// Use g to draw on the JPanel, lookup java.awt.Graphics in
 		// the javadoc to see more of what this can do for you!!
-        super.paintComponent(g); //paint background
-		Graphics2D g2 = (Graphics2D)g;
-        this.model.paint(g2);
+		super.paintComponent(g); //paint background
+		Graphics2D g2 = (Graphics2D) g;
+		this.model.paint(g2);
 
-		for(Shape s:shapes) {
-			if(s!=null) {
+		for(Shape s : shapes) {
+			if(s != null) {
 				s.print(g2);
 			}
 		}
@@ -88,54 +88,76 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 		// Not exactly how MVC works, but similar.
 		this.repaint(); // Schedule a call to paintComponent
 	}
-	
+
 	/**
-	 *  Controller aspect of this
+	 * Controller aspect of this
 	 */
-	public void setMode(int mode){
-		this.mode=mode;
+	public void setMode(int mode) {
+		this.mode = mode;
+		if(activePointer != -1) {
+			model.addPrint(shapes[activePointer]);
+			shapes[activePointer] = null;
+			activePointer = -1;
+		}
 	}
 
 	public void setColor(Color newColor) {
 		this.colour = newColor;
 	}
 
-	public void setLineThickness(float lineThickness) { this.lineThickness = lineThickness; }
+	public void setLineThickness(float lineThickness) {
+		this.lineThickness = lineThickness;
+	}
 
-	public void setStroke(Stroke stroke) { this.stroke = stroke; }
+	public void setStroke(Stroke stroke) {
+		this.stroke = stroke;
+	}
 
 	public void setFill(boolean fill) {
 		this.fill = fill;
 	}
 
+	private int activePointer = -1;
+
 	@Override
 	public void pointerUpdated(PointerEvent e) {
-		switch(e.getID()){
+		int shapeId = activePointer==-1?e.getPointerId():activePointer;
+		switch(e.getID()) {
 			case MouseEvent.MOUSE_PRESSED:
-				shapes[e.getPointerId()] =	new ShapeBuilder(mode,e.getX(),e.getY()).setColour(colour)
-						.setCenter((e.getModifiers()& InputEvent.ALT_MASK)!=0).setLineThickness(lineThickness)
-						.setFill(fill).setStroke(stroke).setRight((e.getModifiers()& InputEvent.SHIFT_MASK)!=0).build();
-				//shapes[e.getPointerId()] = shape.build();
+				switch(mode) {
+					case ShapeBuilder.MODIFY:
+
+						break;
+					default:
+						shapes[activePointer] = new ShapeBuilder(mode, e.getX(), e.getY()).setColour(colour)
+								.setCenter((e.getModifiers() & InputEvent.ALT_MASK) != 0).setLineThickness(lineThickness * e.getPressure())
+								.setFill(fill).setStroke(stroke).setRight((e.getModifiers() & InputEvent.SHIFT_MASK) != 0).build();
+				}
 				break;
 			case MouseEvent.MOUSE_MOVED:
-				if(shapes[e.getPointerId()]!=null){
-					shapes[e.getPointerId()].setEnd(e.getX(),e.getY());
-					shapes[e.getPointerId()].setRight((e.getModifiers()& InputEvent.SHIFT_MASK)!=0);
-					shapes[e.getPointerId()].setCenter((e.getModifiers()& InputEvent.ALT_MASK)!=0);
+				switch(mode) {
+					case ShapeBuilder.POLYLINE:break;
+					case ShapeBuilder.SQUIGGLE:break;
+					case ShapeBuilder.MODIFY:break;
+					default:
+						if(shapes[activePointer] != null) {
+							shapes[activePointer].setEnd(e.getX(), e.getY());
+							shapes[activePointer].setRight((e.getModifiers() & InputEvent.SHIFT_MASK) != 0);
+							shapes[activePointer].setCenter((e.getModifiers() & InputEvent.ALT_MASK) != 0);
+							shapes[activePointer].setLineThickness(lineThickness * e.getPressure());
+						}
 				}
-				//System.out.println("create");
-				//shapes[e.getPointerId()].setEndPoint(new Point(e.getX(),e.getY()));
-				//System.out.println("em");
 				break;
 			case MouseEvent.MOUSE_RELEASED:
-				if(shapes[e.getPointerId()]!=null){
-					shapes[e.getPointerId()].setEnd(e.getX(),e.getY());
-					model.addPrint(shapes[e.getPointerId()]);
-					shapes[e.getPointerId()]=null;
+				switch(mode) {
+					case ShapeBuilder.MODIFY:break;
+					default:
+						if(shapes[activePointer] != null) {
+							shapes[activePointer].setEnd(e.getX(), e.getY());
+							model.addPrint(shapes[activePointer]);
+							shapes[activePointer] = null;
+						}
 				}
-				//shapes[e.getPointerId()].setEndPoint(new Point(e.getX(),e.getY()));
-				//model.addShape(shapes[e.getPointerId()]);
-				//shapes[e.getPointerId()]=null;
 				break;
 		}
 		repaint();

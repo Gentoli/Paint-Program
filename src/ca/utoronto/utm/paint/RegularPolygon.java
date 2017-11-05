@@ -1,6 +1,5 @@
 package ca.utoronto.utm.paint;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -101,13 +100,29 @@ public class RegularPolygon extends Shape {
     @Override
     public void print(Graphics2D g) {
     	prepare(g);
-        g.setStroke(new BasicStroke(lineThickness));
-        calculateVerticies();
         if(fill)
             g.fillPolygon(polygon);
         else
         g.drawPolygon(polygon);
         //g.drawRect(x,y,getWidth(),getHeight());
+    }
+
+    @Override
+    public void setEnd(int x, int y) {
+        super.setEnd(x, y);
+        calculateVerticies();
+    }
+
+    @Override
+    public void setXEnd(int xEnd) {
+        super.setXEnd(xEnd);
+        calculateVerticies();
+    }
+
+    @Override
+    public void setYEnd(int yEnd) {
+        super.setYEnd(yEnd);
+        calculateVerticies();
     }
 }
 

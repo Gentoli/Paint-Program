@@ -99,7 +99,7 @@ public abstract class Shape implements Drawable {
 
 	protected void prepare(Graphics2D g2) {
 		g2.setColor(colour);
-		g2.setStroke(stroke==null?new BasicStroke():stroke);
+		g2.setStroke(stroke==null?new BasicStroke(lineThickness):stroke);
 	}
 
 	public Point rotate(double x, double y, double angle){
