@@ -25,6 +25,7 @@ public class StylePanel extends JPanel implements Observer {
     private JButton undo, redo, clear;
     private JPanel buttonPanel;
     private PaintModel model;
+    private JPanel[] lineStylePanels;
 
 
     public StylePanel(View view, PaintModel model) {
@@ -92,7 +93,14 @@ public class StylePanel extends JPanel implements Observer {
 
         styleLabel = new JLabel("Line Style");
         styleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        styleComboBox = new JComboBox();
+        this.lineStylePanels = new JPanel[2];
+        for (int index = 0; index < lineStylePanels.length; index++) {
+            lineStylePanels[index] = new LineStylePanel(index);
+        }
+        styleComboBox = new JComboBox(lineStylePanels);
+        styleComboBox.addActionListener(e -> {
+            styleComboBox.getSelectedIndex();
+        });
 
         colourLabel = new JLabel("Choose Colour");
         colourLabel.setHorizontalAlignment(SwingConstants.CENTER);

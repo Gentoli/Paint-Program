@@ -6,8 +6,8 @@ import java.util.ArrayList;
 public class Polyline extends Shape{
     ArrayList<Point> p;
 
-    public Polyline(int x, int y, Color colour, float lineThickness, boolean fill, Stroke stroke) {
-        super(x, y, colour, lineThickness, fill, stroke);
+    public Polyline(int x, int y, Color colour, float lineThickness, boolean fill, int strokeStyle) {
+        super(x, y, colour, lineThickness, fill, strokeStyle);
 
         p = new ArrayList<Point>();
         p.add(new Point(x,y));

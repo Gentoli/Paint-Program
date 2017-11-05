@@ -1,5 +1,6 @@
 package ca.utoronto.utm.paint;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
@@ -13,8 +14,8 @@ public class RegularPolygon extends Shape {
     public float[] slopes;
     private Polygon polygon;
 
-    public RegularPolygon(int x, int y, Color colour, float lineThickness, boolean fill, Stroke stroke,int vertices,boolean center,boolean right) {
-        super(x, y, colour, lineThickness, fill, stroke);
+    public RegularPolygon(int x, int y, Color colour, float lineThickness, boolean fill, int strokeStyle,int vertices,boolean center,boolean right) {
+        super(x, y, colour, lineThickness, fill, strokeStyle);
         this.verticiesX = new int[vertices];
         this.verticiesY = new int[vertices];
         polygon=new Polygon();
@@ -99,6 +100,9 @@ public class RegularPolygon extends Shape {
     @Override
     public void print(Graphics2D g) {
     	prepare(g);
+    	Stroke b = stroke;
+        g.setStroke(b);
+        calculateVerticies();
         if(fill)
             g.fillPolygon(polygon);
         else

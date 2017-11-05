@@ -4,13 +4,13 @@ import javax.swing.JButton;
 import javax.swing.JPanel;
 import java.awt.Graphics;
 
-public class ShapeButton extends JButton {
+public class LineStylePanel extends JPanel {
     private Shape shape;
-    private int shapeNum;
+    private int styleNum;
     private JPanel canvas;
 
-    public ShapeButton(int shapeNum) {
-        this.shapeNum = shapeNum==0?5:shapeNum;
+    public LineStylePanel(int styleNum) {
+        this.styleNum = styleNum;
         this.canvas = new JPanel(){
             @Override
             public void paint(Graphics g) {
@@ -20,11 +20,11 @@ public class ShapeButton extends JButton {
                 g.dispose();
             }
         };
-        shape = new ShapeBuilder(this.shapeNum, 1, 1).setFill(false).setRight(true).build();
+        shape = new ShapeBuilder(-1, 1, 1).setFill(false).setRight(true).build();
         this.add(canvas);
     }
 
-    public int getShapeNum() {
-        return shapeNum;
+    public int getstyleNum() {
+        return styleNum;
     }
 }

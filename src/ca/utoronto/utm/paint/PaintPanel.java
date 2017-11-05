@@ -27,32 +27,33 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 
 	private Color colour;
 	private float lineThickness;
-	private Stroke stroke;
+	private int strokeStyle;
 	private boolean fill = false;
 
 	private Shape[] shapes = new Shape[WindowsPointer.POINTER_MAX];
 	//private Ellipse ellipse; // the ellipse we are building
 
-	public PaintPanel(PaintModel model, View view) {
-
+	public PaintPanel(PaintModel model, View view){
 		this.setBackground(Color.white);
-		this.setPreferredSize(new Dimension(500, 300));
-		view.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if(e.isControlDown()) {
-					switch(e.getKeyCode()) {
-						case 90:
-							model.undo();
-							break;
-						case 89:
-							model.redo();
-							break;
-					}
-				}
-			}
-		});
-		view.setFocusable(true);
+		this.setPreferredSize(new Dimension(516,300));
+//		addKeyListener(new KeyAdapter() {
+//			@Override
+//			public void keyPressed(KeyEvent e) {
+//				System.out.println(1);
+//				if(e.isControlDown()) {
+//					System.out.println(2);
+//					switch(e.getKeyCode()) {
+//						case 90:
+//							System.out.println(3);
+//							model.undo();
+//							break;
+//						case 89:
+//							model.redo();
+//							break;
+//					}
+//				}
+//			}
+//		});
 		//WindowsPointer.getInstance().addListener(this,this);
 		this.model = model;
 		//shapes = this.model.getShapes();
@@ -109,8 +110,8 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 		this.lineThickness = lineThickness;
 	}
 
-	public void setStroke(Stroke stroke) {
-		this.stroke = stroke;
+	public void setStroke(int strokeStyle) {
+		this.strokeStyle = strokeStyle;
 	}
 
 	public void setFill(boolean fill) {
@@ -130,7 +131,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 					default:
 						shapes[shapeId] = new ShapeBuilder(mode, e.getX(), e.getY()).setColour(colour)
 								.setCenter((e.getModifiers() & InputEvent.ALT_MASK) != 0).setLineThickness(lineThickness * e.getPressure())
-								.setFill(fill).setStroke(stroke).setRight((e.getModifiers() & InputEvent.SHIFT_MASK) != 0).build();
+								.setFill(fill).setStroke(strokeStyle).setRight((e.getModifiers() & InputEvent.SHIFT_MASK) != 0).build();
 				}
 				break;
 			case MouseEvent.MOUSE_MOVED:
@@ -161,4 +162,5 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 		}
 		repaint();
 	}
+
 }
