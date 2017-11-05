@@ -30,13 +30,13 @@ public class RegularPolygon extends Shape {
         int absMin = Math.min(Math.abs(getWidth()),Math.abs(getHeight()));
         double radiusSquared = center?Math.pow(getWidth(), 2) + Math.pow(getHeight(),2):2*Math.pow(absMin/2,2);
         double radius = center||polygon.npoints==4?Math.sqrt(radiusSquared):absMin/2;
-        double mouseAngle = center?Math.atan2(-getHeight(), getWidth())-Math.PI/2:(polygon.npoints==4?Math.PI/4:0);
+        double mouseAngle = center?Math.atan2(-getHeight(), getWidth()):(polygon.npoints==4?Math.PI/4:0);
         int offsetX = center?x:getXMid();
         int offsetY = center?y:getYMid();
         double rFactor=polygon.npoints==4?Math.sqrt(2):2;
         double xFactor=center||right?1:Math.abs(getWidth())/(rFactor*radius);
         double yFactor=center||right?1:Math.abs(getHeight())/(rFactor*radius);
-        int flip = getHeight()<0?-1:1;
+        int flip = !center&&getHeight()<0?-1:1;
         for (int i = 0; i < polygon.npoints; i++) {
             double x = radius * Math.sin(i * angles + mouseAngle) * xFactor;
             double y = flip*radius * Math.cos(i * angles + mouseAngle) * yFactor;
