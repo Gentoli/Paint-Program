@@ -26,7 +26,7 @@ public class ShapeBuilder {
 	}
 
 	static{
-		classes = new Constructor[Arrays.binarySearch(SHAPES, 0)];
+		classes = new Constructor[Arrays.binarySearch(SHAPES, 0)+1];
 		try {
 			classes[0]= Class.forName(pack+subClasses[0]).asSubclass(Shape.class).getConstructor(polyConst);
 		} catch(NoSuchMethodException | ClassNotFoundException e) {
@@ -58,7 +58,8 @@ public class ShapeBuilder {
 
 
     public ShapeBuilder(int type, int x, int y) {
-	    if(type<1)
+		System.out.println(type);
+		if(type<1)
 	    	shape=classes[Math.abs(type)];
 	    else
 	    	shape=classes[0];
@@ -101,7 +102,7 @@ public class ShapeBuilder {
 
     public Shape build(){
 	    try {
-		    if(edges==0)
+		    if(edges<0)
 			    return shape.newInstance(x,y,xEnd,yEnd,colour,lineThickness,fill,stroke);
 		    else
 			    return shape.newInstance(x,y,xEnd,yEnd,colour,lineThickness,fill,stroke,edges,center);

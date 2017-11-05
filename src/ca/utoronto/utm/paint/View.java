@@ -10,13 +10,15 @@ import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * This is the top level View+Controller, it contains other aspects of the View+Controller.
  * @author arnold
  *
  */
-public class View extends JFrame implements ActionListener {
+public class View extends JFrame implements Observer {
 	
 	private static final long serialVersionUID = 1L;
 	
@@ -27,6 +29,8 @@ public class View extends JFrame implements ActionListener {
 	private ShapeChooserPanel shapeChooserPanel;
 	//private ColourPanel colourPanel;
 	private StylePanel stylePanel;
+	private JMenuItem menuUndo;
+	private JMenuItem menuRedo;
 	//private JButton openColourPanel;
 	
 	public View(PaintModel model) {
@@ -53,7 +57,7 @@ public class View extends JFrame implements ActionListener {
 		c.add(this.paintPanel, BorderLayout.CENTER);
 		
 		//this.setLocationRelativeTo(null);
-
+		model.addObserver(this);
 		this.pack();
 
 			WindowsPointer.getInstance().setFrame(this);
@@ -78,21 +82,29 @@ public class View extends JFrame implements ActionListener {
 
 		// a group of JMenuItems
 		menuItem = new JMenuItem("New");
-		menuItem.addActionListener(this);
+		menuItem.addActionListener(e -> {
+			model.clear();
+		});
 		menu.add(menuItem);
 
 		menuItem = new JMenuItem("Open");
-		menuItem.addActionListener(this);
+		menuItem.addActionListener(e -> {
+
+		});
 		menu.add(menuItem);
 
 		menuItem = new JMenuItem("Save");
-		menuItem.addActionListener(this);
+		menuItem.addActionListener(e -> {
+
+		});
 		menu.add(menuItem);
 
 		menu.addSeparator();// -------------
 
 		menuItem = new JMenuItem("Exit");
-		menuItem.addActionListener(this);
+		menuItem.addActionListener(e -> {
+			this.dispose();
+		});
 		menu.add(menuItem);
 
 		menuBar.add(menu);
@@ -101,46 +113,49 @@ public class View extends JFrame implements ActionListener {
 
 		// a group of JMenuItems
 		menuItem = new JMenuItem("Cut");
-		menuItem.addActionListener(this);
+		menuItem.addActionListener(e -> {
+
+		});
 		menu.add(menuItem);
 
 		menuItem = new JMenuItem("Copy");
-		menuItem.addActionListener(this);
+		menuItem.addActionListener(e -> {
+
+		});
 		menu.add(menuItem);
 
 		menuItem = new JMenuItem("Paste");
-		menuItem.addActionListener(this);
+		menuItem.addActionListener(e -> {
+
+		});
 		menu.add(menuItem);
 
 		menu.addSeparator();// -------------
 
-		menuItem = new JMenuItem("Undo");
-		menuItem.addActionListener(this);
-		menu.add(menuItem);
+		menuUndo = new JMenuItem("Undo");
+		menuUndo.setEnabled(false);
+		menuUndo.addActionListener(e -> {
+			model.undo();
+			menuUndo.setEnabled(model.canUndo());
+		});
+		menu.add(menuUndo);
 
-		menuItem = new JMenuItem("Redo");
-		menuItem.addActionListener(this);
-		menu.add(menuItem);
+		menuRedo = new JMenuItem("Redo");
+		menuRedo.setEnabled(false);
+		menuRedo.addActionListener(e -> {
+			model.redo();
+			menuRedo.setEnabled(model.canRedo());
+		});
+		menu.add(menuRedo);
 
 		menuBar.add(menu);
 
 		return menuBar;
 	}
 
-	public void actionPerformed(ActionEvent e) {
-
+	@Override
+	public void update(Observable o, Object arg) {
+		menuUndo.setEnabled(model.canUndo());
+		menuRedo.setEnabled(model.canRedo());
 	}
-
-//	public void actionPerformed(ActionEvent e) {
-//		if (colourPanel.isVisible()) {
-//			colourPanel.setVisible(false);
-//			openColourPanel.setText("Extend Colour Panel");
-//		}
-//		else {
-//			colourPanel.setLocation(this.getLocationOnScreen().x, this.getLocationOnScreen().y + this.getHeight());
-//			colourPanel.setVisible(true);
-//			openColourPanel.setText("Close Colour Panel");
-//		}
-//		System.out.println(e.getActionCommand());
-//	}
 }

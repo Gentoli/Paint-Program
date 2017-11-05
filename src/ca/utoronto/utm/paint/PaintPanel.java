@@ -114,8 +114,8 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	public void pointerUpdated(PointerEvent e) {
 		switch(e.getID()){
 			case MouseEvent.MOUSE_PRESSED:
-				shapes[e.getPointerId()] =	new ShapeBuilder(100,e.getX(),e.getY()).setColour(colour)
-						.setLineThickness(lineThickness).setFill(fill).setStroke(stroke).build();
+				shapes[e.getPointerId()] =	new ShapeBuilder(10,e.getX(),e.getY()).setColour(colour)
+						.setLineThickness(lineThickness).setFill(fill).setCenter(true).setStroke(stroke).build();
 				//shapes[e.getPointerId()] = shape.build();
 				break;
 			case MouseEvent.MOUSE_MOVED:

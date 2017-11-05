@@ -28,7 +28,7 @@ public class RegularPolygon extends Shape {
 
         double angles = 2 * Math.PI / verticiesX.length;
         double radius = center?Math.sqrt(Math.pow(getWidth(), 2) + Math.pow(getHeight(), 2)):Math.min(getWidth(),getHeight())/2;
-        double mouseAngle = center?Math.atan2(-getHeight(), getWidth()):0;
+        double mouseAngle = center?Math.atan2(-getHeight(), getWidth())-Math.PI/2:Math.PI/4;
         int offsetX = center?0:getWidth()/2;
         int offsetY = center?0:getHeight()/2;
 

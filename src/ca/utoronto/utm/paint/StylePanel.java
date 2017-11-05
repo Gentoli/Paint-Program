@@ -111,11 +111,13 @@ public class StylePanel extends JPanel implements Observer {
         this.colourPanel = new ColourPanel(view, openColourPanel);
 
         undo = new JButton("Undo");
+        undo.setEnabled(false);
         undo.addActionListener(e -> {
             model.undo();
             undo.setEnabled(model.canUndo());
         });
         redo = new JButton("Redo");
+        redo.setEnabled(false);
         redo.addActionListener(e -> {
             model.redo();
             redo.setEnabled(model.canRedo());
