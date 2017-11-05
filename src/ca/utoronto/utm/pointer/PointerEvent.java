@@ -7,7 +7,8 @@ import java.awt.event.MouseEvent;
 
 public class PointerEvent {
 
-    private int pointerId,pressure;
+    private int pointerId;
+	private float pressure;
     private final MouseEvent event;
 
 
@@ -15,9 +16,10 @@ public class PointerEvent {
      * Constructs a prototypical Event.
      *
      * @param source The object on which the Event initially occurred.
+     * @param pressure
      * @throws IllegalArgumentException if source is null.
      */
-    public PointerEvent(Component source, int eventId, long when, int modifiers,int x,int y,int xAbs, int yAbs, int clickCount,int button, int pointerId, int pressure) {
+    public PointerEvent(Component source, int eventId, long when, int modifiers, int x, int y, int xAbs, int yAbs, int clickCount, int button, int pointerId, float pressure) {
         event = new MouseEvent(source,eventId,when,modifiers,x,y,xAbs,yAbs,clickCount,false,button);
         this.pointerId = pointerId;
         this.pressure = pressure;
@@ -33,7 +35,7 @@ public class PointerEvent {
         return pointerId;
     }
 
-    public int getPressure() {
+    public float getPressure() {
         return pressure;
     }
 

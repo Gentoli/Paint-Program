@@ -91,7 +91,7 @@ public class WindowsPointer extends MouseAdapter {
 			System.out.println("update");
 			debug=false;
 		}
-
+		float fPressure = pressure==0?1f:((float)pressure/1024);
 		WindowsPointer p = getInstance();
 		int index = p.getPointId(pointerId);
 //		System.out.print("[");
@@ -101,7 +101,7 @@ public class WindowsPointer extends MouseAdapter {
 //		}
 //		System.out.println("]");
 		for(EventFactory e:p.listeners.values()){
-			e.firePointerEvent(eventId,when,modifiers,xAbs,yAbs,clickCount,index,pressure);
+			e.firePointerEvent(eventId,when,modifiers,xAbs,yAbs,clickCount,index,fPressure);
 		}
 
 		if(eventId == MouseEvent.MOUSE_EXITED)
