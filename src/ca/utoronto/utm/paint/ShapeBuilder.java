@@ -39,7 +39,7 @@ public class ShapeBuilder {
     public ShapeBuilder(String type, int x, int y) {
 	    //shape = classMap.get(type);
 	    try {
-		    shape=Class.forName(pack+subClasses[0]).asSubclass(Shape.class);
+		    shape=Class.forName(pack+subClasses[1]).asSubclass(Shape.class);
 	    } catch(ClassNotFoundException e) {
 		    e.printStackTrace();
 	    }

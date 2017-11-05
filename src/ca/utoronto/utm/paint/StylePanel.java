@@ -2,10 +2,9 @@ package ca.utoronto.utm.paint;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
+import java.awt.event.*;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
 
 public class StylePanel extends JPanel implements ActionListener {
 
@@ -43,21 +42,40 @@ public class StylePanel extends JPanel implements ActionListener {
                     value = 1;
                 }
                 view.getPaintPanel().setLineThickness(value);
-                value = Math.round(value*204.8);
+                value = Math.round(value*51.2);
                 lineThicknessSlider.setValue((int)value);
             }
             catch(Exception exception) {
                 ((JTextField)e.getSource()).setText("1");
                 view.getPaintPanel().setLineThickness(1);
+                lineThicknessSlider.setValue(1);
+            }
+        });
+        lineThicknessText.addKeyListener(new KeyAdapter() {
+            public void keyTyped(KeyEvent e) {
+                if (!Character.isDigit((e.getKeyChar()))) {
+                    if (e.getKeyChar() != ('.'))
+                        e.consume();
+                }
+                String s = lineThicknessText.getText();
+                if (s.length() == 3) {
+                    System.out.println(s.substring(2));
+                    System.out.println(s.substring(1));
+                }
+                if (s.length() >= 3 && (!s.substring(s.length()-1).equals(".") || s.substring(s.length()-2).equals(".."))) {
+                    e.consume();
+                }
             }
         });
         lineThicknessPanel.add(lineThicknessLabel);
         lineThicknessPanel.add(lineThicknessText);
-        lineThicknessSlider = new JSlider(1, 1024);
+        lineThicknessSlider = new JSlider(1, 1024, 1);
         lineThicknessSlider.addChangeListener(e -> {
-            float value = (((JSlider)e.getSource()).getValue()/1024)*20;
+            float value = (((float)((JSlider)e.getSource()).getValue())/1024)*20;
             view.getPaintPanel().setLineThickness(value);
-            lineThicknessText.setText(String.valueOf(value));
+            DecimalFormat df = new DecimalFormat("#.#");
+            df.setRoundingMode(RoundingMode.CEILING);
+            lineThicknessText.setText(df.format(value));
         });
 
         fillLabel = new JLabel("Fill Shapes");

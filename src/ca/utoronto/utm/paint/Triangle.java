@@ -1,13 +1,12 @@
 package ca.utoronto.utm.paint;
 
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Point;
+import java.awt.*;
 
 public class Triangle extends Shape{
     Point[] verticies;
-    public Triangle(Point point, Point endPoint){
-        //super(point,endPoint);
+
+    public Triangle(int x, int y, int xEnd, int yEnd, Color colour, float lineThickness, boolean fill, Stroke stroke) {
+        super(x, y, xEnd, yEnd, colour, lineThickness, fill, stroke);
         verticies = new Point[3];
         calculateVerticies();
     }
