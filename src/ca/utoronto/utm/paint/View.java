@@ -8,8 +8,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -41,7 +41,7 @@ public class View extends JFrame implements Observer {
 
 
 		Container c=this.getContentPane();
-		this.shapeChooserPanel = new ShapeChooserPanel(this);
+		this.shapeChooserPanel = new ShapeChooserPanel(this, model);
 		c.add(this.shapeChooserPanel,BorderLayout.WEST);
 
 //		openColourPanel = new JButton("Extend Colour Panel");
@@ -60,9 +60,25 @@ public class View extends JFrame implements Observer {
 		model.addObserver(this);
 		this.pack();
 
-			WindowsPointer.getInstance().setFrame(this);
+		WindowsPointer.getInstance().setFrame(this);
 		// this.setSize(200,200);
 		this.setVisible(true);
+		this.setFocusable(true);
+		this.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.isControlDown()) {
+					switch(e.getKeyCode()) {
+						case 90:
+							model.undo();
+							break;
+						case 89:
+							model.redo();
+							break;
+					}
+				}
+			}
+		});
 	}
 
 	public PaintPanel getPaintPanel(){

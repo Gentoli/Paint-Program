@@ -10,10 +10,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Stroke;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -34,25 +31,26 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	//private Ellipse ellipse; // the ellipse we are building
 
 	public PaintPanel(PaintModel model, View view){
-
 		this.setBackground(Color.white);
 		this.setPreferredSize(new Dimension(500,300));
-		view.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if(e.isControlDown()) {
-					switch(e.getKeyCode()) {
-						case 90:
-							model.undo();
-							break;
-						case 89:
-							model.redo();
-							break;
-					}
-				}
-			}
-		});
-		view.setFocusable(true);
+//		addKeyListener(new KeyAdapter() {
+//			@Override
+//			public void keyPressed(KeyEvent e) {
+//				System.out.println(1);
+//				if(e.isControlDown()) {
+//					System.out.println(2);
+//					switch(e.getKeyCode()) {
+//						case 90:
+//							System.out.println(3);
+//							model.undo();
+//							break;
+//						case 89:
+//							model.redo();
+//							break;
+//					}
+//				}
+//			}
+//		});
 		//WindowsPointer.getInstance().addListener(this,this);
 		this.model = model;
 		//shapes = this.model.getShapes();
@@ -140,4 +138,5 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 		}
 		repaint();
 	}
+
 }

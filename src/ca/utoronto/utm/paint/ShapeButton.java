@@ -14,13 +14,13 @@ public class ShapeButton extends JButton {
         this.canvas = new JPanel(){
             @Override
             public void paint(Graphics g) {
-                shape.setXEnd(canvas.getWidth());
-                shape.setYEnd(canvas.getHeight());
+                shape.setXEnd(canvas.getWidth()-1);
+                shape.setYEnd(canvas.getHeight()-1);
                 shape.print(g);
                 g.dispose();
             }
         };
-        shape = new ShapeBuilder(this.shapeNum, 0, 0).setFill(false).setRight(true).build();
+        shape = new ShapeBuilder(this.shapeNum, 1, 1).setFill(false).setRight(true).build();
         this.add(canvas);
     }
 

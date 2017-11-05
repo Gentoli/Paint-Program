@@ -8,10 +8,7 @@ import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 
 // https://docs.oracle.com/javase/8/docs/api/java/awt/Graphics2D.html
 // https://docs.oracle.com/javase/tutorial/2d/
@@ -20,21 +17,52 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 	private View view; // So we can talk to our parent or other components of the view
 	private JButton lastPressed;
 	private Sides sides;
+	private JButton[] shapeButtons;
 
-	public ShapeChooserPanel(View view) {
+	public ShapeChooserPanel(View view, PaintModel model) {
 		this.view=view;
-		String[] buttonLabels = { "Selection", "Polyline", "Squiggle", "Polygon", "Rectangle", "Circle"};
+		String[] buttonLabels = { "Selection", "Polyline", "Squiggle", "Polygon", "Triangle", "Rectangle", "Circle"};
+		shapeButtons = new JButton[7];
 		this.setLayout(new GridLayout(buttonLabels.length + 1, 1));
 
 		for (int index = 0; index < ShapeBuilder.getShapeCount(); index++) {
-			JButton button = new ShapeButton(ShapeBuilder.getShape(index));
-			this.add(button);
-			button.addActionListener(this);
+			shapeButtons[index+1] = new ShapeButton(ShapeBuilder.getShape(index));
+			this.add(shapeButtons[index+1]);
+			shapeButtons[index+1].addActionListener(this);
 		}
+		shapeButtons[5].setEnabled(false);
+		lastPressed = shapeButtons[5];
 
 		sides = new Sides(view);
-
+		sides.setFocusable(true);
+		sides.addKeyListener(new KeyAdapter() {
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if(e.isControlDown()) {
+					switch(e.getKeyCode()) {
+						case 90:
+							model.undo();
+							break;
+						case 89:
+							model.redo();
+							break;
+					}
+				}
+			}
+		});
 		this.add(sides);
+	}
+
+	public JButton[] getShapeButtons() {
+		return this.shapeButtons;
+	}
+
+	public JButton getLastPressed() {
+		return this.lastPressed;
+	}
+
+	public void setLastPressed(JButton lastPressed) {
+		this.lastPressed = lastPressed;
 	}
 
 	/**
@@ -43,22 +71,20 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		((JButton) e.getSource()).setEnabled(false);
-		if (lastPressed != null)
-			lastPressed.setEnabled(true);
+		lastPressed.setEnabled(true);
 		lastPressed = (JButton) e.getSource();
 		sides.setValue(((ShapeButton)e.getSource()).getShapeNum());
 	}
-
-
 }
+
 
 class Sides extends JTextField implements ActionListener,KeyListener {
 
 	private static final String TEXT_NOT_TO_TOUCH = "Sides: ";
 	private View view;
-	private int value = 5;
+	private int value = 4;
 	public Sides(View view){
-		super(TEXT_NOT_TO_TOUCH + "5",8);
+		super(TEXT_NOT_TO_TOUCH + "4",8);
 		this.view = view;
 		((AbstractDocument) getDocument()).setDocumentFilter(new DocumentFilter() {
 			@Override
@@ -106,45 +132,50 @@ class Sides extends JTextField implements ActionListener,KeyListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		System.out.println("act");
 		try {
 			int value = Integer.valueOf(getText().substring(7));
 			if (value > 100) {
 				value = 100;
 			}
-			if (value < 1) {
+			if (value < 3) {
 				value = 3;
 			}
-			if(e!=null) {
+			if (e != null) {
 				setValue(value);
-			}else {
+			} else {
 				view.getPaintPanel().setMode(value);
-				this.value=value;
+				this.value = value;
 			}
-			catch(Exception exception) {
-				//exception.printStackTrace();
-				if(e!=null)
-					setValue(5);
+		} catch (Exception exception) {
+			//exception.printStackTrace();
+			if (e != null) {
+				setValue(5);
+				value = 5;
 			}
-		});
-		addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				if (!Character.isDigit((e.getKeyChar()))) {
-					e.consume();
-				}
-				String s = getText();
-				if (s.length() >= 10) {
-					e.consume();
-				}
-			}
-		});
 		}
+		int index = 0;
+		if (value == 3)
+			index = 4;
+		else if (value == 4)
+			index = 5;
+		else if (value >= 50)
+			index = 6;
+		else
+			index = 3;
+		System.out.println(index);
+		view.getShapeChooserPanel().getLastPressed().setEnabled(true);
+		view.getShapeChooserPanel().getShapeButtons()[index].setEnabled(false);
+		view.getShapeChooserPanel().setLastPressed(view.getShapeChooserPanel().getShapeButtons()[index]);
+
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
+		if (!Character.isDigit((e.getKeyChar()))) {
+			e.consume();
+		}
 		String s = getText();
-		if (s.length() >= 10) {
+		if (s.length() >= 9) {
 			e.consume();
 		}
 	}
