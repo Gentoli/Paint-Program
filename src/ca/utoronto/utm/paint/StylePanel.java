@@ -32,10 +32,19 @@ public class StylePanel extends JPanel implements ActionListener {
         lineThicknessPanel = new JPanel();
         lineThicknessLabel = new JLabel("Line Thickness");
         //lineThicknessLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        lineThicknessText = new JTextField("1", 2);
+        lineThicknessText = new JTextField("1", 3);
         lineThicknessText.addActionListener(e -> {
             try {
-                view.getPaintPanel().setLineThickness(Float.valueOf(((JTextField)e.getSource()).getText()));
+                float value = Float.valueOf(((JTextField)e.getSource()).getText());
+                if (value > 20) {
+                    value = 20;
+                }
+                if (value < 1) {
+                    value = 1;
+                }
+                view.getPaintPanel().setLineThickness(value);
+                value = Math.round(value*204.8);
+                lineThicknessSlider.setValue((int)value);
             }
             catch(Exception exception) {
                 ((JTextField)e.getSource()).setText("1");
@@ -45,6 +54,11 @@ public class StylePanel extends JPanel implements ActionListener {
         lineThicknessPanel.add(lineThicknessLabel);
         lineThicknessPanel.add(lineThicknessText);
         lineThicknessSlider = new JSlider(1, 1024);
+        lineThicknessSlider.addChangeListener(e -> {
+            float value = (((JSlider)e.getSource()).getValue()/1024)*20;
+            view.getPaintPanel().setLineThickness(value);
+            lineThicknessText.setText(String.valueOf(value));
+        });
 
         fillLabel = new JLabel("Fill Shapes");
         fillLabel.setHorizontalAlignment(SwingConstants.CENTER);
