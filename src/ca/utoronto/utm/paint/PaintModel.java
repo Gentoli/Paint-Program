@@ -40,18 +40,24 @@ public class PaintModel extends Observable implements ComponentListener {
 		synchronized(drawables) {
 			drawables.add(new ClearMask(image.getWidth(), image.getHeight()));
 		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	public void undo(){
 		synchronized(drawables) {
 			undo.add(drawables.removeLast());
 		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	public void redo(){
 		synchronized(drawables) {
 			drawables.add(undo.removeLast());
 		}
+		this.setChanged();
+		this.notifyObservers();
 	}
 
 	public boolean canUndo(){
