@@ -98,6 +98,9 @@ public class StylePanel extends JPanel implements Observer {
             lineStylePanels[index] = new LineStylePanel(index);
         }
         styleComboBox = new JComboBox(lineStylePanels);
+        styleComboBox.addActionListener(e -> {
+            styleComboBox.getSelectedIndex();
+        });
 
         colourLabel = new JLabel("Choose Colour");
         colourLabel.setHorizontalAlignment(SwingConstants.CENTER);
