@@ -1,8 +1,9 @@
 package ca.utoronto.utm.paint;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Stroke;
 
 public abstract class Shape {
@@ -10,8 +11,19 @@ public abstract class Shape {
     protected int xEnd,yEnd;
     protected Color colour;
     protected float lineThickness;
+	protected boolean fill;
     protected Stroke stroke;
-    protected boolean fill;
+
+	public Shape(int x, int y, int xEnd, int yEnd, Color colour, float lineThickness, boolean fill, Stroke stroke) {
+		this.x = x;
+		this.y = y;
+		this.xEnd = xEnd;
+		this.yEnd = yEnd;
+		this.colour = colour;
+		this.lineThickness = lineThickness;
+		this.fill = fill;
+		this.stroke = stroke;
+	}
 
 	public int getX() {
 		return x;
@@ -29,20 +41,25 @@ public abstract class Shape {
 		this.y = y;
 	}
 
-	public int getxEnd() {
+	public int getXEnd() {
 		return xEnd;
 	}
 
-	public void setxEnd(int xEnd) {
+	public void setXEnd(int xEnd) {
 		this.xEnd = xEnd;
 	}
 
-	public int getyEnd() {
+	public int getYEnd() {
 		return yEnd;
 	}
 
-	public void setyEnd(int yEnd) {
+	public void setYEnd(int yEnd) {
 		this.yEnd = yEnd;
+	}
+
+	public void setEnd(int x,int y){
+		xEnd=x;
+		yEnd=y;
 	}
 
 	public Color getColour() { return colour; }
@@ -71,7 +88,13 @@ public abstract class Shape {
 
 	protected void prepare(Graphics2D g2) {
 		g2.setColor(colour);
-		g2.setStroke(stroke);
+		g2.setStroke(stroke==null?new BasicStroke():stroke);
+	}
+
+	public Point rotate(double x, double y, double angle){
+		double retX = x*Math.cos(angle) - y*Math.sin(angle);
+		double retY = x*Math.sin(angle) + y*Math.cos(angle);
+		return new Point((int)retX,(int)retY);
 	}
 
     public abstract void print(Graphics2D g2);

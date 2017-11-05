@@ -21,8 +21,8 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	private Color colour;
 	private float lineThickness;
 	private Stroke stroke;
-	private boolean fill;
-	private int edges;
+	private boolean fill = false;
+	private int edges = 10;
 
 	private Shape[] shapes = new Shape[WindowsPointer.POINTER_MAX];
 	//private Ellipse ellipse; // the ellipse we are building
@@ -75,7 +75,6 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 		this.mode=mode;
 	}
 
-
 	public void setColor(Color newColor) {
 		this.colour = newColor;
 	}
@@ -94,16 +93,24 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	public void pointerUpdated(PointerEvent e) {
 		switch(e.getID()){
 			case MouseEvent.MOUSE_PRESSED:
-				shapes[e.getPointerId()]=new Ellipse(new Point(e.getX(),e.getY()),colour);
-				ShapeBuilder shape = new ShapeBuilder().setMode(mode).setColour(colour).setLineThickness(lineThickness).setFill(fill).setStroke(stroke);
+				shapes[e.getPointerId()] =	new ShapeBuilder(mode,e.getX(),e.getY()).setColour(colour)
+						.setLineThickness(lineThickness).setFill(fill).setStroke(stroke).setEdges(edges).build();
 				//shapes[e.getPointerId()] = shape.build();
 				break;
 			case MouseEvent.MOUSE_MOVED:
+				if(shapes[e.getPointerId()]!=null){
+					shapes[e.getPointerId()].setEnd(e.getX(),e.getY());
+				}
 				//System.out.println("create");
 				//shapes[e.getPointerId()].setEndPoint(new Point(e.getX(),e.getY()));
 				//System.out.println("em");
 				break;
 			case MouseEvent.MOUSE_RELEASED:
+				if(shapes[e.getPointerId()]!=null){
+					shapes[e.getPointerId()].setEnd(e.getX(),e.getY());
+					model.addShape(shapes[e.getPointerId()]);
+					shapes[e.getPointerId()]=null;
+				}
 				//shapes[e.getPointerId()].setEndPoint(new Point(e.getX(),e.getY()));
 				//model.addShape(shapes[e.getPointerId()]);
 				//shapes[e.getPointerId()]=null;

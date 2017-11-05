@@ -31,6 +31,8 @@ public class PaintModel extends Observable {
 	public void paint(Graphics2D g2) {
 			// setBackground (Color.blue); 
 			// Origin is at the top left of the window 50 over, 75 down
+			//RegularPolygon p = new RegularPolygon(new Point(200,200), new Point(250,200),3,3,true);
+			//p.print(g2);
 			g2.setColor(Color.black);
 			synchronized(this) {
 				for(Shape s : shapes) {
