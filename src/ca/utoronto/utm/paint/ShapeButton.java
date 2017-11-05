@@ -10,7 +10,7 @@ public class ShapeButton extends JButton {
     private JPanel canvas;
 
     public ShapeButton(int shapeNum) {
-        this.shapeNum = shapeNum;
+        this.shapeNum = shapeNum==0?5:shapeNum;
         this.canvas = new JPanel(){
             @Override
             public void paint(Graphics g) {
@@ -20,9 +20,11 @@ public class ShapeButton extends JButton {
                 g.dispose();
             }
         };
-        shape = new ShapeBuilder(shapeNum==0?5:shapeNum, 0, 0).setFill(true).build();
+        shape = new ShapeBuilder(this.shapeNum, 0, 0).setFill(true).build();
         this.add(canvas);
     }
 
-
+    public int getShapeNum() {
+        return shapeNum;
+    }
 }
