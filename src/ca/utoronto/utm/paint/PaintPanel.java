@@ -126,10 +126,9 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 			case MouseEvent.MOUSE_PRESSED:
 				switch(mode) {
 					case ShapeBuilder.MODIFY:
-
 						break;
 					default:
-						shapes[activePointer] = new ShapeBuilder(mode, e.getX(), e.getY()).setColour(colour)
+						shapes[shapeId] = new ShapeBuilder(mode, e.getX(), e.getY()).setColour(colour)
 								.setCenter((e.getModifiers() & InputEvent.ALT_MASK) != 0).setLineThickness(lineThickness * e.getPressure())
 								.setFill(fill).setStroke(stroke).setRight((e.getModifiers() & InputEvent.SHIFT_MASK) != 0).build();
 				}
@@ -140,11 +139,11 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 					case ShapeBuilder.SQUIGGLE:break;
 					case ShapeBuilder.MODIFY:break;
 					default:
-						if(shapes[activePointer] != null) {
-							shapes[activePointer].setEnd(e.getX(), e.getY());
-							shapes[activePointer].setRight((e.getModifiers() & InputEvent.SHIFT_MASK) != 0);
-							shapes[activePointer].setCenter((e.getModifiers() & InputEvent.ALT_MASK) != 0);
-							shapes[activePointer].setLineThickness(lineThickness * e.getPressure());
+						if(shapes[shapeId] != null) {
+							shapes[shapeId].setEnd(e.getX(), e.getY());
+							shapes[shapeId].setRight((e.getModifiers() & InputEvent.SHIFT_MASK) != 0);
+							shapes[shapeId].setCenter((e.getModifiers() & InputEvent.ALT_MASK) != 0);
+							shapes[shapeId].setLineThickness(lineThickness * e.getPressure());
 						}
 				}
 				break;
@@ -152,10 +151,10 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 				switch(mode) {
 					case ShapeBuilder.MODIFY:break;
 					default:
-						if(shapes[activePointer] != null) {
-							shapes[activePointer].setEnd(e.getX(), e.getY());
-							model.addPrint(shapes[activePointer]);
-							shapes[activePointer] = null;
+						if(shapes[shapeId] != null) {
+							shapes[shapeId].setEnd(e.getX(), e.getY());
+							model.addPrint(shapes[shapeId]);
+							shapes[shapeId] = null;
 						}
 				}
 				break;
