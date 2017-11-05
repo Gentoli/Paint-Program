@@ -102,13 +102,19 @@ public class WindowsPointer extends MouseAdapter {
 	}
 
 	public void addListener(PointerListener pointerListener,Component component){
-		EventFactory f = listeners.get(component);
-		if(f==null) {
-			f = new EventFactory(component);
-			f.add(pointerListener);
-			listeners.put(component, f);
-		}else
-			f.add(pointerListener);
+		if(IS_TOUCH_SUPPORTED) {
+			EventFactory f = listeners.get(component);
+			if(f==null) {
+				f = new EventFactory(component);
+				f.add(pointerListener);
+				listeners.put(component, f);
+			}else
+				f.add(pointerListener);
+		}else{
+			MouseEventProxy mp = new MouseEventProxy(pointerListener);
+			component.addMouseListener(mp);
+			component.addMouseMotionListener(mp);
+		}
 	}
 
 	private int getPointId(int id){
@@ -149,6 +155,7 @@ public class WindowsPointer extends MouseAdapter {
 		} catch(IllegalAccessException|InvocationTargetException e) {
 			e.printStackTrace();
 		}
-		throw new RuntimeException("No HWND found for "+ c);
+		new RuntimeException("No HWND found for "+ c).printStackTrace();
+		return -1;
 	}
 }
