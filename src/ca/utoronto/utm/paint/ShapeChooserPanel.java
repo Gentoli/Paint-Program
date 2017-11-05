@@ -102,7 +102,7 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 		if (lastPressed != null)
 			lastPressed.setEnabled(true);
 		lastPressed = (JButton) e.getSource();
-		sides.setText(String.valueOf(((ShapeButton)e.getSource()).getShapeNum()));
+		sides.setText(String.valueOf(Math.max(((ShapeButton)e.getSource()).getShapeNum(),0)));
 	}
 
 	
