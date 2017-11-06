@@ -141,7 +141,7 @@ public class StylePanel extends JPanel implements Observer {
         });
         clear = new JButton("Clear");
         clear.addActionListener(e -> {
-            //view.getPaintPanel().clear(); TODO
+            view.getPaintPanel().clear();
             view.requestFocus();
         });
 

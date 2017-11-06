@@ -178,12 +178,30 @@ I WANT   : To be able to select the current drawing style (filled or outline), t
            	two outlined rectangles and a squiggle
 SO THAT  : I can draw shapes that are filled in without filling them in manually
 --------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 6 : assadkur
+NAME     : Circle drawing is broken
+OWNER    : Kurtis
+PRIORITY : 1
+ESTIMATE : 1 hour
+ISSUE    : The first click should specify the center of the circle, with
+           a drag for the radius. This is not the case in the current
+           implementation.
+--------------------------------------------------------------------------
 
 # Sprint 2 November 3rd, 2017
 # Sprint 2 Backlog UserStories go below
 
 --------------------------------------------------------------------------
-TYPE     : USER STORY 7
+TYPE     : BUG 1 : assadkur
+NAME     : Icons instead of text for drawing mode selection
+OWNER    : Kurtis
+PRIORITY : 4
+ESTIMATE : 1hour
+ISSUE    : Would be nice to have icons instead of "Circle", "Rectangle", ...
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 7 : kairoshs
 NAME     : Line thickness selector
 OWNER    : Sanjar
 PRIORITY : 2
@@ -208,26 +226,99 @@ I WANT   : To be able to select the current line thickness, to be applied
 SO THAT  : I can draw in different levels of thickness
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : USER STORY 6
-NAME     : Fill style selector
+TYPE     : USER STORY 8 : kairoshs
+NAME     : Line style selector
 OWNER    : Sanjar
-PRIORITY : 2
+PRIORITY : 4
 ESTIMATE : 2 hours
 AS A     : user
-I WANT   : To be able to select the current drawing style (filled or outline), to be applied
+I WANT   : To be able to select the current line style, to be applied
            to subsequent shapes. Example:
-           		selects fill style solid
+           		selects line style 1
            		mode circle
            		draw a circle
            		draw a circle
            		mode rectangle
            		draw a rectangle
-           		select fill style outline
+           		select line style 9
            		draw a rectangle
            		draw a rectangle
            		select mode squiggle
            		draw a squiggle
-           	results in two solid circles and a solid rectangle as well as
-           	two outlined rectangles and a squiggle
-SO THAT  : I can draw shapes that are filled in without filling them in manually
+           	results in two normally outlined circles and a brush-stroke outlined
+           	rectangle as well as two brush-stroke outlined rectangles and a brush-stroke squiggle
+SO THAT  : I can change the style of lines I want to draw.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 9 : legaul30
+NAME     : File tab
+OWNER    : Jarod
+PRIORITY : 4
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To have the file tab functionality including:
+				New image
+				Exit from file tab
+SO THAT  : I can easily open a new image and exit
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 10 : dongshu2
+NAME     : Edit tab
+OWNER    : Shuyi
+PRIORITY : 4
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To have the edit tab functionality including:
+				Undo move
+				Redo move
+SO THAT  : I can easily fix mistaken clicks
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 11 : legaul30
+NAME     : Hotkey functionality
+OWNER    : Jarod
+PRIORITY : 4
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To have the hotkey functionality including:
+				Holding shift for secondary functions such as:
+					Oval tool draws ovals and hold shift while using it to constrain to circles
+					Rectangle tool draws rectangle and hold shift while using it to constrain to squares
+					Triangle tool draws triangles and hold shift for equilateral triangles
+				Holding alt for secondary functions such as:
+				    Draw around center for polygons
+				Ctrl-Z to undo
+				Ctrl-Y to redo
+SO THAT  : I have a simpler interface with less icons and more control
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 12 : dongshu2
+NAME     : Selection
+OWNER    : Shuyi
+PRIORITY : 4
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To be able to select a portion of the screen and
+		   		Move it
+SO THAT  : I can easily edit drawings
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 13 : legaul30
+NAME     : Style Panel GUI
+OWNER    : Jarod
+PRIORITY : 2
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To have a GUI containing the style options
+SO THAT  : I can have all the style options together and easily understandable
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 14 : legaul30
+NAME     : Help dialog
+OWNER    : Jarod
+PRIORITY : 4
+ESTIMATE : 1 hours
+AS A     : user
+I WANT   : To have a help dialog box
+SO THAT  : I can know less obvious features of the app
 --------------------------------------------------------------------------

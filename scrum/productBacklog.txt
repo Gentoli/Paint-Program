@@ -4,8 +4,9 @@
 # 1 Color chooser UI (which could be a USER STORY)
 # 2 Implementation of selected color into the drawing stream.
 
+# COMPLETED USER STORIES/BUGS BELOW ###########################################
 --------------------------------------------------------------------------
-TYPE     : USER STORY 1
+TYPE     : USER STORY 1 : assadkur
 NAME     : Draw Circle
 OWNER    : Kurtis
 PRIORITY : 1
@@ -16,7 +17,7 @@ I WANT   : To click the center of the circle, drag, and release to specify
 SO THAT  : I can add circles to my canvas
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : USER STORY 2
+TYPE     : USER STORY 2 : dongshu2
 NAME     : Draw Circle Feedback
 OWNER    : Shuyi
 PRIORITY : 1
@@ -31,7 +32,7 @@ SO THAT  : I can see the circle I am about to build on release of the mouse
            button.
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : USER STORY 3
+TYPE     : USER STORY 3 : assadkur
 NAME     : Draw Rectangle
 OWNER    : Kurtis
 PRIORITY : 1
@@ -42,7 +43,7 @@ I WANT   : To click on one corner of a rectangle, drag, and release to
 SO THAT  : I can add rectangles to my canvas
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : USER STORY 4
+TYPE     : USER STORY 4 : dongshu2
 NAME     : Draw Rectangle Feedback
 OWNER    : Shuyi
 PRIORITY : 1
@@ -52,7 +53,7 @@ I WANT   : Similarly to Draw Circle Feedback, display the rectangle in mid const
 SO THAT  : I can see the rectangle I am about to build on release of the mouse button.
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : USER STORY 5
+TYPE     : USER STORY 5 : legaul30
 NAME     : Color selector
 OWNER    : Jarod
 PRIORITY : 2
@@ -76,7 +77,7 @@ I WANT   : To be able to select the current drawing color, to be applied
 SO THAT  : I can change the color of my drawings
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : USER STORY 6
+TYPE     : USER STORY 6 : kairoshs
 NAME     : Fill style selector
 OWNER    : Sanjar
 PRIORITY : 2
@@ -100,7 +101,7 @@ I WANT   : To be able to select the current drawing style (filled or outline), t
 SO THAT  : I can draw shapes that are filled in without filling them in manually
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : USER STORY 7
+TYPE     : USER STORY 7 : kairoshs
 NAME     : Line thickness selector
 OWNER    : Sanjar
 PRIORITY : 2
@@ -125,9 +126,9 @@ I WANT   : To be able to select the current line thickness, to be applied
 SO THAT  : I can draw in different levels of thickness
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : USER STORY 8
+TYPE     : USER STORY 8 : kairoshs
 NAME     : Line style selector
-OWNER    : 
+OWNER    : Sanjar
 PRIORITY : 4
 ESTIMATE : 2 hours
 AS A     : user
@@ -149,73 +150,98 @@ I WANT   : To be able to select the current line style, to be applied
 SO THAT  : I can change the style of lines I want to draw.
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : USER STORY 9
+TYPE     : USER STORY 9 : legaul30
 NAME     : File tab
-OWNER    : 
+OWNER    : Jarod
 PRIORITY : 4
 ESTIMATE : 2 hours
 AS A     : user
 I WANT   : To have the file tab functionality including:
 				New image
-				Open existing image
-				Save image
-				Exit from file tab 
-SO THAT  : I can easily open a new image, edit an existing one and save images.
+				Exit from file tab
+SO THAT  : I can easily open a new image and exit
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : USER STORY 10
+TYPE     : USER STORY 10 : dongshu2
 NAME     : Edit tab
-OWNER    : 
-PRIORITY : 4
-ESTIMATE : 2 hours
-AS A     : user
-I WANT   : To have the edit tab functionality including:
-				Cut image
-				Copy image
-				Paste image
-				Undo move
-				Redo move
-SO THAT  : I can easily copy/paste images and fix mistaken clicks
---------------------------------------------------------------------------
---------------------------------------------------------------------------
-TYPE     : USER STORY 11
-NAME     : Hotkey functionality
 OWNER    : Shuyi
 PRIORITY : 4
 ESTIMATE : 2 hours
 AS A     : user
+I WANT   : To have the edit tab functionality including:
+				Undo move
+				Redo move
+SO THAT  : I can easily fix mistaken clicks
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 11 : legaul30
+NAME     : Hotkey functionality
+OWNER    : Jarod
+PRIORITY : 4
+ESTIMATE : 2 hours
+AS A     : user
 I WANT   : To have the hotkey functionality including:
-				cut/copy/paste
 				Holding shift for secondary functions such as:
 					Oval tool draws ovals and hold shift while using it to constrain to circles
 					Rectangle tool draws rectangle and hold shift while using it to constrain to squares
 					Triangle tool draws triangles and hold shift for equilateral triangles
+				Holding alt for secondary functions such as:
+				    Draw around center for polygons
+				Ctrl-Z to undo
+				Ctrl-Y to redo
 SO THAT  : I have a simpler interface with less icons and more control
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : USER STORY 12
+TYPE     : USER STORY 12 : dongshu2
 NAME     : Selection
-OWNER    : 
+OWNER    : Shuyi
 PRIORITY : 4
 ESTIMATE : 2 hours
 AS A     : user
 I WANT   : To be able to select a portion of the screen and
 		   		Move it
-		   		Copy it
-		   		Cut it
-		   		Rotate it
 SO THAT  : I can easily edit drawings
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : BUG 1
+TYPE     : USER STORY 13 : legaul30
+NAME     : Style Panel GUI
+OWNER    : Jarod
+PRIORITY : 2
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To have a GUI containing the style options
+SO THAT  : I can have all the style options together and easily understandable
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 14 : legaul30
+NAME     : Help dialog
+OWNER    : Jarod
+PRIORITY : 4
+ESTIMATE : 1 hours
+AS A     : user
+I WANT   : To have a help dialog box
+SO THAT  : I can know less obvious features of the app
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 1 : assadkur
 NAME     : Icons instead of text for drawing mode selection
-OWNER    : 
+OWNER    : Kurtis
 PRIORITY : 4
 ESTIMATE : 1hour
 ISSUE    : Would be nice to have icons instead of "Circle", "Rectangle", ...
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : BUG 3
+TYPE     : BUG 2 : legaul30
+NAME     : Drawing selection mode not indicated
+OWNER    : Jarod
+PRIORITY : 4
+ESTIMATE : 1 hour
+ISSUE    : Currently ,you can't tell which mode "Circle", "Rectangle", ...
+           is currently selected. Is JButton correct, is there a way
+           to highlight the currently selected mode?
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 3 : assadkur, dongshu2, legaul30, kairoshs
 NAME     : Architecture behind choosing selection mode is poor
 OWNER    : Kurtis, Shuyi, Jarod, Sanjar
 PRIORITY : 1
@@ -227,9 +253,9 @@ ISSUE    : Code is not modular and is difficult to expand. Need a better
            'if' blocks in the PaintPanel mouse event code.
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : BUG 4
+TYPE     : BUG 4 : assadkur, dongshu2, legaul30, kairoshs
 NAME     : Architecture behind Model is poor
-OWNER    : Jarod, Shuyi, Kurtis, Sanjar
+OWNER    : Kurtis, Shuyi, Jarod, Sanjar
 PRIORITY : 1
 ESTIMATE : 3 hours
 ISSUE    : Having a list of different types of drawable things in the
@@ -240,9 +266,9 @@ ISSUE    : Having a list of different types of drawable things in the
            here.
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : BUG 5
+TYPE     : BUG 5 : assadkur
 NAME     : Squiggle is broken
-OWNER    : Jarod
+OWNER    : Kurtis
 PRIORITY : 1
 ESTIMATE : 1 hour
 ISSUE    : Squiggles are connected to each other by a straight line. Each drag
@@ -250,20 +276,9 @@ ISSUE    : Squiggles are connected to each other by a straight line. Each drag
            the issue is with the representation of the squiggles in the Model.
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : BUG 7
-NAME     : Layers of drawing are fixed
-OWNER    : Kurtis
-PRIORITY : 2
-ESTIMATE : 1 hour
-ISSUE    : The first thing drawn should be behind the second thing drawn on top 
-		   of it, but instead points are drawn first, then circles on top of it.
---------------------------------------------------------------------------
-
-# COMPLETED USER STORIES/BUGS BELOW ###########################################
---------------------------------------------------------------------------
-TYPE     : BUG 6
+TYPE     : BUG 6 : assadkur
 NAME     : Circle drawing is broken
-OWNER    : Jarod
+OWNER    : Kurtis
 PRIORITY : 1
 ESTIMATE : 1 hour
 ISSUE    : The first click should specify the center of the circle, with
@@ -271,15 +286,39 @@ ISSUE    : The first click should specify the center of the circle, with
            implementation.
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : BUG 2
-NAME     : Drawing selection mode not indicated
-OWNER    : Jarod
-PRIORITY : 4
+TYPE     : BUG 7 : dongshu2
+NAME     : Layers of drawing are fixed
+OWNER    : Shuyi
+PRIORITY : 2
 ESTIMATE : 1 hour
-ISSUE    : Currently ,you can't tell which mode "Circle", "Rectangle", ...
-           is currently selected. Is JButton correct, is there a way
-           to highlight the currently selected mode?
+ISSUE    : The first thing drawn should be behind the second thing drawn on top 
+		   of it, but instead points are drawn first, then circles on top of it.
 --------------------------------------------------------------------------
 
 # OMITTED USER STORIES/BUGS BELOW   ###########################################
 
+--------------------------------------------------------------------------
+TYPE     : USER STORY 9
+NAME     : File tab
+OWNER    :
+PRIORITY : 4
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To have the file tab functionality including:
+				Open image
+				Save image
+SO THAT  : I can easily open a pre-existing image and save created ones
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 10
+NAME     : Edit tab
+OWNER    :
+PRIORITY : 4
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To have the edit tab functionality including:
+                Copy image
+                Paste image
+                Cut image
+SO THAT  : I can easily copy/paste images
+--------------------------------------------------------------------------
