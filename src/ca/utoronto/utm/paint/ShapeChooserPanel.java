@@ -9,11 +9,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 
 // https://docs.oracle.com/javase/8/docs/api/java/awt/Graphics2D.html
 // https://docs.oracle.com/javase/tutorial/2d/
@@ -31,13 +27,10 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 		this.setLayout(new GridLayout(buttonLabels.length + 1, 1));
 		this.setPreferredSize(new Dimension(90, 300));
 
-		shapeButtons[0] = new JButton("Selection");
-		this.add(shapeButtons[0]);
-		shapeButtons[0].addActionListener(this);
 		for (int index = 0; index < ShapeBuilder.getShapeCount(); index++) {
-			shapeButtons[index+1] = new ShapeButton(ShapeBuilder.getShape(index));
-			this.add(shapeButtons[index+1]);
-			shapeButtons[index+1].addActionListener(this);
+			shapeButtons[index] = new ShapeButton(ShapeBuilder.getShape(index));
+			this.add(shapeButtons[index]);
+			shapeButtons[index].addActionListener(this);
 		}
 		shapeButtons[5].setEnabled(false);
 		lastPressed = shapeButtons[5];
@@ -83,6 +76,7 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 		lastPressed.setEnabled(true);
 		lastPressed = (JButton) e.getSource();
 		sides.setValue(((ShapeButton)e.getSource()).getShapeNum());
+		view.requestFocus();
 	}
 }
 

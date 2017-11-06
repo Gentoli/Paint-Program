@@ -32,6 +32,6 @@ public class ColourPanel extends JDialog implements ChangeListener{
 		Color newColor = tcc.getColor();
         this.view.getPaintPanel().setColor(newColor);
         this.openColourPanel.setForeground(newColor);
-        System.out.println(this.getSize());
+        view.requestFocus();
 	}
 }

@@ -91,7 +91,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	 * Controller aspect of this
 	 */
 	public void setMode(int mode) {
-		this.mode = -2;//TODO
+		this.mode = mode;//TODO
 
 		if(mode==ShapeBuilder.MODIFY){
 			((Modifier) shapes[0]).setReleased();
@@ -109,7 +109,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 		this.lineThickness = lineThickness;
 	}
 
-	public void setStroke(int strokeStyle) {
+	public void setStrokeStyle(int strokeStyle) {
 		this.strokeStyle = strokeStyle;
 	}
 

@@ -11,13 +11,13 @@ public class ShapeBuilder {
 	private static Constructor<? extends Shape>[] classes;
 	private final static Class[] shapConst = {int.class, int.class, Color.class, float.class,boolean.class,int.class};
 	private final static Class[] polyConst = {int.class, int.class, Color.class, float.class,boolean.class, int.class,int.class ,boolean.class,boolean.class};
-	private final static String[] subClasses = {"RegularPolygon","Polyline","Polyline"};
+	private final static String[] subClasses = {"RegularPolygon","Polyline","Polyline","Modifier"};
 	private final static String pack = "ca.utoronto.utm.paint.";
 	public final static int SQUIGGLE = -1;
 	public final static int POLYLINE = SQUIGGLE-1;
 	public final static int MODIFY = SQUIGGLE-2;
-	// PolyLine, Squiggle,Polygon, Triangle, Rectangle, Circle
-	private final static int[] SHAPES = {POLYLINE,SQUIGGLE,0,3,4,100};
+	// Selection, PolyLine, Squiggle,Polygon, Triangle, Rectangle, Circle
+	private final static int[] SHAPES = {MODIFY,POLYLINE,SQUIGGLE,0,3,4,100};
 
 	public static int getShape(int index){
 		return SHAPES[index];
