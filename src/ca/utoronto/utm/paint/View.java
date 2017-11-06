@@ -14,6 +14,8 @@ import java.util.Observer;
 /**
  * This is the top level View+Controller, it contains other aspects of the View+Controller.
  * @author arnold
+ * The View is comprised of the PaintPanel, ShapeChoosingPanel and StylePanel,
+ * and links them together, Observing the PaintModel.
  *
  */
 public class View extends JFrame implements Observer {
@@ -191,6 +193,12 @@ public class View extends JFrame implements Observer {
 		return menuBar;
 	}
 
+	/**
+	 * checks if there are objects in the undo and redo arrays
+	 * and showing if undo and redo buttons can be clicked accordingly
+	 * @param o PaintModel
+	 * @param arg
+	 */
 	@Override
 	public void update(Observable o, Object arg) {
 		menuUndo.setEnabled(model.canUndo());

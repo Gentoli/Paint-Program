@@ -6,7 +6,9 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- *  Construct Shape Object base on the type of the shape
+ *  Construct Shape Object based on the type of the shape,
+ *  taking in all the parameters that shapes can hold,
+ *  Using the builder design pattern.
  */
 public class ShapeBuilder {
 
@@ -87,7 +89,11 @@ public class ShapeBuilder {
         return this;
     }
 
-    public Shape build(){
+	/**
+	 * Constructs the shape Object and checking whether the shape is a polygon or a line.
+	 * @return Shape object using the set parameters
+	 */
+	public Shape build(){
 	    try {
 		    if(edges<0)
 			    return shape.newInstance(x,y,colour,lineThickness,fill,strokeStyle);

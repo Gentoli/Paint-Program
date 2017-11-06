@@ -205,6 +205,10 @@ public class StylePanel extends JPanel implements Observer {
 
 
         colourPanel.addComponentListener(new ComponentListener() {
+            /**
+             * Change the text of openColourPanel button if the colour panel was closed with top-right X
+             * @param e ColourPanel event
+             */
             @Override
             public void componentHidden(ComponentEvent e) {
                 // TODO Auto-generated method stub
