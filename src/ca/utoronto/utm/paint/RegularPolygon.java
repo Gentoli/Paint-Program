@@ -7,11 +7,24 @@ import java.awt.Point;
 import java.awt.Polygon;
 import java.awt.Stroke;
 
+/*creates a polygon that is equiangular (verticie anglues are of equal value). This can be stretched in either the x
+* or y direction and flipped around.*/
 public class RegularPolygon extends Shape {
     public int[] verticiesX;
     public int[] verticiesY;
     private Polygon polygon;
-
+    /**
+     * creates a regular polygon
+     * @param x the initial x coordinate
+     * @param y the initial y coordinate
+     * @param colour the color of the polygon outline
+     * @param lineThickness the value of the line thickness
+     * @param fill the color of the inside of the polygon
+     * @param strokeStyle the style of the outline of the polygon
+     * @param vertices the number of verticies in the polygon
+     * @param center if the polygon is centered or not
+     * @param right if the polygon has equilateral.
+     */
     public RegularPolygon(int x, int y, Color colour, float lineThickness, boolean fill, int strokeStyle,int vertices,boolean center,boolean right) {
         super(x, y, colour, lineThickness, fill, strokeStyle);
         this.verticiesX = new int[vertices];
@@ -24,7 +37,7 @@ public class RegularPolygon extends Shape {
 	    this.right = right;
         calculateVerticies();
     }
-
+    //calculates the vericies angle values of the polygon
     private void calculateVerticies() {
         double angles = 2 * Math.PI / polygon.npoints;
         int absMin = Math.min(Math.abs(getWidth()),Math.abs(getHeight()));
@@ -46,7 +59,7 @@ public class RegularPolygon extends Shape {
         }
     }
 
-
+    //prints the polygon to the screen
     @Override
     public void print(Graphics2D g) {
     	prepare(g);
@@ -58,19 +71,19 @@ public class RegularPolygon extends Shape {
         g.drawPolygon(polygon);
         //g.drawRect(x,y,getWidth(),getHeight());
     }
-
+    //sets the end point of the mouse
     @Override
     public void setEnd(int x, int y) {
         super.setEnd(x, y);
         calculateVerticies();
     }
-
+    //sets the x coordinate of the end point
     @Override
     public void setXEnd(int xEnd) {
         super.setXEnd(xEnd);
         calculateVerticies();
     }
-
+    //sets the y coordinate of the end point
     @Override
     public void setYEnd(int yEnd) {
         super.setYEnd(yEnd);
