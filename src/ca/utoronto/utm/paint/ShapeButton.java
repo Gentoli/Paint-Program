@@ -7,11 +7,17 @@ import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * ShapeButton is a JButton that holds an image corresponding to what it draws
+ */
 public class ShapeButton extends JButton {
-    private Shape shape;
     private int shapeNum;
     private Image image;
 
+    /**
+     * Creates an instance of ShapeButton, using shapeNum to choose the right image to draw on itself.
+     * @param shapeNum number corresponding to it's shape
+     */
     public ShapeButton(int shapeNum) {
         this.shapeNum = shapeNum==0?5:shapeNum;
         try {

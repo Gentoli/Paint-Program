@@ -6,12 +6,21 @@ import javax.swing.event.ChangeListener;
 import java.awt.Color;
 import java.awt.Dimension;
 
+/**
+ * ColourPanel is a JDialog that uses the JColorChooser component
+ * and passes the chosen colour to the PaintPanel to be used for the next shapes.
+ */
 public class ColourPanel extends JDialog implements ChangeListener{
 
 	private View view;
 	private JColorChooser tcc;
 	private JButton openColourPanel;
 
+	/**
+	 *
+	 * @param view Paint View
+	 * @param openColourPanel The button that opens or closes it
+	 */
 	public ColourPanel(View view, JButton openColourPanel) {
 		super(view);
 		this.view = view;

@@ -31,7 +31,6 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	private boolean fill = false;
 
 	private Shape[] shapes = new Shape[WindowsPointer.POINTER_MAX];
-	//private Ellipse ellipse; // the ellipse we are building
 
 	public PaintPanel(PaintModel model, View view){
 		this.setBackground(Color.white);
