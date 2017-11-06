@@ -21,10 +21,19 @@ public class PaintModel extends Observable implements ComponentListener {
 		return image.getHeight();
 	}
 
+
+	//Store a image of that cant be undo.
 	private BufferedImage image = new BufferedImage(1000,1000,BufferedImage.TYPE_INT_RGB);
 
+	//Store Shapes that can be undo.
 	private LinkedList<Drawable> drawables = new LinkedList<Drawable>();
+
+	//Store Shapes that can be redo.
 	private LinkedList<Drawable> undo = new LinkedList<Drawable>();
+
+	/**
+	 * Create a PaintModel that store all Shapes and Image of the Panel
+	 */
 	public PaintModel(){
 		Graphics2D graphics = image.createGraphics();
 		graphics.setPaint(Color.white);
