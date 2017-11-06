@@ -27,13 +27,10 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 		this.setLayout(new GridLayout(buttonLabels.length + 1, 1));
 		this.setPreferredSize(new Dimension(90, 300));
 
-		shapeButtons[0] = new JButton("Selection");
-		this.add(shapeButtons[0]);
-		shapeButtons[0].addActionListener(this);
 		for (int index = 0; index < ShapeBuilder.getShapeCount(); index++) {
-			shapeButtons[index+1] = new ShapeButton(ShapeBuilder.getShape(index));
-			this.add(shapeButtons[index+1]);
-			shapeButtons[index+1].addActionListener(this);
+			shapeButtons[index] = new ShapeButton(ShapeBuilder.getShape(index));
+			this.add(shapeButtons[index]);
+			shapeButtons[index].addActionListener(this);
 		}
 		shapeButtons[5].setEnabled(false);
 		lastPressed = shapeButtons[5];
@@ -79,6 +76,7 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 		lastPressed.setEnabled(true);
 		lastPressed = (JButton) e.getSource();
 		sides.setValue(((ShapeButton)e.getSource()).getShapeNum());
+		view.requestFocus();
 	}
 }
 

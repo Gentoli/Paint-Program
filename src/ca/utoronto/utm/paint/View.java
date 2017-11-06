@@ -2,10 +2,7 @@ package ca.utoronto.utm.paint;
 
 import ca.utoronto.utm.pointer.WindowsPointer;
 
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
+import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -22,6 +19,12 @@ import java.util.Observer;
 public class View extends JFrame implements Observer {
 	
 	private static final long serialVersionUID = 1L;
+	private static final String message = "Hotkeys:\n" +
+			" - Hold Shift to draw regular polygons\n" +
+			" - Hold Alt to draw regular polygons relative to center\n " +
+			"\n Extras:\n" +
+			" - Touch-Control/Multitouch if your computer supports touchscreen\n" +
+			" - Pressure-Sensitive line thickness";
 	
 	private PaintModel model;
 	
@@ -32,14 +35,13 @@ public class View extends JFrame implements Observer {
 	private StylePanel stylePanel;
 	private JMenuItem menuUndo;
 	private JMenuItem menuRedo;
+	private JMenuItem menuHelp;
 	//private JButton openColourPanel;
 	
 	public View(PaintModel model) {
 		super("Paint"); // set the title and do other JFrame init
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setJMenuBar(createMenuBar());
-
-
 
 		Container c=this.getContentPane();
 		this.shapeChooserPanel = new ShapeChooserPanel(this, model);
@@ -62,9 +64,7 @@ public class View extends JFrame implements Observer {
 		this.pack();
 
 		WindowsPointer.getInstance().setFrame(this);
-		System.out.println(this.getSize());
 		this.setMinimumSize(new Dimension(624, 462));
-		System.out.println(this.getSize());
 		// this.setSize(200,200);
 		this.setVisible(true);
 		this.setFocusable(true);
@@ -83,6 +83,7 @@ public class View extends JFrame implements Observer {
 				}
 			}
 		});
+		JOptionPane.showMessageDialog(this, message);
 	}
 
 	public PaintPanel getPaintPanel(){
@@ -103,7 +104,8 @@ public class View extends JFrame implements Observer {
 		// a group of JMenuItems
 		menuItem = new JMenuItem("New");
 		menuItem.addActionListener(e -> {
-			model.clear();
+			//this.getPaintPanel().clear(); TODO
+			requestFocus();
 		});
 		menu.add(menuItem);
 
@@ -157,6 +159,7 @@ public class View extends JFrame implements Observer {
 		menuUndo.addActionListener(e -> {
 			model.undo();
 			menuUndo.setEnabled(model.canUndo());
+			requestFocus();
 		});
 		menu.add(menuUndo);
 
@@ -165,9 +168,19 @@ public class View extends JFrame implements Observer {
 		menuRedo.addActionListener(e -> {
 			model.redo();
 			menuRedo.setEnabled(model.canRedo());
+			requestFocus();
 		});
 		menu.add(menuRedo);
 
+		menuBar.add(menu);
+
+		menu = new JMenu("Help");
+		menuHelp = new JMenuItem("Help");
+		menuHelp.addActionListener(e -> {
+
+			JOptionPane.showMessageDialog(this, message);
+		});
+		menu.add(menuHelp);
 		menuBar.add(menu);
 
 		return menuBar;

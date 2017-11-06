@@ -25,7 +25,7 @@ public class StylePanel extends JPanel implements Observer {
     private JButton undo, redo, clear;
     private JPanel buttonPanel;
     private PaintModel model;
-    private JPanel[] lineStylePanels;
+    private JLabel[] lineStylePanels;
 
 
     public StylePanel(View view, PaintModel model) {
@@ -58,6 +58,7 @@ public class StylePanel extends JPanel implements Observer {
                 view.getPaintPanel().setLineThickness(1);
                 lineThicknessSlider.setValue(1);
             }
+            view.requestFocus();
         });
         lineThicknessText.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
@@ -81,6 +82,7 @@ public class StylePanel extends JPanel implements Observer {
             DecimalFormat df = new DecimalFormat("#.#");
             df.setRoundingMode(RoundingMode.CEILING);
             lineThicknessText.setText(df.format(value));
+            view.requestFocus();
         });
 
         fillLabel = new JLabel("Fill Shapes");
@@ -88,18 +90,23 @@ public class StylePanel extends JPanel implements Observer {
         fillCheckBox = new JCheckBox();
         fillCheckBox.addActionListener(e -> {
             view.getPaintPanel().setFill(fillCheckBox.isSelected());
+            view.requestFocus();
         });
         fillCheckBox.setHorizontalAlignment(SwingConstants.CENTER);
 
         styleLabel = new JLabel("Line Style");
         styleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        this.lineStylePanels = new JPanel[2];
-        for (int index = 0; index < lineStylePanels.length; index++) {
-            lineStylePanels[index] = new LineStylePanel(index);
-        }
-        styleComboBox = new JComboBox(lineStylePanels);
+//        this.lineStylePanels = new JLabel[2];
+//        for (int index = 0; index < lineStylePanels.length; index++) {
+//            lineStylePanels[index] = new LineStylePanel(index);
+//        }
+        String[] s = {"Basic Stroke", "Dashed Stroke"};
+        styleComboBox = new JComboBox(s);
+        styleComboBox.setSelectedIndex(0);
         styleComboBox.addActionListener(e -> {
-            styleComboBox.getSelectedIndex();
+            int selected = styleComboBox.getSelectedIndex();
+            view.getPaintPanel().setStrokeStyle(selected);
+            view.requestFocus();
         });
 
         colourLabel = new JLabel("Choose Colour");
@@ -123,16 +130,19 @@ public class StylePanel extends JPanel implements Observer {
         undo.addActionListener(e -> {
             model.undo();
             undo.setEnabled(model.canUndo());
+            view.requestFocus();
         });
         redo = new JButton("Redo");
         redo.setEnabled(false);
         redo.addActionListener(e -> {
             model.redo();
             redo.setEnabled(model.canRedo());
+            view.requestFocus();
         });
         clear = new JButton("Clear");
         clear.addActionListener(e -> {
-            model.clear();
+            //view.getPaintPanel().clear(); TODO
+            view.requestFocus();
         });
 
         buttonPanel = new JPanel(new GridLayout(3,1));
@@ -149,11 +159,6 @@ public class StylePanel extends JPanel implements Observer {
         c.weightx = 0.5;
         c.gridx = 1;
         c.gridheight = 2;
-//        this.add(undo, c);
-//        c.gridy = 1;
-//        this.add(redo, c);
-//        c.gridy = 2;
-//        this.add(clear, c);
         this.add(buttonPanel, c);
         c.gridheight = 1;
         c.weightx = 1;

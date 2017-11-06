@@ -50,7 +50,7 @@ public class RegularPolygon extends Shape {
     @Override
     public void print(Graphics2D g) {
     	prepare(g);
-        g.setStroke(new BasicStroke(lineThickness));
+        g.setStroke(stroke);
         calculateVerticies();
         if(fill)
             g.fillPolygon(polygon);
