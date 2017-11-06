@@ -8,6 +8,11 @@ import java.text.DecimalFormat;
 import java.util.Observable;
 import java.util.Observer;
 
+/**
+ * StylePanel is a JPanel using GridBagLayout to format the components,
+ * that holds all the style options, including undo,redo,clear,
+ * fill,lineStyle,lineThickness and the colour panel button.
+ */
 public class StylePanel extends JPanel implements Observer {
 
     private View view;
@@ -25,9 +30,12 @@ public class StylePanel extends JPanel implements Observer {
     private JButton undo, redo, clear;
     private JPanel buttonPanel;
     private PaintModel model;
-    private JLabel[] lineStylePanels;
 
-
+    /**
+     * Creates a JPanel, using GridBagLayout to format the components
+     * @param view The view of the paint project
+     * @param model The model of the paint project
+     */
     public StylePanel(View view, PaintModel model) {
         this.view = view;
         this.model = model;
@@ -96,10 +104,7 @@ public class StylePanel extends JPanel implements Observer {
 
         styleLabel = new JLabel("Line Style");
         styleLabel.setHorizontalAlignment(SwingConstants.CENTER);
-//        this.lineStylePanels = new JLabel[2];
-//        for (int index = 0; index < lineStylePanels.length; index++) {
-//            lineStylePanels[index] = new LineStylePanel(index);
-//        }
+
         String[] s = {"Basic Stroke", "Dashed Stroke"};
         styleComboBox = new JComboBox(s);
         styleComboBox.setSelectedIndex(0);
@@ -226,6 +231,12 @@ public class StylePanel extends JPanel implements Observer {
         });
     }
 
+    /**
+     * checks if there are objects in the undo and redo arrays
+     * and showing if undo and redo buttons can be clicked accordingly
+     * @param o PaintModel
+     * @param arg
+     */
     @Override
     public void update(Observable o, Object arg) {
         undo.setEnabled(model.canUndo());
