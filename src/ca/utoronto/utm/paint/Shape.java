@@ -7,6 +7,9 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Stroke;
 
+/**
+ *  Shape base object for all shapes(Actors) on ShapePanel. Implements Drawable
+ */
 public abstract class Shape implements Drawable {
     protected int x,y;
     protected int xEnd,yEnd;

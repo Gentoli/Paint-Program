@@ -1,9 +1,6 @@
 package ca.utoronto.utm.pointer;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Frame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -12,6 +9,9 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Object Handle Win32 API Calls from JNI bridge
+ */
 public class WindowsPointer extends MouseAdapter {
 	private static boolean TOUCH_SUPPORTED = true;
 	static {
@@ -62,35 +62,8 @@ public class WindowsPointer extends MouseAdapter {
 	private int[] points = new int[POINTER_MAX];
 
 	private Map<Component,EventFactory> listeners = new HashMap<Component,EventFactory>();
-	public static void main(String[] args){
-		WindowsPointer w = getInstance();
-		JFrame jf = new JFrame();
 
-		JButton b = new JButton();
-		b.addActionListener(e ->  {
-			//System.out.println(Thread.currentThread().getId());
-		});
-
-		jf.setMinimumSize(new Dimension(300,200));
-		jf.setDefaultCloseOperation(3);
-		jf.add(b);
-		jf.pack();
-
-		w.setFrame(jf);
-		w.addListener(e -> {
-			System.out.println("Button: "+e.getEvent().getButton());
-			System.out.println("Mod: "+Integer.toBinaryString(e.getEvent().getModifiers()));
-		},jf);
-
-		jf.setVisible(true);
-	}
-
-	static boolean debug = true;
 	private static void Update(int eventId, long when, int modifiers,int xAbs, int yAbs ,int clickCount, int pointerId, int pressure){
-		if(debug){
-			System.out.println("update");
-			debug=false;
-		}
 		float fPressure = pressure==0?1f:((float)pressure/1024);
 		WindowsPointer p = getInstance();
 		int index = p.getPointId(pointerId);

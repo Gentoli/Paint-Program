@@ -3,6 +3,9 @@ package ca.utoronto.utm.paint;
 import java.awt.*;
 import java.util.ArrayList;
 
+/**
+ *  Shape with multiple dots connecting to each other.
+ */
 public class Polyline extends Shape{
     private ArrayList<Point> p;
 

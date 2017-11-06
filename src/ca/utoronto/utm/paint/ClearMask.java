@@ -3,6 +3,9 @@ package ca.utoronto.utm.paint;
 import java.awt.Color;
 import java.awt.Graphics;
 
+/**
+ * Mask the whole Panel for undoing clear
+ */
 public class ClearMask implements Drawable {
 
 	private int width, height;

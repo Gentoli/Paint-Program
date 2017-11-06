@@ -8,6 +8,9 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Create A PointerEvent Base on a Component
+ */
 public class EventFactory {
 	private Component base;
 	private List<PointerListener> listeners = new ArrayList<PointerListener>();

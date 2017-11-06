@@ -5,6 +5,9 @@ import java.awt.Color;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
+/**
+ *  Construct Shape Object base on the type of the shape
+ */
 public class ShapeBuilder {
 
 	private static Constructor<? extends Shape>[] classes;

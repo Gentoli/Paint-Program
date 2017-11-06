@@ -4,6 +4,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 
+/**
+ * Proxy Java MouseEvent to PointerEvent
+ */
 public class MouseEventProxy extends MouseAdapter{
 
 	private PointerListener listener;

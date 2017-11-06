@@ -6,6 +6,9 @@ import java.awt.Rectangle;
 import java.awt.Stroke;
 import java.awt.image.BufferedImage;
 
+/**
+ * Actor for PaintPanel handles moving part of the screen
+ */
 public class Modifier extends Shape {
 	private BufferedImage selection;
 	private int width,height;

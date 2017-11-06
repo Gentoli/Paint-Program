@@ -17,6 +17,9 @@ import java.util.Observer;
 // https://docs.oracle.com/javase/8/docs/api/java/awt/Graphics2D.html
 // https://docs.oracle.com/javase/tutorial/2d/
 
+/**
+ * Handles Drawing and Displaying of Shapes
+ */
 class PaintPanel extends JPanel implements Observer, PointerListener {
 	private PaintModel model; // slight departure from MVC, because of the way painting works
 	private View view; // So we can talk to our parent or other components of the view

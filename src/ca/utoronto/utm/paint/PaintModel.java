@@ -9,6 +9,9 @@ import java.awt.image.BufferedImage;
 import java.util.LinkedList;
 import java.util.Observable;
 
+/**
+ * Models the Shapes being
+ */
 public class PaintModel extends Observable implements ComponentListener {
 	public int getWidth() {
 		return image.getWidth();

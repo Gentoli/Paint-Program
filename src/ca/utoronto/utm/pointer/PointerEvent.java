@@ -5,6 +5,9 @@ import java.awt.Point;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 
+/**
+ * Event Object for Win32 Pointer Events
+ */
 public class PointerEvent {
 
     private int pointerId;
