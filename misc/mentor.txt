@@ -1,1 +1,38 @@
 arnold@cs.toronto.edu,1
+
+scrum: user stories are to be owned by one developer.
+Additionally, you don't label them with utorid as outlined in the earlier email.
+You should move completed user stories to the completed section.
+
+Not to pick, but not looking good right now!! Got to get the team together and
+fix lots.
+
+Took a look at your git history, does not look good. Work on that for part 2.
+
+Paint wont run!! Fix asap! You should only have working code on master.
+Not sure what you are trying to do with 
+
+		WindowsPointer.getInstance().addListener(this,this);
+
+
+Exception in thread "AWT-EventQueue-0" java.lang.RuntimeException: No HWND found for class sun.awt.X11.XFramePeer
+	at ca.utoronto.utm.pointer.WindowsPointer.getHWnd(WindowsPointer.java:144)
+	at ca.utoronto.utm.pointer.WindowsPointer.setFrame(WindowsPointer.java:44)
+	at ca.utoronto.utm.paint.View.<init>(View.java:58)
+	at ca.utoronto.utm.paint.Paint.<init>(Paint.java:24)
+	at ca.utoronto.utm.paint.Paint$1.run(Paint.java:9)
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:311)
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:756)
+	at java.awt.EventQueue.access$500(EventQueue.java:97)
+	at java.awt.EventQueue$3.run(EventQueue.java:709)
+	at java.awt.EventQueue$3.run(EventQueue.java:703)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:80)
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:726)
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:201)
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:116)
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:105)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101)
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:93)
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:82)
+	
