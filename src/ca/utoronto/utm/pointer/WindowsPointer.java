@@ -42,13 +42,13 @@ public class WindowsPointer extends MouseAdapter {
 	public void setFrame(Frame frame){
 		if(frame==null)
 			throw new IllegalArgumentException("null frame");
-		if(this.frame==frame)
+		if(this.frame==frame||!TOUCH_SUPPORTED)
 			return;
 		this.frame = frame;
 		try {
 			Init(getHWnd(frame));
 			TOUCH_SUPPORTED=true;
-		} catch(RuntimeException e) {
+		} catch(RuntimeException|UnsatisfiedLinkError e) {
 			e.printStackTrace();
 			TOUCH_SUPPORTED=false;
 		}
@@ -67,19 +67,12 @@ public class WindowsPointer extends MouseAdapter {
 		float fPressure = pressure==0?1f:((float)pressure/1024);
 		WindowsPointer p = getInstance();
 		int index = p.getPointId(pointerId);
-//		System.out.print("[");
-//		for(int i = 0; i < p.points.length; i++) {
-//			System.out.print(p.points[i]);
-//			System.out.print(" ");
-//		}
-//		System.out.println("]");
 		for(EventFactory e:p.listeners.values()){
 			e.firePointerEvent(eventId,when,modifiers,xAbs,yAbs,clickCount,index,fPressure);
 		}
 
 		if(eventId == MouseEvent.MOUSE_EXITED)
 			p.releasePoint(index);
-		//InputEvent.SHIFT_DOWN_MASK;
 	}
 
 	public void addListener(PointerListener pointerListener,Component component){

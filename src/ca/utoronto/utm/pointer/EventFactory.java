@@ -23,10 +23,6 @@ public class EventFactory {
 		return listeners.add(pointerListener);
 	}
 
-	public void add(int index, PointerListener element) {
-		listeners.add(index, element);
-	}
-
 	public void firePointerEvent(int eventId, long when, int modifiers, int xAbs, int yAbs, int clickCount, int pointerId, float pressure){
 		Point p = new Point(xAbs,yAbs);
 		SwingUtilities.convertPointFromScreen(p,base);
