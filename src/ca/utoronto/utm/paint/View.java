@@ -19,11 +19,14 @@ import java.util.Observer;
 public class View extends JFrame implements Observer {
 	
 	private static final long serialVersionUID = 1L;
-	private static final String message = "Hotkeys:\n" +
+	private static final String message = "Notes: \n" +
+			" - Right click to break Polyline mode line\n" +
+			" - Set number of edges for Polygon mode in left textfield\n" +
+			"Hotkeys:\n" +
 			" - Hold Shift to draw regular polygons\n" +
-			" - Hold Alt to draw regular polygons relative to center\n " +
+			" - Hold Alt to draw regular polygons relative to center\n" +
 			" - Ctrl-Z to undo, Ctrl-Y to redo\n" +
-			"\n Extras:\n" +
+			"Extras:\n" +
 			" - Touch-Control/Multitouch if your computer supports touchscreen\n" +
 			" - Pressure-Sensitive line thickness";
 	
