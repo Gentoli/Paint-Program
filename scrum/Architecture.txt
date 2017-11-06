@@ -40,10 +40,10 @@ DESIGN PATTERNS USED
 		
 	Strategy:
 	Command: 
-	Singleton:
+	Singleton: WindowsPointer
 	Composite:
-	Factory:
-	Builder:
+	Factory: EventFactory
+	Builder: ShapeBuilder
 	Observer/Observable:
 	... (any others you find useful) ...
 
