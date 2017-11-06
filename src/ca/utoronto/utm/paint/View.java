@@ -22,6 +22,7 @@ public class View extends JFrame implements Observer {
 	private static final String message = "Hotkeys:\n" +
 			" - Hold Shift to draw regular polygons\n" +
 			" - Hold Alt to draw regular polygons relative to center\n " +
+			" - Ctrl-Z to undo, Ctrl-Y to redo\n" +
 			"\n Extras:\n" +
 			" - Touch-Control/Multitouch if your computer supports touchscreen\n" +
 			" - Pressure-Sensitive line thickness";
@@ -105,7 +106,7 @@ public class View extends JFrame implements Observer {
 		// a group of JMenuItems
 		menuItem = new JMenuItem("New");
 		menuItem.addActionListener(e -> {
-			//this.getPaintPanel().clear(); TODO
+			this.getPaintPanel().clear();
 			requestFocus();
 		});
 		menu.add(menuItem);
