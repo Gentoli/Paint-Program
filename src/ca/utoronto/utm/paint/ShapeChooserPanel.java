@@ -26,9 +26,9 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 
 	public ShapeChooserPanel(View view, PaintModel model) {
 		this.view=view;
-		String[] buttonLabels = { "Selection", "Polyline", "Squiggle", "Polygon", "Triangle", "Rectangle", "Circle"};
+		//String[] buttonLabels = { "Selection", "Polyline", "Squiggle", "Polygon", "Triangle", "Rectangle", "Circle"};
 		shapeButtons = new JButton[7];
-		this.setLayout(new GridLayout(buttonLabels.length + 1, 1));
+		this.setLayout(new GridLayout(8, 1));
 		this.setPreferredSize(new Dimension(90, 300));
 
 		shapeButtons[0] = new JButton("Selection");
@@ -82,7 +82,10 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 		((JButton) e.getSource()).setEnabled(false);
 		lastPressed.setEnabled(true);
 		lastPressed = (JButton) e.getSource();
-		sides.setValue(((ShapeButton)e.getSource()).getShapeNum());
+		if(e.getSource() instanceof ShapeButton)
+			sides.setValue(((ShapeButton)e.getSource()).getShapeNum());
+		else
+			sides.setValue(ShapeBuilder.MODIFY);
 		view.requestFocus();
 	}
 }
@@ -90,7 +93,7 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 
 class Sides extends JTextField implements ActionListener,KeyListener {
 
-	private static final String TEXT_NOT_TO_TOUCH = "Sides: ";
+	private static final String TEXT_NOT_TO_TOUCH = "Edges: ";
 	private View view;
 	private int value = 4;
 	public Sides(View view){
@@ -138,7 +141,8 @@ class Sides extends JTextField implements ActionListener,KeyListener {
 	}
 	public void setValue(int value){
 		this.value = value;
-		setText(String.valueOf(Math.max(value,0)));
+		//setText(String.valueOf(Math.max(value,0)));
+		setText(String.valueOf(value));
 		view.getPaintPanel().setMode(value);
 	}
 
@@ -149,7 +153,8 @@ class Sides extends JTextField implements ActionListener,KeyListener {
 			if (value > 100) {
 				value = 100;
 			}
-			if (value < 3) {
+			if(value<0) {}
+			else if (value < 3) {
 				value = 3;
 			}
 			if (e != null) {
@@ -166,7 +171,13 @@ class Sides extends JTextField implements ActionListener,KeyListener {
 			}
 		}
 		int index = 0;
-		if (value == 3)
+		if (value == -1)
+			index = 2;
+		else if (value == -2)
+			index = 1;
+		else if (value == -3)
+			index = 0;
+		else if (value == 3)
 			index = 4;
 		else if (value == 4)
 			index = 5;
