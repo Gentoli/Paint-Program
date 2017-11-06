@@ -1,18 +1,17 @@
 package ca.utoronto.utm.paint;
 
-import javax.swing.JButton;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.imageio.ImageIO;
+import javax.swing.*;
 import javax.swing.text.AbstractDocument;
 import javax.swing.text.AttributeSet;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DocumentFilter;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 // https://docs.oracle.com/javase/8/docs/api/java/awt/Graphics2D.html
 // https://docs.oracle.com/javase/tutorial/2d/
@@ -22,8 +21,25 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 	private JButton lastPressed;
 	private Sides sides;
 	private JButton[] shapeButtons;
+	private BufferedImage[] image = new BufferedImage[6];
+	private ImageIcon[] icon = new ImageIcon[6];
 
 	public ShapeChooserPanel(View view, PaintModel model) {
+
+		try {
+			image[0] = ImageIO.read(new File("assets\\line.png"));
+			image[1] = ImageIO.read(new File("assets\\squiggle.png"));
+			image[2] = ImageIO.read(new File("assets\\pentagon.png"));
+			image[3] = ImageIO.read(new File("assets\\triangle2.png"));
+			image[4] = ImageIO.read(new File("assets\\square.png"));
+			image[5] = ImageIO.read(new File("assets\\circle.png"));
+			for(int i = 0; i < image.length; i++){
+				icon[i] = new ImageIcon((image[i]));
+			}
+		} catch (IOException ex) {
+			ex.printStackTrace();
+			// handle exception...
+		}
 		this.view=view;
 		String[] buttonLabels = { "Selection", "Polyline", "Squiggle", "Polygon", "Triangle", "Rectangle", "Circle"};
 		shapeButtons = new JButton[7];
@@ -40,6 +56,11 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 		}
 		shapeButtons[5].setEnabled(false);
 		lastPressed = shapeButtons[5];
+		for(int i = 1; i < image.length+1; i++){
+			shapeButtons[i].setIcon(icon[i-1]);
+		}
+
+
 
 		sides = new Sides(view);
 		sides.setFocusable(true);
