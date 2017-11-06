@@ -18,6 +18,9 @@ import java.awt.event.KeyListener;
 // https://docs.oracle.com/javase/8/docs/api/java/awt/Graphics2D.html
 // https://docs.oracle.com/javase/tutorial/2d/
 
+/**
+ * ShapeChooserPanel holds the buttons that select the mode of the paint app.
+ */
 class ShapeChooserPanel extends JPanel implements ActionListener {
 	private View view; // So we can talk to our parent or other components of the view
 	private JButton lastPressed;
@@ -90,7 +93,10 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 	}
 }
 
-
+/**
+ * Sides is the JTextField that denotes the number of edges of the shape selected.
+ * Restricts the inputs that it can take.
+ */
 class Sides extends JTextField implements ActionListener,KeyListener {
 
 	private static final String TEXT_NOT_TO_TOUCH = "Edges: ";

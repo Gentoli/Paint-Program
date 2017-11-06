@@ -109,11 +109,22 @@ public abstract class Shape implements Drawable {
 		this.yEnd+=y;
 	}
 
+	/**
+	 * Sets the colour and stroke type for the shape to be drawn
+	 * @param g2 Graphics object
+	 */
 	protected void prepare(Graphics2D g2) {
 		g2.setColor(colour);
 		g2.setStroke(stroke==null?new BasicStroke(lineThickness):stroke);
 	}
 
+	/**
+	 * Rotates a point around a center
+	 * @param x x value of the starting point
+	 * @param y y value of the starting point
+	 * @param angle angle to rotate the starting point
+	 * @return the ending point created by the rotation
+	 */
 	public Point rotate(double x, double y, double angle){
 		double retX = x*Math.cos(angle) - y*Math.sin(angle);
 		double retY = x*Math.sin(angle) + y*Math.cos(angle);

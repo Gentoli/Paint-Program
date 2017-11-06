@@ -2,6 +2,9 @@ package ca.utoronto.utm.paint;
 
 import javax.swing.JFrame;
 
+/**
+ * Creates the paint application
+ */
 public class Paint {
 	public static void main(String[] args) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
