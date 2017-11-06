@@ -33,28 +33,8 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	public PaintPanel(PaintModel model, View view){
 		this.setBackground(Color.white);
 		this.setPreferredSize(new Dimension(516,300));
-//		addKeyListener(new KeyAdapter() {
-//			@Override
-//			public void keyPressed(KeyEvent e) {
-//				System.out.println(1);
-//				if(e.isControlDown()) {
-//					System.out.println(2);
-//					switch(e.getKeyCode()) {
-//						case 90:
-//							System.out.println(3);
-//							model.undo();
-//							break;
-//						case 89:
-//							model.redo();
-//							break;
-//					}
-//				}
-//			}
-//		});
-		//WindowsPointer.getInstance().addListener(this,this);
 		this.model = model;
-		//shapes = this.model.getShapes();
-		//tempStorage = new ArrayList<Shape>();
+
 		this.mode = 4;
 		this.model.addObserver(this);
 		colour = Color.black;
@@ -91,15 +71,15 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	 * Controller aspect of this
 	 */
 	public void setMode(int mode) {
-		this.mode = mode;//TODO
+		this.mode = mode;
 
-		if(mode==ShapeBuilder.MODIFY){
-			((Modifier) shapes[0]).setReleased();
+		if(shapes[0]!=null&&shapes[0] instanceof Polyline){
+			((Polyline) shapes[0]).end();
 			model.addPrint(shapes[0]);
 			shapes[0] = null;
 			activePointer = -1;
-		}else if(shapes[0]!=null&&shapes[0] instanceof Polyline){
-			((Polyline) shapes[0]).end();
+		}else if(shapes[0]!=null&&shapes[0] instanceof Modifier){
+			((Modifier) shapes[0]).setReleased();
 			model.addPrint(shapes[0]);
 			shapes[0] = null;
 			activePointer = -1;
