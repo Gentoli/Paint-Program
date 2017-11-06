@@ -322,3 +322,23 @@ AS A     : user
 I WANT   : To have a help dialog box
 SO THAT  : I can know less obvious features of the app
 --------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 15 : dongshu2
+NAME     : Touch control
+OWNER    : Shuyi
+PRIORITY : 4
+ESTIMATE : 4 hours
+AS A     : user
+I WANT   : To be able to manipulate the app on touch screens
+SO THAT  : I can easily use the app with touch screens
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 16 : dongshu2
+NAME     : Multitouch
+OWNER    : Shuyi
+PRIORITY : 4
+ESTIMATE : 4 hours
+AS A     : user
+I WANT   : To be able to have multiple inputs with touch screens
+SO THAT  : I can create multiple shapes at once
+--------------------------------------------------------------------------
