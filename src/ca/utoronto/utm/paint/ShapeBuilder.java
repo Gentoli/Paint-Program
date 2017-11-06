@@ -2,7 +2,6 @@ package ca.utoronto.utm.paint;
 
 
 import java.awt.Color;
-import java.awt.Stroke;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
@@ -12,7 +11,7 @@ public class ShapeBuilder {
 	private static Constructor<? extends Shape>[] classes;
 	private final static Class[] shapConst = {int.class, int.class, Color.class, float.class,boolean.class,int.class};
 	private final static Class[] polyConst = {int.class, int.class, Color.class, float.class,boolean.class, int.class,int.class ,boolean.class,boolean.class};
-	private final static String[] subClasses = {"RegularPolygon","Ellipse","Polyline"};
+	private final static String[] subClasses = {"RegularPolygon","Polyline","Polyline"};
 	private final static String pack = "ca.utoronto.utm.paint.";
 	public final static int SQUIGGLE = -1;
 	public final static int POLYLINE = SQUIGGLE-1;
@@ -64,7 +63,7 @@ public class ShapeBuilder {
     public ShapeBuilder(int type, int x, int y) {
 		//System.out.println(type);
 		if(type<1)
-	    	shape=classes[Math.abs(type)];
+	    	shape=classes[1];
 	    else
 	    	shape=classes[0];
 	    this.x=x;

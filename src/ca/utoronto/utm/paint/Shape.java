@@ -125,6 +125,10 @@ public abstract class Shape implements Drawable {
 		return yEnd-y;
 	}
 
+	public boolean contains(int x, int y) {
+		return (x>=this.x)&&(x<=xEnd)&&(y>=this.y)&&(y<=yEnd);
+	}
+
     public abstract void print(Graphics2D g2);
 
 	@Override

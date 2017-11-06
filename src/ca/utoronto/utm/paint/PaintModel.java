@@ -10,6 +10,14 @@ import java.util.LinkedList;
 import java.util.Observable;
 
 public class PaintModel extends Observable implements ComponentListener {
+	public int getWidth() {
+		return image.getWidth();
+	}
+
+	public int getHeight() {
+		return image.getHeight();
+	}
+
 	private BufferedImage image = new BufferedImage(1000,1000,BufferedImage.TYPE_INT_RGB);
 
 	private LinkedList<Drawable> drawables = new LinkedList<Drawable>();
