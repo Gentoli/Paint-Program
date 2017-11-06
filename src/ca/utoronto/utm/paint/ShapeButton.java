@@ -1,27 +1,26 @@
 package ca.utoronto.utm.paint;
 
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JPanel;
-import java.awt.Graphics;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 
 public class ShapeButton extends JButton {
     private Shape shape;
     private int shapeNum;
-    private JPanel canvas;
+    private Image image;
 
     public ShapeButton(int shapeNum) {
         this.shapeNum = shapeNum==0?5:shapeNum;
-        this.canvas = new JPanel(){
-            @Override
-            public void paint(Graphics g) {
-//                shape.setXEnd(canvas.getWidth()-1);
-//                shape.setYEnd(canvas.getHeight()-1);
-//                shape.print(g);
-                g.dispose();
-            }
-        };
-        //shape = new ShapeBuilder(this.shapeNum, 1, 1).setFill(false).setRight(true).build();
-        this.add(canvas);
+        try {
+            image = ImageIO.read(new File(String.format("assets\\%d.png",shapeNum)));
+            setIcon(new ImageIcon(image));
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public int getShapeNum() {

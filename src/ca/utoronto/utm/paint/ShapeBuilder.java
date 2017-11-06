@@ -4,7 +4,6 @@ package ca.utoronto.utm.paint;
 import java.awt.Color;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Arrays;
 
 public class ShapeBuilder {
 
@@ -28,18 +27,12 @@ public class ShapeBuilder {
 	}
 
 	static{
-		classes = new Constructor[Arrays.binarySearch(SHAPES, 0)+1];
+		classes = new Constructor[2];
 		try {
 			classes[0]= Class.forName(pack+subClasses[0]).asSubclass(Shape.class).getConstructor(polyConst);
+			classes[1]= Class.forName(pack+subClasses[1]).asSubclass(Shape.class).getConstructor(shapConst);
 		} catch(NoSuchMethodException | ClassNotFoundException e) {
 			e.printStackTrace();
-		}
-		for(int i = 1; i < classes.length; i++) {
-			try {
-				classes[i]=Class.forName(pack+subClasses[classes.length-i]).asSubclass(Shape.class).getConstructor(shapConst);
-			} catch(ClassNotFoundException | NoSuchMethodException e) {
-				e.printStackTrace();
-			}
 		}
 
 	}

@@ -98,6 +98,11 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 			model.addPrint(shapes[0]);
 			shapes[0] = null;
 			activePointer = -1;
+		}else if(shapes[0]!=null&&shapes[0] instanceof Polyline){
+			((Polyline) shapes[0]).end();
+			model.addPrint(shapes[0]);
+			shapes[0] = null;
+			activePointer = -1;
 		}
 	}
 
@@ -131,16 +136,13 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 								if(shapes[0]==null) {
 									activePointer=e.getPointerId();
 									shapes[0] = new Modifier(e.getX(), e.getY(), model);
-									System.out.println("new");
 								}else{
 									if(shapes[0].contains(e.getX(),e.getY())){
 										activePointer=e.getPointerId();
 										((Modifier) shapes[0]).move(e.getX(),e.getY());
-										System.out.println("in");
 									}else{
 										((Modifier) shapes[0]).setReleased();
 										setMode(mode);
-										System.out.println("out end");
 									}
 								}
 							}
@@ -198,10 +200,9 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 								model.addPrint(shapes[shapeId]);
 								shapes[shapeId] = null;
 							}else{
-								shapes[shapeId].setEnd(e.getX(), e.getY());
-								System.out.println("rr");
+								if(shapes[shapeId]!=null)
+									shapes[shapeId].setEnd(e.getX(), e.getY());
 							}
-							System.out.println("r");
 							break;
 						default:
 							if(shapes[shapeId] != null) {
