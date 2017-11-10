@@ -70,3 +70,8 @@ Nov 5, 2017
 	Yesterday : Implemented style choosing panel and updated shape choosing panel
 	Today     : Finish and push
 	Obstacles :
+
+Nov 10, 2017
+	Yesterday :
+	Today     : Add user stories and work on 1 or 2
+	Obstacles : Need to change architecture for our shapes and tools
