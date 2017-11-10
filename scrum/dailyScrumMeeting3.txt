@@ -1,5 +1,5 @@
 # Fill in, commit and push each day.
-# Group Member: FILL THIS IN
+# Group Member: Shuyi Dong
 
 Oct 23, 2017
 	Yesterday :
@@ -69,4 +69,9 @@ Nov 4, 2017
 Nov 5, 2017
 	Yesterday :
 	Today     : Create move tool
+	Obstacles :
+
+Nov 10, 2017
+	Yesterday :
+	Today     : Improve structure for WindowsTouch
 	Obstacles :
