@@ -34,9 +34,9 @@ I WANT   : To be able to draw inverted polygons
 SO THAT  : I can have more choices of different, unique shapes
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : USER STORY 20 :
+TYPE     : USER STORY 20 : kairoshs
 NAME     : EyeDropper tool/ Get color from screen
-OWNER    :
+OWNER    : Sanjar
 PRIORITY : 2
 ESTIMATE : 2 hours
 AS A     : user
@@ -108,9 +108,9 @@ ESTIMATE : 3 hours
 ISSUE    : Need to make our shapes implement the java.awt.Shape interface
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : BUG 11 :
+TYPE     : BUG 11 : legaul30
 NAME     : Sub-Optimal Tools architecture
-OWNER    :
+OWNER    : Jarod
 PRIORITY : 1
 ESTIMATE : 3 hours
 ISSUE    : Need to make all tools use the factory design pattern
@@ -122,6 +122,14 @@ OWNER    :
 PRIORITY : 1
 ESTIMATE : 3 hours
 ISSUE    : Shapes don't change draw style when alt or shift are pressed, only after the mouse is moved.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 13 : dongshu2
+NAME     : Not Generic Inputs
+OWNER    : Shuyi
+PRIORITY : 1
+ESTIMATE : 3 hours
+ISSUE    : Pointer movements aren't generic throughout all actors in the paint panel
 --------------------------------------------------------------------------
 # COMPLETED USER STORIES/BUGS BELOW ###########################################
 --------------------------------------------------------------------------
@@ -460,12 +468,4 @@ I WANT   : To have the edit tab functionality including:
                 Paste image
                 Cut image
 SO THAT  : I can easily copy/paste images
---------------------------------------------------------------------------
---------------------------------------------------------------------------
-TYPE     : BUG 8
-NAME     : Hotkey Shift for drawing polygons with equal sides
-OWNER    :
-PRIORITY : 4
-ESTIMATE : 1 hour
-ISSUE    : polygons have equal sides but don't stick to the first click's point
 --------------------------------------------------------------------------
