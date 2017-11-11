@@ -92,9 +92,9 @@ ESTIMATE : 1 hour
 ISSUE    : polygons have equal sides but don't stick to the first click's point
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : BUG 9 :
+TYPE     : BUG 9 : assadkur
 NAME     : Add More Stroke Styles
-OWNER    :
+OWNER    : Kurtis
 PRIORITY : 1
 ESTIMATE : 3 hours
 Issue: There aren't enough stroke styles
