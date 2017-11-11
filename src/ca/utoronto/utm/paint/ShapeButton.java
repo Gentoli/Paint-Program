@@ -19,12 +19,12 @@ public class ShapeButton extends JButton {
      * @param shapeNum number corresponding to it's shape
      */
     public ShapeButton(int shapeNum) {
-        this.shapeNum = shapeNum==0?5:shapeNum;
+        this.shapeNum = shapeNum;
         try {
             image = ImageIO.read(new File(String.format("assets"+File.separator+"%d.png",shapeNum)));
             setIcon(new ImageIcon(image));
         } catch(IOException e) {
-            e.printStackTrace();
+            this.setText("Selection");
         }
 
     }

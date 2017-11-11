@@ -92,20 +92,12 @@ ESTIMATE : 1 hour
 ISSUE    : polygons have equal sides but don't stick to the first click's point
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : BUG 9 :
+TYPE     : BUG 9 : assadkur
 NAME     : Add More Stroke Styles
-OWNER    :
-PRIORITY : 1
-ESTIMATE : 3 hours
-Issue: There aren't enough stroke styles
---------------------------------------------------------------------------
---------------------------------------------------------------------------
-TYPE     : BUG 10 : assadkur
-NAME     : Sub-Optimal Shape architecture
 OWNER    : Kurtis
 PRIORITY : 1
 ESTIMATE : 3 hours
-ISSUE    : Need to make our shapes implement the java.awt.Shape interface
+Issue: There aren't enough stroke styles
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
 TYPE     : BUG 11 : legaul30
@@ -130,6 +122,14 @@ OWNER    : Shuyi
 PRIORITY : 1
 ESTIMATE : 3 hours
 ISSUE    : Pointer movements aren't generic throughout all actors in the paint panel
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 15 : dongshu2
+NAME     : WindowPointer only support one Frame
+OWNER    : Shuyi
+PRIORITY : 1
+ESTIMATE : 3 hours
+ISSUE    : WindowPointer doesn't work with multiple Frames
 --------------------------------------------------------------------------
 
 # COMPLETED USER STORIES/BUGS BELOW ###########################################
@@ -441,6 +441,14 @@ PRIORITY : 2
 ESTIMATE : 1 hour
 ISSUE    : The first thing drawn should be behind the second thing drawn on top 
 		   of it, but instead points are drawn first, then circles on top of it.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 10 : assadkur
+NAME     : Sub-Optimal Shape architecture
+OWNER    : Kurtis
+PRIORITY : 1
+ESTIMATE : 3 hours
+ISSUE    : Need to make our shapes implement the java.awt.Shape interface
 --------------------------------------------------------------------------
 
 # OMITTED USER STORIES/BUGS BELOW   ###########################################

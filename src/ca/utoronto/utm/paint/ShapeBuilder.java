@@ -6,16 +6,16 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 /**
- *  Construct Shape Object based on the type of the shape,
+ *  Construct PaintShape Object based on the type of the shape,
  *  taking in all the parameters that shapes can hold,
  *  Using the builder design pattern.
  */
 public class ShapeBuilder {
 
-	private static Constructor<? extends Shape>[] classes;
+	private static Constructor<? extends PaintShape>[] classes;
 	private final static Class[] shapConst = {int.class, int.class, Color.class, float.class,boolean.class,int.class};
 	private final static Class[] polyConst = {int.class, int.class, Color.class, float.class,boolean.class, int.class,int.class ,boolean.class,boolean.class};
-	private final static String[] subClasses = {"RegularPolygon","Polyline","Polyline","Modifier"};
+	private final static String[] subClasses = {"RegularPolygon","Polyline","Polyline","Selection"};
 	private final static String pack = "ca.utoronto.utm.paint.";
 	public final static int SQUIGGLE = -1;
 	public final static int POLYLINE = SQUIGGLE-1;
@@ -34,14 +34,14 @@ public class ShapeBuilder {
 	static{
 		classes = new Constructor[2];
 		try {
-			classes[0]= Class.forName(pack+subClasses[0]).asSubclass(Shape.class).getConstructor(polyConst);
-			classes[1]= Class.forName(pack+subClasses[1]).asSubclass(Shape.class).getConstructor(shapConst);
+			classes[0]= Class.forName(pack+subClasses[0]).asSubclass(PaintShape.class).getConstructor(polyConst);
+			classes[1]= Class.forName(pack+subClasses[1]).asSubclass(PaintShape.class).getConstructor(shapConst);
 		} catch(NoSuchMethodException | ClassNotFoundException e) {
 			e.printStackTrace();
 		}
 
 	}
-    private Constructor <? extends Shape>  shape;
+    private Constructor <? extends PaintShape>  shape;
     private Color colour;
     private float lineThickness;
     private int x, y;
@@ -91,9 +91,9 @@ public class ShapeBuilder {
 
 	/**
 	 * Constructs the shape Object and checking whether the shape is a polygon or a line.
-	 * @return Shape object using the set parameters
+	 * @return PaintShape object using the set parameters
 	 */
-	public Shape build(){
+	public PaintShape build(){
 	    try {
 		    if(edges<0)
 			    return shape.newInstance(x,y,colour,lineThickness,fill,strokeStyle);
