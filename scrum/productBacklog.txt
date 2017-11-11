@@ -116,9 +116,9 @@ ESTIMATE : 3 hours
 ISSUE    : Need to make all tools use the factory design pattern
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : BUG 12 :
+TYPE     : BUG 12 : dongshu2
 NAME     : Shapes not changing on modifier buttons
-OWNER    :
+OWNER    : Shuyi
 PRIORITY : 1
 ESTIMATE : 3 hours
 ISSUE    : Shapes don't change draw style when alt or shift are pressed, only after the mouse is moved.
