@@ -23,7 +23,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	private int mode; // modifies how we interpret input (could be better?)
 
 
-	private PaintShape[] paintShapes = new PaintShape[WindowsPointer.POINTER_MAX];
+	private PaintShape[] shapes = new PaintShape[WindowsPointer.POINTER_MAX];
 	private ITool[] toolList;
 	private int edges;
 
@@ -56,7 +56,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 		Graphics2D g2 = (Graphics2D) g;
 		this.model.paint(g2);
 
-		for(PaintShape s : paintShapes) {
+		for(PaintShape s : shapes) {
 			if(s != null) {
 				s.print(g2);
 			}
@@ -75,22 +75,6 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	 */
 	public void setMode(int mode) {
 		this.mode = mode;
-
-		if(paintShapes[0]!=null&& paintShapes[0] instanceof Polyline){
-			((Polyline) paintShapes[0]).end();
-			model.addPrint(paintShapes[0]);
-			paintShapes[0] = null;
-			activePointer = -1;
-		}else if(paintShapes[0]!=null&& paintShapes[0] instanceof Modifier){
-			((Modifier) paintShapes[0]).setReleased();
-			model.addPrint(paintShapes[0]);
-			paintShapes[0] = null;
-		}else if(shapes[0]!=null&&shapes[0] instanceof Selection){
-			((Selection) shapes[0]).setReleased();
-			model.addPrint(shapes[0]);
-			shapes[0] = null;
-			activePointer = -1;
-		}
 	}
 
 	public void setEdges(int edges) { this.edges = edges; }

@@ -6,7 +6,7 @@ public class SelectionTool implements ITool {
 
 
 
-    public SelectionTool(PaintModel model, Shape[] shapeArray) {
+    public SelectionTool(PaintModel model, PaintShape[] shapeArray) {
 
     }
 

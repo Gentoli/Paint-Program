@@ -8,7 +8,7 @@ import javax.swing.event.ChangeListener;
 
 public class PolygonTool implements ITool, ChangeListener {
 
-    public PolygonTool(StylePanel stylePanel, Shape[] shapeArray) {
+    public PolygonTool(StylePanel stylePanel, PaintShape[] shapeArray) {
 
     }
 

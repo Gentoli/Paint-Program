@@ -4,7 +4,7 @@ import ca.utoronto.utm.pointer.PointerEvent;
 
 public class SquiggleTool implements ITool {
 
-    public SquiggleTool(StylePanel stylePanel, Shape[] shapeArray) {
+    public SquiggleTool(StylePanel stylePanel, PaintShape[] shapeArray) {
 
     }
 

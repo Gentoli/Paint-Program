@@ -5,7 +5,7 @@ import ca.utoronto.utm.pointer.PointerEvent;
 public class PolylineTool implements ITool {
 
 
-    public PolylineTool(StylePanel stylePanel, Shape[] shapeArray) {
+    public PolylineTool(StylePanel stylePanel, PaintShape[] shapeArray) {
 
     }
 
