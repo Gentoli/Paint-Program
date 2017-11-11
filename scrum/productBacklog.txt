@@ -131,6 +131,14 @@ PRIORITY : 1
 ESTIMATE : 3 hours
 ISSUE    : Pointer movements aren't generic throughout all actors in the paint panel
 --------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 15 : dongshu2
+NAME     : WindowPointer only support one Frame
+OWNER    : Shuyi
+PRIORITY : 1
+ESTIMATE : 3 hours
+ISSUE    : WindowPointer doesn't work with multiple Frames
+--------------------------------------------------------------------------
 
 # COMPLETED USER STORIES/BUGS BELOW ###########################################
 --------------------------------------------------------------------------
