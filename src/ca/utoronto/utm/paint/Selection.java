@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 /**
  * Actor for PaintPanel handles moving part of the screen
  */
-public class Selection extends Shape {
+public class Modifier extends PaintShape {
 	private BufferedImage selection;
 	private int width,height;
 	private PaintModel model;
@@ -17,7 +17,7 @@ public class Selection extends Shape {
 	private int lastX=0,lastY=0;
 	private Rectangle r;
 
-	public Selection(int x, int y, PaintModel model) {
+	public Modifier(int x, int y,PaintModel model) {
 		super(x, y, Color.RED, 5 , false, 0);
 		this.model = model;
 		move=true;

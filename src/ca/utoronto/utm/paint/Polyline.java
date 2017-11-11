@@ -1,14 +1,15 @@
 package ca.utoronto.utm.paint;
 
 import java.awt.*;
+import java.awt.geom.*;
 import java.util.ArrayList;
 
 /**
- *  Shape with multiple dots connecting to each other.
+ *  PaintShape with multiple dots connecting to each other.
  */
-public class Polyline extends Shape{
+public class Polyline extends PaintShape {
     private ArrayList<Point> p;
-
+    private Path2D path;
     public Polyline(int x, int y, Color colour, float lineThickness, boolean fill, int strokeStyle) {
         super(x, y, colour, lineThickness, fill, strokeStyle);
 
@@ -33,19 +34,58 @@ public class Polyline extends Shape{
 
     private Point temp;
 
-    @Override
-    public void setEnd(int x,int y){
-        temp=null;
-        addPoint(new Point(x,y));
-    }
-
-    public void setTemp(int x,int y){
-//	    System.out.println("tmp");
-	    temp = new Point(x,y);
-    }
-
     public void end() {
 //	    System.out.println(this.p.get(this.p.size()-1).getX()+" "+temp.getX());
 	    temp = null;
+    }
+
+    @Override
+    public Rectangle getBounds() {
+        return path.getBounds();
+    }
+
+    @Override
+    public Rectangle2D getBounds2D() {
+        return path.getBounds2D();
+    }
+
+    @Override
+    public boolean contains(double x, double y) {
+        return path.contains(x, y);
+    }
+
+    @Override
+    public boolean contains(Point2D p) {
+        return path.contains(p);
+    }
+
+    @Override
+    public boolean intersects(double x, double y, double w, double h) {
+        return path.intersects(x, y, w, h);
+    }
+
+    @Override
+    public boolean intersects(Rectangle2D r) {
+        return path.intersects(r);
+    }
+
+    @Override
+    public boolean contains(double x, double y, double w, double h) {
+        return path.contains(x, y, w, h);
+    }
+
+    @Override
+    public boolean contains(Rectangle2D r) {
+        return path.contains(r);
+    }
+
+    @Override
+    public PathIterator getPathIterator(AffineTransform at) {
+        return path.getPathIterator(at);
+    }
+
+    @Override
+    public PathIterator getPathIterator(AffineTransform at, double flatness) {
+        return path.getPathIterator(at, flatness);
     }
 }
