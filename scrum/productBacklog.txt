@@ -131,6 +131,7 @@ PRIORITY : 1
 ESTIMATE : 3 hours
 ISSUE    : Pointer movements aren't generic throughout all actors in the paint panel
 --------------------------------------------------------------------------
+
 # COMPLETED USER STORIES/BUGS BELOW ###########################################
 --------------------------------------------------------------------------
 TYPE     : USER STORY 1 : assadkur
@@ -468,4 +469,12 @@ I WANT   : To have the edit tab functionality including:
                 Paste image
                 Cut image
 SO THAT  : I can easily copy/paste images
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 14 : dongshu2
+NAME     : WindowPointer doesn't work on Linux
+OWNER    : Shuyi
+PRIORITY : 1
+ESTIMATE : 12 hours
+ISSUE    : WindowPointer doesn't work on Linux
 --------------------------------------------------------------------------
