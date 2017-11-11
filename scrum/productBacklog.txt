@@ -100,14 +100,6 @@ ESTIMATE : 3 hours
 Issue: There aren't enough stroke styles
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : BUG 10 : assadkur
-NAME     : Sub-Optimal Shape architecture
-OWNER    : Kurtis
-PRIORITY : 1
-ESTIMATE : 3 hours
-ISSUE    : Need to make our shapes implement the java.awt.Shape interface
---------------------------------------------------------------------------
---------------------------------------------------------------------------
 TYPE     : BUG 11 : legaul30
 NAME     : Sub-Optimal Tools architecture
 OWNER    : Jarod
@@ -449,6 +441,14 @@ PRIORITY : 2
 ESTIMATE : 1 hour
 ISSUE    : The first thing drawn should be behind the second thing drawn on top 
 		   of it, but instead points are drawn first, then circles on top of it.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 10 : assadkur
+NAME     : Sub-Optimal Shape architecture
+OWNER    : Kurtis
+PRIORITY : 1
+ESTIMATE : 3 hours
+ISSUE    : Need to make our shapes implement the java.awt.Shape interface
 --------------------------------------------------------------------------
 
 # OMITTED USER STORIES/BUGS BELOW   ###########################################
