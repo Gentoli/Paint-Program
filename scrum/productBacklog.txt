@@ -3,6 +3,142 @@
 # For example, the color chooser user story involves: 
 # 1 Color chooser UI (which could be a USER STORY)
 # 2 Implementation of selected color into the drawing stream.
+--------------------------------------------------------------------------
+TYPE     : USER STORY 17 :
+NAME     : Add Layers
+OWNER    :
+PRIORITY : 1
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To be able to add and remove layers with their own shapes
+SO THAT  : I can have more control on the drawings
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 18 :
+NAME     : Mouse Icons
+OWNER    :
+PRIORITY : 2
+ESTIMATE : 1 hour
+AS A     : user
+I WANT   : To have different Icons for each tool button
+SO THAT  : I can know quickly which tool is selected just by looking at the mouse
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 19 :
+NAME     : Inverted Polygons
+OWNER    :
+PRIORITY : 1
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To be able to draw inverted polygons
+SO THAT  : I can have more choices of different, unique shapes
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 20 : kairoshs
+NAME     : EyeDropper tool/ Get color from screen
+OWNER    : Sanjar
+PRIORITY : 2
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To be able to select a color from the screen
+SO THAT  : I will never forget which color I used earlier for a specific line
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 21 :
+NAME     : Text Boxes
+OWNER    :
+PRIORITY : 1
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To be able to add text boxes
+SO THAT  : I can add typed words to the screen
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 22 :
+NAME     : Font styles for text boxes
+OWNER    :
+PRIORITY : 2
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To be able to add text boxes with different fonts
+SO THAT  : I can add typed words with certain styles to the screen
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 23 :
+NAME     : Eraser tool
+OWNER    :
+PRIORITY : 1
+ESTIMATE : 1 hour
+AS A     : user
+I WANT   : To be able to erase
+SO THAT  : I can fix mistakes with an eraser tool
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 24 :
+NAME     : Scrollable screen
+OWNER    :
+PRIORITY : 2
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To be able to scroll the screen to see other parts of the canvas
+SO THAT  : I can see other parts of the canvas without expanding it
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 8
+NAME     : Hotkey Shift for drawing polygons with equal sides
+OWNER    :
+PRIORITY : 4
+ESTIMATE : 1 hour
+ISSUE    : polygons have equal sides but don't stick to the first click's point
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 9 :
+NAME     : Add More Stroke Styles
+OWNER    :
+PRIORITY : 1
+ESTIMATE : 3 hours
+Issue: There aren't enough stroke styles
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 10 : assadkur
+NAME     : Sub-Optimal Shape architecture
+OWNER    : Kurtis
+PRIORITY : 1
+ESTIMATE : 3 hours
+ISSUE    : Need to make our shapes implement the java.awt.Shape interface
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 11 : legaul30
+NAME     : Sub-Optimal Tools architecture
+OWNER    : Jarod
+PRIORITY : 1
+ESTIMATE : 3 hours
+ISSUE    : Need to make all tools use the factory design pattern
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 12 : dongshu2
+NAME     : Shapes not changing on modifier buttons
+OWNER    : Shuyi
+PRIORITY : 1
+ESTIMATE : 3 hours
+ISSUE    : Shapes don't change draw style when alt or shift are pressed, only after the mouse is moved.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 13 : dongshu2
+NAME     : Not Generic Inputs
+OWNER    : Shuyi
+PRIORITY : 1
+ESTIMATE : 3 hours
+ISSUE    : Pointer movements aren't generic throughout all actors in the paint panel
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 15 : dongshu2
+NAME     : WindowPointer only support one Frame
+OWNER    : Shuyi
+PRIORITY : 1
+ESTIMATE : 3 hours
+ISSUE    : WindowPointer doesn't work with multiple Frames
+--------------------------------------------------------------------------
 
 # COMPLETED USER STORIES/BUGS BELOW ###########################################
 --------------------------------------------------------------------------
@@ -343,10 +479,10 @@ I WANT   : To have the edit tab functionality including:
 SO THAT  : I can easily copy/paste images
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : BUG 8
-NAME     : Hotkey Shift for drawing polygons with equal sides
-OWNER    :
-PRIORITY : 4
-ESTIMATE : 1 hour
-ISSUE    : polygons have equal sides but don't stick to the first click's point
+TYPE     : BUG 14 : dongshu2
+NAME     : WindowPointer doesn't work on Linux
+OWNER    : Shuyi
+PRIORITY : 1
+ESTIMATE : 12 hours
+ISSUE    : WindowPointer doesn't work on Linux
 --------------------------------------------------------------------------
