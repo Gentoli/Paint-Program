@@ -8,10 +8,10 @@ import java.awt.geom.*;
 public class RegularPolygon extends PaintShape {
     protected boolean center;
     protected boolean right;
-    private Polygon polygon;
-    private Path2D model;
-    private Path2D shape;
-    private AffineTransform t = new AffineTransform();
+    protected Polygon polygon;
+    protected Path2D model;
+    protected Path2D shape;
+    protected AffineTransform t = new AffineTransform();
     /**
      * creates a regular polygon
      * @param x the initial x coordinate
@@ -35,7 +35,7 @@ public class RegularPolygon extends PaintShape {
 	    calculateModel();
     }
     //draws the polygon out in model view (centered on axis with radius 1)
-    private void calculateModel() {
+    protected void calculateModel() {
         double angles = 2 * Math.PI / polygon.npoints;
         final double radius = 1.0;
         model.moveTo(0,1);//every polygon vertex starts from the top middle
@@ -46,7 +46,7 @@ public class RegularPolygon extends PaintShape {
         }
         model.closePath();
     }
-    private void centeredPolygonCreation(){
+    protected void centeredPolygonCreation(){
         t.setToTranslation(x,y);
         double mouseAngle = Math.atan2(-getWidth(),getHeight());
         t.rotate(mouseAngle);
@@ -57,14 +57,14 @@ public class RegularPolygon extends PaintShape {
         shape = (Path2D)t.createTransformedShape(model);//applies the transformations to the model
     }
 
-    private void stretchPolygonCreation(){
+    protected void stretchPolygonCreation(){
         t.setToTranslation(x,y);
         t.scale(getWidth()/2,getHeight()/2);
         t.translate(1,1);//transform to account for the scale
         shape = (Path2D)t.createTransformedShape(model);
     }
 
-    private void regularPolygonCreation(){
+    protected void regularPolygonCreation(){
         t.setToTranslation(x,y);
         int dx = getWidth(); int dy = -getHeight();
         int scaleAmount = Math.min(Math.abs(dx),Math.abs(dy));
@@ -94,7 +94,6 @@ public class RegularPolygon extends PaintShape {
     @Override
     public void mouseMoved(int x, int y) {
         xEnd=x;yEnd=y;
-        System.out.println(center);
         if(center){
             centeredPolygonCreation();
         }else if (right){
