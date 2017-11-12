@@ -1,19 +1,17 @@
 package ca.utoronto.utm.paint;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.PathIterator;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
+import java.awt.geom.*;
 
 /*creates a polygon that is equiangular (verticie anglues are of equal value). This can be stretched in either the x
 * or y direction and flipped around.*/
 public class RegularPolygon extends PaintShape {
-    public int[] verticiesX;
-    public int[] verticiesY;
     protected boolean center;
     protected boolean right;
     private Polygon polygon;
+    private Path2D model;
+    private Path2D shape;
+    private AffineTransform t = new AffineTransform();
     /**
      * creates a regular polygon
      * @param x the initial x coordinate
@@ -28,70 +26,53 @@ public class RegularPolygon extends PaintShape {
      */
     public RegularPolygon(int x, int y, Color colour, float lineThickness, boolean fill, int strokeStyle,int vertices,boolean center,boolean right) {
         super(x, y, colour, lineThickness, fill, strokeStyle);
-        this.verticiesX = new int[vertices];
-        this.verticiesY = new int[vertices];
+        model = new Path2D.Double();
+        shape = new Path2D.Double();
         polygon=new Polygon();
         polygon.npoints=vertices;
-        polygon.xpoints=verticiesX;
-        polygon.ypoints=verticiesY;
-	    this.center = center;
+	    this.center = false;
 	    this.right = right;
+	    calculateModel();
     }
-    //calculates the vericies angle values of the polygon
-    private void calculateVerticies() {
+    //draws the polygon out in model view (centered on axis with radius 1)
+    private void calculateModel() {
         double angles = 2 * Math.PI / polygon.npoints;
-        int absMin = Math.min(Math.abs(getWidth()),Math.abs(getHeight()));
-        double radiusSquared;
-        double radius = absMin/2;
-        double mouseAngle = 0;
-        int offsetX;
-        int offsetY;
-        double rFactor = 2;
-        double xFactor = Math.abs(getWidth())/(rFactor*radius);
-        double yFactor = Math.abs(getHeight())/(rFactor*radius);
-        int flip = 1;
-        if(center){
-           radiusSquared =  Math.pow(getWidth(), 2) + Math.pow(getHeight(),2);
-           if(polygon.npoints == 4){
-               radius = Math.sqrt(radiusSquared);
-               mouseAngle = Math.atan2(-getHeight(), getWidth())-Math.PI/2;
-           }
-           offsetX = x;
-           offsetY = y;
-           if(right){
-               xFactor = 1;
-               yFactor = 1;
-           }
-        }else{
-            if(polygon.npoints == 4){
-                mouseAngle = Math.PI/4;
-            }
-            if(getHeight() < 0){
-                flip = -1;
-            }
-            offsetX = getXMid();
-            offsetY = getYMid();
+        final double radius = 1.0;
+        model.moveTo(0,1);//every polygon vertex starts from the top middle
+        for (int i = 1; i < polygon.npoints; i++) {
+            double x = radius * Math.sin(i * angles);
+            double y = radius * Math.cos(i * angles);
+            model.lineTo(x,y);
         }
-        if(polygon.npoints == 4){
-            rFactor = Math.sqrt(2);
-        }/*
-        double radiusSquared = center?Math.pow(getWidth(), 2) + Math.pow(getHeight(),2):2*Math.pow(absMin/2,2);
-        double radius = center||polygon.npoints==4?Math.sqrt(radiusSquared):absMin/2;
-        double mouseAngle = center?Math.atan2(-getHeight(), getWidth())-Math.PI/2:(polygon.npoints==4?Math.PI/4:0);
-        int offsetX = center?x:getXMid();
-        int offsetY = center?y:getYMid();
-        double rFactor=polygon.npoints==4?Math.sqrt(2):2;
-        double xFactor=center||right?1:Math.abs(getWidth())/(rFactor*radius);
-        double yFactor=center||right?1:Math.abs(getHeight())/(rFactor*radius);
-        int flip = !center&&getHeight()<0?-1:1;
-        */
-        for (int i = 0; i < polygon.npoints; i++) {
-            double x = radius * Math.sin(i * angles + mouseAngle) * xFactor;
-            double y = flip*radius * Math.cos(i * angles + mouseAngle) * yFactor;
-            Point p = rotate(x, y, Math.PI);
-            verticiesX[i] = p.x+offsetX;
-            verticiesY[i] = p.y+offsetY;
-        }
+        model.closePath();
+    }
+    private void centeredPolygonCreation(){
+        t.setToTranslation(x,y);
+        double mouseAngle = Math.atan2(-getWidth(),getHeight());
+        t.rotate(mouseAngle);
+        int dx = getWidth();
+        int dy = getHeight();
+        double r = Math.sqrt(dx*dx+dy*dy);
+        t.scale(r,r);
+        shape = (Path2D)t.createTransformedShape(model);//applies the transformations to the model
+    }
+
+    private void stretchPolygonCreation(){
+        t.setToTranslation(x,y);
+        t.scale(getWidth()/2,getHeight()/2);
+        t.translate(1,1);//transform to account for the scale
+        shape = (Path2D)t.createTransformedShape(model);
+    }
+
+    private void regularPolygonCreation(){
+        t.setToTranslation(x,y);
+        int dx = getWidth(); int dy = -getHeight();
+        int scaleAmount = Math.min(Math.abs(dx),Math.abs(dy));
+        int xflip = dx/Math.abs(dx); int yflip = dy/Math.abs(dy);
+        System.out.println(xflip);
+        t.scale(xflip*scaleAmount/2,-yflip*scaleAmount/2);
+        t.translate(1,1);//transform to account for the scale
+        shape = (Path2D)t.createTransformedShape(model);
     }
 
     private int getXMid() {
@@ -109,16 +90,18 @@ public class RegularPolygon extends PaintShape {
         return xEnd-x;
     }
 
-    public Point rotate(double x, double y, double angle){
-        double retX = x*Math.cos(angle) - y*Math.sin(angle);
-        double retY = x*Math.sin(angle) + y*Math.cos(angle);
-        return new Point((int)retX,(int)retY);
-    }
 
     @Override
     public void mouseMoved(int x, int y) {
         xEnd=x;yEnd=y;
-        calculateVerticies();
+        System.out.println(center);
+        if(center){
+            centeredPolygonCreation();
+        }else if (right){
+            regularPolygonCreation();
+        }else{
+            stretchPolygonCreation();
+        }
     }
 
     //prints the polygon to the screen
@@ -126,11 +109,11 @@ public class RegularPolygon extends PaintShape {
     public void print(Graphics2D g) {
 	    prepare(g);
         g.setStroke(stroke);
-        calculateVerticies();
         if(fill)
-            g.fillPolygon(polygon);
-        else
-        g.drawPolygon(polygon);
+            g.fill(shape);
+        else {
+            g.draw(shape);
+        }
     }
     
     public void setCenter(boolean center) {
