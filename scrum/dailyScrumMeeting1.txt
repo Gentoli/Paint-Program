@@ -75,3 +75,8 @@ Nov 10, 2017
 	Yesterday :
 	Today     : Add user stories and work on 1 or 2
 	Obstacles : Need to change architecture for our shapes and tools
+
+Nov 11, 2017
+	Yesterday : Added user stories and worked on bug 11
+	Today     : Finish bug 11 and work on another user story
+	Obstacles :

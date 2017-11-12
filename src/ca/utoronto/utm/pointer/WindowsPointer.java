@@ -18,7 +18,7 @@ public class WindowsPointer extends MouseAdapter {
 		try {
 			System.loadLibrary("JNI");
 		} catch(Error e) {
-			System.out.println("JNI failed to load\n falling back to MouseListener");
+			System.out.println("JNI failed to load... falling back to MouseListener");
 			TOUCH_SUPPORTED=false;
 		}
 	}
@@ -52,7 +52,6 @@ public class WindowsPointer extends MouseAdapter {
 			e.printStackTrace();
 			TOUCH_SUPPORTED=false;
 		}
-		//listeners.clear();
 	}
 
 	private static WindowsPointer instance;
@@ -75,6 +74,14 @@ public class WindowsPointer extends MouseAdapter {
 			p.releasePoint(index);
 	}
 
+	private static void KeyUpdate(int eventId, long when, int modifiers,int keyCode,char keyChar){
+		WindowsPointer p = getInstance();
+		ModifierEvent event = new ModifierEvent(p.frame,eventId,when,modifiers,keyCode, keyChar);
+		for(EventFactory e:p.listeners.values()){
+			e.fireModifierEvent(event);
+		}
+	}
+
 	public void addListener(PointerListener pointerListener,Component component){
 		if(TOUCH_SUPPORTED) {
 			EventFactory f = listeners.get(component);
@@ -85,9 +92,10 @@ public class WindowsPointer extends MouseAdapter {
 			}else
 				f.add(pointerListener);
 		}else{
-			MouseEventProxy mp = new MouseEventProxy(pointerListener);
-			component.addMouseListener(mp);
-			component.addMouseMotionListener(mp);
+			InputEventProxy eventProxy = new InputEventProxy(pointerListener);
+			component.addKeyListener(eventProxy);
+			component.addMouseListener(eventProxy);
+			component.addMouseMotionListener(eventProxy);
 		}
 	}
 

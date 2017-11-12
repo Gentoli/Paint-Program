@@ -1,6 +1,8 @@
 package ca.utoronto.utm.paint;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.*;
 import java.math.RoundingMode;
@@ -13,40 +15,39 @@ import java.util.Observer;
  * that holds all the style options, including undo,redo,clear,
  * fill,lineStyle,lineThickness and the colour panel button.
  */
-public class StylePanel extends JPanel implements Observer {
+public class StylePanel extends JPanel implements Observer, ChangeListener {
 
-    private View view;
-    private JPanel lineThicknessPanel;
-    private JLabel lineThicknessLabel;
-    private JTextField lineThicknessText;
-    private JSlider lineThicknessSlider;
-    private JLabel fillLabel;
-    private JCheckBox fillCheckBox;
-    private JLabel styleLabel;
-    private JComboBox styleComboBox;
-    private JLabel colourLabel;
-    private ColourPanel colourPanel;
+//    private JPanel lineThicknessPanel;
+//    private JLabel lineThicknessLabel;
+//    private JTextField lineThicknessText;
+//    private JSlider lineThicknessSlider;
+//    private JLabel fillLabel;
+//    private JCheckBox fillCheckBox;
+//    private JLabel styleLabel;
+//    private JComboBox styleComboBox;
+//    private JLabel colourLabel;
+//    private ColourDialog colourDialog;
     private JButton openColourPanel;
     private JButton undo, redo, clear;
-    private JPanel buttonPanel;
-    private PaintModel model;
+//    private JPanel buttonPanel;
+
+    private Color colour = Color.black;
+    private float lineThickness = 1f;
+    private int strokeStyle = 1;
+    private boolean fill = false;
 
     /**
      * Creates a JPanel, using GridBagLayout to format the components
-     * @param view The view of the paint project
-     * @param model The model of the paint project
      */
-    public StylePanel(View view, PaintModel model) {
-        this.view = view;
-        this.model = model;
-        model.addObserver(this);
+    public StylePanel(PaintPanel paintPanel, ColourDialog colourDialog) {
 
         this.setLayout(new GridBagLayout());
         this.setPreferredSize(new Dimension(0,100));
-        lineThicknessPanel = new JPanel();
-        lineThicknessLabel = new JLabel("Line Thickness");
+        JPanel lineThicknessPanel = new JPanel();
+        JLabel lineThicknessLabel = new JLabel("Line Thickness");
         lineThicknessLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        lineThicknessText = new JTextField("1", 3);
+        JTextField lineThicknessText = new JTextField("1", 3);
+        JSlider lineThicknessSlider = new JSlider(1, 1024, 1);
         lineThicknessText.setHorizontalAlignment(SwingConstants.CENTER);
         lineThicknessText.addActionListener(e -> {
             try {
@@ -57,16 +58,15 @@ public class StylePanel extends JPanel implements Observer {
                 if (value < 1) {
                     value = 1;
                 }
-                view.getPaintPanel().setLineThickness(value);
+                lineThickness = value;
                 value = Math.round(value*51.2);
                 lineThicknessSlider.setValue((int)value);
             }
             catch(Exception exception) {
                 ((JTextField)e.getSource()).setText("1");
-                view.getPaintPanel().setLineThickness(1);
+                lineThickness = 1;
                 lineThicknessSlider.setValue(1);
             }
-            view.requestFocus();
         });
         lineThicknessText.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
@@ -83,74 +83,64 @@ public class StylePanel extends JPanel implements Observer {
         lineThicknessPanel.add(lineThicknessLabel);
         lineThicknessPanel.add(lineThicknessText);
 
-        lineThicknessSlider = new JSlider(1, 1024, 1);
+        
         lineThicknessSlider.addChangeListener(e -> {
             float value = (((float)((JSlider)e.getSource()).getValue())/1024)*20;
-            view.getPaintPanel().setLineThickness(value);
+            lineThickness = value;
             DecimalFormat df = new DecimalFormat("#.#");
             df.setRoundingMode(RoundingMode.CEILING);
             lineThicknessText.setText(df.format(value));
-            view.requestFocus();
         });
 
-        fillLabel = new JLabel("Fill Shapes");
+        JLabel fillLabel = new JLabel("Fill Shapes");
         fillLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        fillCheckBox = new JCheckBox();
+        JCheckBox fillCheckBox = new JCheckBox();
         fillCheckBox.addActionListener(e -> {
-            view.getPaintPanel().setFill(fillCheckBox.isSelected());
-            view.requestFocus();
+            fill = fillCheckBox.isSelected();
         });
         fillCheckBox.setHorizontalAlignment(SwingConstants.CENTER);
 
-        styleLabel = new JLabel("Line Style");
+        JLabel styleLabel = new JLabel("Line Style");
         styleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         String[] s = {"Basic Stroke", "Dashed Stroke"};
-        styleComboBox = new JComboBox(s);
+        JComboBox styleComboBox = new JComboBox(s);
         styleComboBox.setSelectedIndex(0);
         styleComboBox.addActionListener(e -> {
-            int selected = styleComboBox.getSelectedIndex();
-            view.getPaintPanel().setStrokeStyle(selected);
-            view.requestFocus();
+            strokeStyle = styleComboBox.getSelectedIndex();;
         });
 
-        colourLabel = new JLabel("Choose Colour");
+        JLabel colourLabel = new JLabel("Choose Colour");
         colourLabel.setHorizontalAlignment(SwingConstants.CENTER);
         openColourPanel = new JButton("Extend Colour Panel");
         openColourPanel.addActionListener(e -> {
-            if (colourPanel.isVisible()) {
-                colourPanel.setVisible(false);
+            if (colourDialog.isVisible()) {
+                colourDialog.setVisible(false);
                 openColourPanel.setText("Extend Colour Panel");
             }
             else {
-                colourPanel.setLocation(this.getLocationOnScreen().x + this.getWidth() - 450, this.getLocationOnScreen().y + this.getHeight() - 285);
-                colourPanel.setVisible(true);
+                colourDialog.setLocation(this.getLocationOnScreen().x + this.getWidth() - 450, this.getLocationOnScreen().y + this.getHeight() - 285);
+                colourDialog.setVisible(true);
                 openColourPanel.setText(" Close Colour Panel ");
             }
         });
-        this.colourPanel = new ColourPanel(view, openColourPanel);
 
         undo = new JButton("Undo");
         undo.setEnabled(false);
         undo.addActionListener(e -> {
-            model.undo();
-            undo.setEnabled(model.canUndo());
-            view.requestFocus();
+            paintPanel.undo();
         });
         redo = new JButton("Redo");
         redo.setEnabled(false);
         redo.addActionListener(e -> {
-            model.redo();
-            redo.setEnabled(model.canRedo());
-            view.requestFocus();
+            paintPanel.redo();
         });
         clear = new JButton("Clear");
         clear.addActionListener(e -> {
-            view.getPaintPanel().clear();
-            view.requestFocus();
+            paintPanel.clear();
         });
 
-        buttonPanel = new JPanel(new GridLayout(3,1));
+        JPanel buttonPanel = new JPanel(new GridLayout(3, 1));
         buttonPanel.add(undo);
         buttonPanel.add(redo);
         buttonPanel.add(clear);
@@ -204,33 +194,15 @@ public class StylePanel extends JPanel implements Observer {
         }
 
 
-        colourPanel.addComponentListener(new ComponentListener() {
+        colourDialog.addComponentListener(new ComponentAdapter() {
             /**
              * Change the text of openColourPanel button if the colour panel was closed with top-right X
-             * @param e ColourPanel event
+             * @param e ColourDialog event
              */
             @Override
             public void componentHidden(ComponentEvent e) {
                 // TODO Auto-generated method stub
                 openColourPanel.setText("Extend Colour Panel");
-            }
-
-            @Override
-            public void componentMoved(ComponentEvent e) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void componentResized(ComponentEvent e) {
-                // TODO Auto-generated method stub
-
-            }
-
-            @Override
-            public void componentShown(ComponentEvent e) {
-                // TODO Auto-generated method stub
-
             }
         });
     }
@@ -243,7 +215,32 @@ public class StylePanel extends JPanel implements Observer {
      */
     @Override
     public void update(Observable o, Object arg) {
-        undo.setEnabled(model.canUndo());
-        redo.setEnabled(model.canRedo());
+        PaintModel paintModel = (PaintModel)o;
+        undo.setEnabled(paintModel.canUndo());
+        redo.setEnabled(paintModel.canRedo());
+    }
+
+    @Override
+    public void stateChanged(ChangeEvent e) {
+        JColorChooser jcc = (JColorChooser) e.getSource();
+        Color newColor = jcc.getColor();
+        this.colour = newColor;
+        this.openColourPanel.setForeground(newColor);
+    }
+
+    public Color getColour() {
+        return colour;
+    }
+
+    public float getLineThickness() {
+        return lineThickness;
+    }
+
+    public int getStrokeStyle() {
+        return strokeStyle;
+    }
+
+    public boolean isFill() {
+        return fill;
     }
 }

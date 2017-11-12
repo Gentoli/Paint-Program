@@ -36,7 +36,7 @@ public class View extends JFrame implements Observer {
 	// The components that make this up
 	private PaintPanel paintPanel;
 	private ShapeChooserPanel shapeChooserPanel;
-	//private ColourPanel colourPanel;
+	//private ColourDialog colourPanel;
 	private StylePanel stylePanel;
 	private JMenuItem menuUndo;
 	private JMenuItem menuRedo;
@@ -49,52 +49,44 @@ public class View extends JFrame implements Observer {
 		this.setJMenuBar(createMenuBar());
 
 		Container c=this.getContentPane();
-		this.shapeChooserPanel = new ShapeChooserPanel(this, model);
-		c.add(this.shapeChooserPanel,BorderLayout.WEST);
+
 
 //		openColourPanel = new JButton("Extend Colour Panel");
 //		openColourPanel.addActionListener(this);
-		this.stylePanel = new StylePanel(this, model);
-		c.add(this.stylePanel, BorderLayout.SOUTH);
 
-		//this.colourPanel = new ColourPanel(this);
-		//c.add(this.colourPanel,BorderLayout.SOUTH);
+		ColourDialog colourPanel = new ColourDialog(this);
 
 		this.model=model;
-		this.paintPanel = new PaintPanel(model, this);
-		c.add(this.paintPanel, BorderLayout.CENTER);
-		
-		//this.setLocationRelativeTo(null);
+		this.paintPanel = new PaintPanel(model);
+		//c.add(this.paintPanel, BorderLayout.CENTER);
+
+		this.stylePanel = new StylePanel(paintPanel,colourPanel);
+		c.add(this.stylePanel, BorderLayout.SOUTH);
+		paintPanel.initializeTools(stylePanel);
+		model.addObserver(stylePanel);
+
+		this.shapeChooserPanel = new ShapeChooserPanel(paintPanel);
+		c.add(this.shapeChooserPanel,BorderLayout.WEST);
+
+		JScrollPane scrollPane = new JScrollPane(paintPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		c.add(scrollPane, BorderLayout.CENTER);
+
 		model.addObserver(this);
 		this.pack();
 
+
+
 		WindowsPointer.getInstance().setFrame(this);
 		this.setMinimumSize(new Dimension(624, 462));
-		// this.setSize(200,200);
+		this.setSize(624,462);
 		this.setVisible(true);
-		this.setFocusable(true);
-		this.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyPressed(KeyEvent e) {
-				if(e.isControlDown()) {
-					switch(e.getKeyCode()) {
-						case 90:
-							model.undo();
-							break;
-						case 89:
-							model.redo();
-							break;
-					}
-				}
-			}
-		});
 		JOptionPane.showMessageDialog(this, message);
-		setFocusable(true);
+
 	}
 
-	public PaintPanel getPaintPanel(){
-		return paintPanel;
-	}
+//	public PaintPanel getPaintPanel(){
+//		return paintPanel;
+//	}
 	
 	public ShapeChooserPanel getShapeChooserPanel() {
 		return shapeChooserPanel;
@@ -110,7 +102,7 @@ public class View extends JFrame implements Observer {
 		// a group of JMenuItems
 		menuItem = new JMenuItem("New");
 		menuItem.addActionListener(e -> {
-			this.getPaintPanel().clear();
+			paintPanel.clear();
 			requestFocus();
 		});
 		menu.add(menuItem);

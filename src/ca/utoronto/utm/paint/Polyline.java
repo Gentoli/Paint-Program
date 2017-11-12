@@ -12,9 +12,14 @@ public class Polyline extends PaintShape {
     private Path2D path;
     public Polyline(int x, int y, Color colour, float lineThickness, boolean fill, int strokeStyle) {
         super(x, y, colour, lineThickness, fill, strokeStyle);
-
+        path = new Path2D.Float();
         p = new ArrayList<Point>();
         p.add(new Point(x,y));
+    }
+
+    @Override
+    public void mouseMoved(int x, int y) {
+        addPoint(new Point(x,y));
     }
 
     public void addPoint(Point point){
@@ -87,5 +92,9 @@ public class Polyline extends PaintShape {
     @Override
     public PathIterator getPathIterator(AffineTransform at, double flatness) {
         return path.getPathIterator(at, flatness);
+    }
+
+    public void mouseTemp(int x, int y) {
+        temp=new Point(x,y);
     }
 }

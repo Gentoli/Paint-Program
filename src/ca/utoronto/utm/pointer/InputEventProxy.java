@@ -1,5 +1,7 @@
 package ca.utoronto.utm.pointer;
 
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
@@ -7,11 +9,11 @@ import java.awt.event.MouseWheelEvent;
 /**
  * Proxy Java MouseEvent to PointerEvent
  */
-public class MouseEventProxy extends MouseAdapter{
+public class InputEventProxy extends MouseAdapter implements KeyListener{
 
 	private PointerListener listener;
 
-	public MouseEventProxy(PointerListener listener) {
+	public InputEventProxy(PointerListener listener) {
 		this.listener = listener;
 	}
 
@@ -40,5 +42,20 @@ public class MouseEventProxy extends MouseAdapter{
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		listener.pointerUpdated(new PointerEvent(e));
+	}
+
+	@Override
+	public void keyTyped(KeyEvent e) {
+
+	}
+
+	@Override
+	public void keyPressed(KeyEvent e) {
+		listener.modifierUpdated(new ModifierEvent(e));
+	}
+
+	@Override
+	public void keyReleased(KeyEvent e) {
+		listener.modifierUpdated(new ModifierEvent(e));
 	}
 }
