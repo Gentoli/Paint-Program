@@ -11,6 +11,7 @@ public class RegularPolygon extends PaintShape {
     protected Polygon polygon;
     protected Path2D model;
     protected Path2D shape;
+    protected int nVerticies;
     protected AffineTransform t = new AffineTransform();
     /**
      * creates a regular polygon
@@ -28,20 +29,18 @@ public class RegularPolygon extends PaintShape {
         super(x, y, colour, lineThickness, fill, strokeStyle);
         model = new Path2D.Double();
         shape = new Path2D.Double();
-        polygon=new Polygon();
-        polygon.npoints=vertices;
+        nVerticies=vertices;
 	    this.center = false;
 	    this.right = right;
 	    calculateModel();
     }
     //draws the polygon out in model view (centered on axis with radius 1)
     protected void calculateModel() {
-        double angles = 2 * Math.PI / polygon.npoints;
-        final double radius = 1.0;
-        model.moveTo(0,1);//every polygon vertex starts from the top middle
-        for (int i = 1; i < polygon.npoints; i++) {
-            double x = radius * Math.sin(i * angles);
-            double y = radius * Math.cos(i * angles);
+        double angles = 2 * Math.PI / nVerticies;
+        model.moveTo(Math.sin(Math.PI / nVerticies),Math.cos(Math.PI / nVerticies));//every polygon vertex starts from the top middle
+        for (int i = 1; i < nVerticies; i++) {
+            double x = Math.sin(i * angles+Math.PI/nVerticies);
+            double y = Math.cos(i * angles+Math.PI/nVerticies);
             model.lineTo(x,y);
         }
         model.closePath();
@@ -49,7 +48,7 @@ public class RegularPolygon extends PaintShape {
     protected void centeredPolygonCreation(){
         t.setToTranslation(x,y);
         double mouseAngle = Math.atan2(-getWidth(),getHeight());
-        t.rotate(mouseAngle);
+        t.rotate(mouseAngle-Math.PI/nVerticies);
         int dx = getWidth();
         int dy = getHeight();
         double r = Math.sqrt(dx*dx+dy*dy);
@@ -124,60 +123,58 @@ public class RegularPolygon extends PaintShape {
     }
 
     @Override
-    public Rectangle getBounds() {
-        return polygon.getBounds();
-    }
+    public Rectangle getBounds() {return shape.getBounds();}
 
     public boolean contains(Point p) {
-        return polygon.contains(p);
+        return shape.contains(p);
     }
 
     public boolean contains(int x, int y) {
-        return polygon.contains(x, y);
+        return shape.contains(x, y);
     }
 
     @Override
     public Rectangle2D getBounds2D() {
-        return polygon.getBounds2D();
+        return shape.getBounds2D();
     }
 
     @Override
     public boolean contains(double x, double y) {
-        return polygon.contains(x, y);
+        return shape.contains(x, y);
     }
 
     @Override
     public boolean contains(Point2D p) {
-        return polygon.contains(p);
+        return shape.contains(p);
     }
 
     @Override
     public boolean intersects(double x, double y, double w, double h) {
-        return polygon.intersects(x, y, w, h);
+        return shape.intersects(x, y, w, h);
     }
 
     @Override
     public boolean intersects(Rectangle2D r) {
-        return polygon.intersects(r);
+        return shape.intersects(r);
     }
 
     @Override
     public boolean contains(double x, double y, double w, double h) {
-        return polygon.contains(x, y, w, h);
+        return shape.contains(x, y, w, h);
     }
 
     @Override
     public boolean contains(Rectangle2D r) {
-        return polygon.contains(r);
+        return shape.contains(r);
     }
 
     @Override
     public PathIterator getPathIterator(AffineTransform at) {
-        return polygon.getPathIterator(at);
+        return shape.getPathIterator(at);
     }
 
     @Override
     public PathIterator getPathIterator(AffineTransform at, double flatness) {
-        return polygon.getPathIterator(at, flatness);
+        return shape.getPathIterator(at, flatness);
     }
 }

@@ -49,7 +49,7 @@ public class TextBoxDialog extends JDialog {
         String fonts[] =
                 GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
         fontChooser = new JComboBox(fonts);
-        fontChooser.setSelectedIndex(218);
+        fontChooser.setSelectedIndex(0);
         //fontName = fontChooser.getSelectedItem().toString();
         c.add(fontChooser);
 
