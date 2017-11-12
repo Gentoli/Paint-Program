@@ -64,7 +64,7 @@ public class RegularPolygon extends PaintShape {
         t.setToTranslation(x+getWidth()/2,y+getHeight()/2);
         t.scale(getWidth()*stretchFactorX,getHeight()*stretchFactorY);
         shape = (Path2D)t.createTransformedShape(model);
-        System.out.println(shape);
+        //System.out.println(shape);
     }
 
     protected void regularPolygonCreation(){

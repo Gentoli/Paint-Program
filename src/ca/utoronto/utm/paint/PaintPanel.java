@@ -48,7 +48,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
                                 new TextBoxTool(textBoxDialog, stylePanel, shapes),
 								new PolylineTool(stylePanel, shapes),
 								new SquiggleTool(stylePanel, shapes),
-								new ConcavePolygonTool(stylePanel, this,shapes)};
+								new PolygonTool(stylePanel, this,shapes)};
 	}
 
 	/**
