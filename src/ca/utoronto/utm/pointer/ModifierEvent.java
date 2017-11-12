@@ -7,13 +7,13 @@ import java.awt.event.KeyEvent;
 public class ModifierEvent{
 
 
-	public InputEvent event;
+	public KeyEvent event;
 
-	public ModifierEvent(Component source, int id, long when, int modifiers,int keyCode) {
-		event = new KeyEvent(source,id,when,modifiers,keyCode,KeyEvent.CHAR_UNDEFINED);
+	public ModifierEvent(Component source, int id, long when, int modifiers,int keyCode, char keyChar) {
+		event = new KeyEvent(source,id,when,modifiers,keyCode, keyChar);
 	}
 
-	public ModifierEvent(InputEvent event){
+	public ModifierEvent(KeyEvent event){
 		this.event = event;
 	}
 
@@ -83,5 +83,13 @@ public class ModifierEvent{
 
 	public Object getSource() {
 		return event.getSource();
+	}
+
+	public int getKeyCode() {
+		return event.getKeyCode();
+	}
+
+	public char getKeyChar() {
+		return event.getKeyChar();
 	}
 }

@@ -58,7 +58,7 @@ public class View extends JFrame implements Observer {
 
 		this.model=model;
 		this.paintPanel = new PaintPanel(model);
-		c.add(this.paintPanel, BorderLayout.CENTER);
+		//c.add(this.paintPanel, BorderLayout.CENTER);
 
 		this.stylePanel = new StylePanel(paintPanel,colourPanel);
 		c.add(this.stylePanel, BorderLayout.SOUTH);
@@ -67,8 +67,10 @@ public class View extends JFrame implements Observer {
 
 		this.shapeChooserPanel = new ShapeChooserPanel(paintPanel);
 		c.add(this.shapeChooserPanel,BorderLayout.WEST);
-		
-		//this.setLocationRelativeTo(null);
+
+		JScrollPane scrollPane = new JScrollPane(paintPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		c.add(scrollPane, BorderLayout.CENTER);
+
 		model.addObserver(this);
 		this.pack();
 
@@ -76,7 +78,7 @@ public class View extends JFrame implements Observer {
 
 		WindowsPointer.getInstance().setFrame(this);
 		this.setMinimumSize(new Dimension(624, 462));
-		// this.setSize(200,200);
+		this.setSize(624,462);
 		this.setVisible(true);
 		JOptionPane.showMessageDialog(this, message);
 

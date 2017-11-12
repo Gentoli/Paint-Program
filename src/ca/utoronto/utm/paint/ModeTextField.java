@@ -36,7 +36,7 @@ class ModeTextField extends JTextField implements ActionListener,KeyListener {
 				//System.out.println(text.length());
 				System.out.println(length);
 				System.out.println(offset);
-				if (paintPanel.getMode() == 6) {
+				if (isEnabled()) {
 					if (offset < TEXT_NOT_TO_TOUCH.length()) {
 //						length = Math.max(0, length - TEXT_NOT_TO_TOUCH.length());
 //						offset = TEXT_NOT_TO_TOUCH.length();

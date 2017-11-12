@@ -74,9 +74,9 @@ public class WindowsPointer extends MouseAdapter {
 			p.releasePoint(index);
 	}
 
-	private static void KeyUpdate(int eventId, long when, int modifiers,int keyCode){
+	private static void KeyUpdate(int eventId, long when, int modifiers,int keyCode,char keyChar){
 		WindowsPointer p = getInstance();
-		ModifierEvent event = new ModifierEvent(p.frame,eventId,when,modifiers,keyCode);
+		ModifierEvent event = new ModifierEvent(p.frame,eventId,when,modifiers,keyCode, keyChar);
 		for(EventFactory e:p.listeners.values()){
 			e.fireModifierEvent(event);
 		}
