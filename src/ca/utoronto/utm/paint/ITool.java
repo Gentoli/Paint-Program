@@ -11,7 +11,7 @@ public interface ITool{
 
     public Drawable handlePointerUpdate(PointerEvent e);
 
-    public void handleModifierUpdated(ModifierEvent e);
+    public boolean handleModifierUpdated(ModifierEvent e);
 
 
 
