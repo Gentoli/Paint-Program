@@ -2,11 +2,9 @@ package ca.utoronto.utm.paint;
 
 import ca.utoronto.utm.pointer.ModifierEvent;
 import ca.utoronto.utm.pointer.PointerEvent;
-import javafx.scene.control.TextFormatter;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import javax.swing.text.Style;
 import java.awt.event.MouseEvent;
 
 /**
@@ -68,7 +66,8 @@ public class TextBoxTool implements ITool, ChangeListener {
     }
 
     @Override
-    public void handleModifierUpdated(ModifierEvent e) {
+    public boolean handleModifierUpdated(ModifierEvent e) {
 
+	    return false;
     }
 }

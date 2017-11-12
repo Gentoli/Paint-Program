@@ -9,6 +9,8 @@ public class RegularPolygon extends PaintShape {
     protected boolean center;
     protected boolean right;
     protected Polygon polygon;
+    protected double stretchFactorX;
+    protected double stretchFactorY;
     protected Path2D model;
     protected Path2D shape;
     protected int nVerticies;
@@ -44,6 +46,8 @@ public class RegularPolygon extends PaintShape {
             model.lineTo(x,y);
         }
         model.closePath();
+        stretchFactorX = 1.0/(model.getBounds2D().getWidth());
+        stretchFactorY = 1.0/(model.getBounds2D().getHeight());
     }
     protected void centeredPolygonCreation(){
         t.setToTranslation(x,y);
@@ -57,9 +61,8 @@ public class RegularPolygon extends PaintShape {
     }
 
     protected void stretchPolygonCreation(){
-        t.setToTranslation(x,y);
-        t.scale(getWidth()/2,getHeight()/2);
-        t.translate(1,1);//transform to account for the scale
+        t.setToTranslation(x+getWidth()/2,y+getHeight()/2);
+        t.scale(getWidth()*stretchFactorX,getHeight()*stretchFactorY);
         shape = (Path2D)t.createTransformedShape(model);
     }
 
@@ -67,7 +70,11 @@ public class RegularPolygon extends PaintShape {
         t.setToTranslation(x,y);
         int dx = getWidth(); int dy = -getHeight();
         int scaleAmount = Math.min(Math.abs(dx),Math.abs(dy));
-        int xflip = dx/Math.abs(dx); int yflip = dy/Math.abs(dy);
+        int xflip = 1; int yflip = 1;
+        if(Math.abs(dx) != 0 && Math.abs(dy) != 0) {
+            xflip = dx / Math.abs(dx);
+            yflip = dy / Math.abs(dy);
+        }
         System.out.println(xflip);
         t.scale(xflip*scaleAmount/2,-yflip*scaleAmount/2);
         t.translate(1,1);//transform to account for the scale
@@ -114,12 +121,16 @@ public class RegularPolygon extends PaintShape {
         }
     }
     
-    public void setCenter(boolean center) {
+    public boolean setCenter(boolean center) {
+        boolean orig = this.center;
         this.center = center;
+        return orig != center;
     }
 
-    public void setRight(boolean right) {
+    public boolean setRight(boolean right) {
+        boolean orig = this.right;
         this.right = right;
+        return orig != right;
     }
 
     @Override

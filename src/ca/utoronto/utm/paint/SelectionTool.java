@@ -70,7 +70,8 @@ public class SelectionTool implements ITool {
     }
 
     @Override
-    public void handleModifierUpdated(ModifierEvent e) {
+    public boolean handleModifierUpdated(ModifierEvent e) {
 
+	    return false;
     }
 }
