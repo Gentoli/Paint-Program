@@ -3,13 +3,13 @@ package ca.utoronto.utm.paint;
 import java.awt.*;
 import java.awt.geom.*;
 
-public class StrokeType1 implements Stroke {
+public class ShapeStroke implements Stroke {
     private Shape[] shapes;
     private double spacing;
     private AffineTransform t = new AffineTransform();
 
-    public StrokeType1(Shape s, double spacing){this(new Shape[] {s}, spacing );}
-    public StrokeType1(Shape[] s, double spacing){
+    public ShapeStroke(Shape s, double spacing){this(new Shape[] {s}, spacing );}
+    public ShapeStroke(Shape[] s, double spacing){
         this.shapes = new Shape[s.length];
         this.spacing = spacing;
         for(int i = 0; i < shapes.length; i++){
