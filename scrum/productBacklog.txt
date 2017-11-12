@@ -44,9 +44,9 @@ I WANT   : To be able to select a color from the screen
 SO THAT  : I will never forget which color I used earlier for a specific line
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : USER STORY 21 :
+TYPE     : USER STORY 21 : legaul30
 NAME     : Text Boxes
-OWNER    :
+OWNER    : Jarod
 PRIORITY : 1
 ESTIMATE : 2 hours
 AS A     : user
@@ -54,9 +54,9 @@ I WANT   : To be able to add text boxes
 SO THAT  : I can add typed words to the screen
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : USER STORY 22 :
+TYPE     : USER STORY 22 : legaul30
 NAME     : Font styles for text boxes
-OWNER    :
+OWNER    : Jarod
 PRIORITY : 2
 ESTIMATE : 2 hours
 AS A     : user
@@ -74,9 +74,9 @@ I WANT   : To be able to erase
 SO THAT  : I can fix mistakes with an eraser tool
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : USER STORY 24 :
+TYPE     : USER STORY 24 : legaul30
 NAME     : Scrollable screen
-OWNER    :
+OWNER    : Jarod
 PRIORITY : 2
 ESTIMATE : 2 hours
 AS A     : user
