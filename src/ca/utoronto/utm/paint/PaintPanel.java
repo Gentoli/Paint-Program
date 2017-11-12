@@ -1,5 +1,6 @@
 package ca.utoronto.utm.paint;
 
+import ca.utoronto.utm.pointer.ModifierEvent;
 import ca.utoronto.utm.pointer.PointerEvent;
 import ca.utoronto.utm.pointer.PointerListener;
 import ca.utoronto.utm.pointer.WindowsPointer;
@@ -42,6 +43,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 
 	public void initializeTools(StylePanel stylePanel){
 		toolList = new ITool[]{new SelectionTool(this.model, shapes),
+				new TextBoxTool(shapes),
 				new PolylineTool(stylePanel, shapes),
 				new SquiggleTool(stylePanel, shapes),
 				new PolygonTool(stylePanel, shapes)};
@@ -196,6 +198,11 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 
 	@Override
 	public void pointerUpdated(PointerEvent e) {
+
+	}
+
+	@Override
+	public void modifierUpdated(ModifierEvent e) {
 
 	}
 }

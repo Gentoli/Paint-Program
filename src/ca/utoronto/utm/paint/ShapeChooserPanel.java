@@ -16,7 +16,7 @@ import java.awt.event.ActionListener;
 class ShapeChooserPanel extends JPanel implements ActionListener {
 	private ModeTextField modeTextField;
 	private JButton[] shapeButtons;
-	private static final String[] buttonLabels = { "Selection", "Polyline", "Squiggle", "Triangle", "Rectangle", "Circle", "Polygon"};
+	private static final String[] buttonLabels = { "Selection", "TextBox", "Polyline", "Squiggle", "Triangle", "Rectangle", "Circle", "Polygon"};
 	private PaintPanel paintPanel;
 
 	public ShapeChooserPanel(PaintPanel paintPanel) {
@@ -37,13 +37,13 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 		this.add(modeTextField);
 	}
 
-	private int activeButton = 6;
+	private int activeButton = 7;
 
 	public void setActiveButton(int activeButton) {
 		shapeButtons[this.activeButton].setEnabled(true);
 		this.activeButton = activeButton;
 		shapeButtons[this.activeButton].setEnabled(false);
-		modeTextField.setEnabled(activeButton==6);
+		modeTextField.setEnabled(activeButton==7);
 		paintPanel.setMode(activeButton);
 		modeTextField.setText(buttonLabels[activeButton]);
 	}

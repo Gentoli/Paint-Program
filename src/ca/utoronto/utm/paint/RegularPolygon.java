@@ -117,14 +117,14 @@ public class RegularPolygon extends PaintShape {
     }
     //prints the polygon to the screen
     @Override
-    public void print(Graphics2D g) {
-    	prepare(g);
-        g.setStroke(stroke);
+    public void print(Graphics2D g2) {
+    	prepare(g2);
+        g2.setStroke(stroke);
         calculateVerticies();
         if(fill)
-            g.fillPolygon(polygon);
+            g2.fillPolygon(polygon);
         else
-        g.drawPolygon(polygon);
+        g2.drawPolygon(polygon);
         //g.drawRect(x,y,getWidth(),getHeight());
     }
     

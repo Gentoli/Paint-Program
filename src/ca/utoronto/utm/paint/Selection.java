@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.Stroke;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.PathIterator;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 /**
@@ -42,25 +46,25 @@ public class Selection extends PaintShape {
 
 	}
 
-	@Override
-	public void setEnd(int x, int y) {
-		if(!move)
-			return;
-		if(selection==null) {
-			super.setEnd(x,y);
-			width = Math.abs(getWidth());
-			height = Math.abs(getHeight());
-		}else{
-			this.x+=x-lastX;
-			this.y+=y-lastY;
-			lastY=y;
-			lastX=x;
-		}
-	}
+//	@Override
+//	public void setEnd(int x, int y) {
+//		if(!move)
+//			return;
+//		if(selection==null) {
+//			super.setEnd(x,y);
+//			width = Math.abs(getWidth());
+//			height = Math.abs(getHeight());
+//		}else{
+//			this.x+=x-lastX;
+//			this.y+=y-lastY;
+//			lastY=y;
+//			lastX=x;
+//		}
+//	}
 
 	public void release(int x, int y) {
 		if(contains(x,y)){
-			setEnd(x,y);
+			//setEnd(x,y);
 		}
 		if(selection==null) {
 			this.x = Math.min(this.x, xEnd);
@@ -83,5 +87,55 @@ public class Selection extends PaintShape {
 		move=true;
 		lastY=y;
 		lastX=x;
+	}
+
+	@Override
+	public Rectangle getBounds() {
+		return null;
+	}
+
+	@Override
+	public Rectangle2D getBounds2D() {
+		return null;
+	}
+
+	@Override
+	public boolean contains(double x, double y) {
+		return false;
+	}
+
+	@Override
+	public boolean contains(Point2D p) {
+		return false;
+	}
+
+	@Override
+	public boolean intersects(double x, double y, double w, double h) {
+		return false;
+	}
+
+	@Override
+	public boolean intersects(Rectangle2D r) {
+		return false;
+	}
+
+	@Override
+	public boolean contains(double x, double y, double w, double h) {
+		return false;
+	}
+
+	@Override
+	public boolean contains(Rectangle2D r) {
+		return false;
+	}
+
+	@Override
+	public PathIterator getPathIterator(AffineTransform at) {
+		return null;
+	}
+
+	@Override
+	public PathIterator getPathIterator(AffineTransform at, double flatness) {
+		return null;
 	}
 }

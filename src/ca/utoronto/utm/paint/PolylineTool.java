@@ -1,5 +1,6 @@
 package ca.utoronto.utm.paint;
 
+import ca.utoronto.utm.pointer.ModifierEvent;
 import ca.utoronto.utm.pointer.PointerEvent;
 
 public class PolylineTool implements ITool {
@@ -16,6 +17,11 @@ public class PolylineTool implements ITool {
 
     @Override
     public void pointerUpdated(PointerEvent e) {
+
+    }
+
+    @Override
+    public void modifierUpdated(ModifierEvent e) {
 
     }
 }

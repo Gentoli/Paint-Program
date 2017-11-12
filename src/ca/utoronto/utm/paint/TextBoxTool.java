@@ -2,14 +2,15 @@ package ca.utoronto.utm.paint;
 
 import ca.utoronto.utm.pointer.ModifierEvent;
 import ca.utoronto.utm.pointer.PointerEvent;
+import javafx.scene.control.TextFormatter;
 
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
+public class TextBoxTool implements ITool, ChangeListener {
 
-public class PolygonTool implements ITool, ChangeListener {
 
-    public PolygonTool(StylePanel stylePanel, PaintShape[] shapeArray) {
+    public TextBoxTool(PaintShape[] shapeArray) {
 
     }
 
@@ -20,7 +21,6 @@ public class PolygonTool implements ITool, ChangeListener {
 
     @Override
     public void pointerUpdated(PointerEvent e) {
-
 
     }
 
