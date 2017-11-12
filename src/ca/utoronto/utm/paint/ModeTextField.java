@@ -77,6 +77,8 @@ class ModeTextField extends JTextField implements ActionListener,KeyListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		if(!isEnabled())
+			return;
 		try {
 			int value = Integer.valueOf(getText().substring(7));
 			if (value > 100) {

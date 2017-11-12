@@ -1,8 +1,10 @@
 package ca.utoronto.utm.paint;
 
 import ca.utoronto.utm.pointer.WindowsPointer;
+import javafx.scene.control.TextFormatter;
 
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -16,7 +18,6 @@ import java.util.Observer;
  * @author arnold
  * The View is comprised of the PaintPanel, ShapeChoosingPanel and StylePanel,
  * and links them together, Observing the PaintModel.
- *
  */
 public class View extends JFrame implements Observer {
 	
@@ -38,6 +39,7 @@ public class View extends JFrame implements Observer {
 	private ShapeChooserPanel shapeChooserPanel;
 	//private ColourDialog colourPanel;
 	private StylePanel stylePanel;
+	private TextBoxDialog textBoxDialog;
 	private JMenuItem menuUndo;
 	private JMenuItem menuRedo;
 	private JMenuItem menuHelp;
@@ -62,7 +64,11 @@ public class View extends JFrame implements Observer {
 
 		this.stylePanel = new StylePanel(paintPanel,colourPanel);
 		c.add(this.stylePanel, BorderLayout.SOUTH);
-		paintPanel.initializeTools(stylePanel);
+
+		this.textBoxDialog = new TextBoxDialog(this);
+		textBoxDialog.setPreferredSize(new Dimension(300, 100));
+
+		paintPanel.initializeTools(stylePanel, textBoxDialog);
 		model.addObserver(stylePanel);
 
 		this.shapeChooserPanel = new ShapeChooserPanel(paintPanel);

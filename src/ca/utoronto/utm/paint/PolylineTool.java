@@ -28,6 +28,11 @@ public class PolylineTool implements ITool {
     }
 
     @Override
+    public void selected() {
+
+    }
+
+    @Override
     public Drawable handlePointerUpdate(PointerEvent e) {
         Drawable rtn = null;
         switch(e.getID()){
@@ -64,4 +69,5 @@ public class PolylineTool implements ITool {
     public void handleModifierUpdated(ModifierEvent e) {
 
     }
+
 }

@@ -20,6 +20,11 @@ public class SquiggleTool implements ITool {
     }
 
     @Override
+    public void selected() {
+
+    }
+
+    @Override
     public Drawable handlePointerUpdate(PointerEvent e) {
         Drawable rtn = null;
         switch(e.getID()){
@@ -44,4 +49,5 @@ public class SquiggleTool implements ITool {
     public void handleModifierUpdated(ModifierEvent e) {
 
     }
+
 }
