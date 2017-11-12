@@ -1,9 +1,6 @@
 package ca.utoronto.utm.paint;
 
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
@@ -16,6 +13,7 @@ public class TextBox  extends PaintShape{
     private int fontSize;
     private int fontStyle;
     private Rectangle2D bounds;
+    private int x,y;
 
     public TextBox(int x, int y, Color colour, int fontSize, String fontName, String textString, int fontStyle) {
         super(x, y, colour, 1, false, 0);
@@ -23,14 +21,25 @@ public class TextBox  extends PaintShape{
         this.fontName = fontName;
         this.fontSize = fontSize;
         this.fontStyle = fontStyle;
-        this.bounds = new Rectangle2D.Float(x, y, xEnd-x, yEnd-y);
+        this.x = x;
+        this.y = y;
+        this.bounds = new Rectangle2D.Float(x, y, 1, 1);
+    }
+
+    @Override
+    public void mouseMoved(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 
     @Override
     public void print(Graphics2D g2) {
         prepare(g2);
-        g2.setFont(new Font(fontName, fontStyle, fontSize));
-        g2.drawString(textString, x, (yEnd-y)/2);
+        Font font = new Font(fontName, fontStyle, fontSize);
+        g2.setFont(font);
+        g2.drawString(textString, this.x, this.y);
+        FontMetrics fontMetrics = g2.getFontMetrics(font);
+        this.bounds = fontMetrics.getStringBounds(textString, g2);
     }
 
     @Override

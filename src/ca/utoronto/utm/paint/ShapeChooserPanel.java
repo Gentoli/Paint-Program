@@ -21,12 +21,13 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 
 	public ShapeChooserPanel(PaintPanel paintPanel) {
 		this.paintPanel=paintPanel;
-		shapeButtons = new JButton[7];
-		this.setLayout(new GridLayout(8, 1));
+		shapeButtons = new JButton[8];
+		this.setLayout(new GridLayout(9, 1));
 		this.setPreferredSize(new Dimension(105, 300));
 
 		for (int index = 0; index < buttonLabels.length; index++) {
 			shapeButtons[index] = new ShapeButton(index);
+			shapeButtons[index].setFocusable(false);
 			this.add(shapeButtons[index]);
 			shapeButtons[index].addActionListener(this);
 		}

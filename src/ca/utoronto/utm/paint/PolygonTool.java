@@ -25,7 +25,12 @@ public class PolygonTool implements ITool, ChangeListener {
 		return null;
 	}
 
-    @Override
+	@Override
+	public void selected() {
+
+	}
+
+	@Override
     public Drawable handlePointerUpdate(PointerEvent e) {
 		Drawable rtn = null;
 	    switch(e.getID()){

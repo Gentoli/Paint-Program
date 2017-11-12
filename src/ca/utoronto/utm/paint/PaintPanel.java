@@ -41,9 +41,9 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 		WindowsPointer.getInstance().addListener(this, this);
 	}
 
-	public void initializeTools(StylePanel stylePanel){
+	public void initializeTools(StylePanel stylePanel, TextBoxDialog textBoxDialog){
 		toolList = new ITool[]{new SelectionTool(this.model, shapes),
-                                new TextBoxTool(shapes),
+                                new TextBoxTool(textBoxDialog, stylePanel, shapes),
 								new PolylineTool(stylePanel, shapes),
 								new SquiggleTool(stylePanel, shapes),
 								new PolygonTool(stylePanel, this,shapes)};
@@ -79,6 +79,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	public void setMode(int mode) {
 		model.addPrint(toolList[this.mode].deselect());
 		this.mode = Math.min(mode,toolList.length-1);
+		toolList[this.mode].selected();
 	}
 
 	public void setEdges(int edges) { this.edges = edges; }

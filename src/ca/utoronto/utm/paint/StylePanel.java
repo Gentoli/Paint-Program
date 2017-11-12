@@ -1,6 +1,7 @@
 package ca.utoronto.utm.paint;
 
 import javax.swing.*;
+import javax.swing.colorchooser.DefaultColorSelectionModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import java.awt.*;
@@ -33,7 +34,7 @@ public class StylePanel extends JPanel implements Observer, ChangeListener {
 
     private Color colour = Color.black;
     private float lineThickness = 1f;
-    private int strokeStyle = 1;
+    private int strokeStyle = 0;
     private boolean fill = false;
 
     /**
@@ -43,6 +44,7 @@ public class StylePanel extends JPanel implements Observer, ChangeListener {
 
         this.setLayout(new GridBagLayout());
         this.setPreferredSize(new Dimension(0,100));
+        colourDialog.addChangeListener(this);
         JPanel lineThicknessPanel = new JPanel();
         JLabel lineThicknessLabel = new JLabel("Line Thickness");
         lineThicknessLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -222,8 +224,8 @@ public class StylePanel extends JPanel implements Observer, ChangeListener {
 
     @Override
     public void stateChanged(ChangeEvent e) {
-        JColorChooser jcc = (JColorChooser) e.getSource();
-        Color newColor = jcc.getColor();
+        DefaultColorSelectionModel jccSelectionModel = (DefaultColorSelectionModel) e.getSource();
+        Color newColor = jccSelectionModel.getSelectedColor();
         this.colour = newColor;
         this.openColourPanel.setForeground(newColor);
     }
