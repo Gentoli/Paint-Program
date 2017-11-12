@@ -9,6 +9,8 @@ public class RegularPolygon extends PaintShape {
     protected boolean center;
     protected boolean right;
     protected Polygon polygon;
+    protected double stretchFactorX;
+    protected double stretchFactorY;
     protected Path2D model;
     protected Path2D shape;
     protected int nVerticies;
@@ -44,6 +46,8 @@ public class RegularPolygon extends PaintShape {
             model.lineTo(x,y);
         }
         model.closePath();
+        stretchFactorX = 1.0/(model.getBounds2D().getWidth());
+        stretchFactorY = 1.0/(model.getBounds2D().getHeight());
     }
     protected void centeredPolygonCreation(){
         t.setToTranslation(x,y);
@@ -57,9 +61,8 @@ public class RegularPolygon extends PaintShape {
     }
 
     protected void stretchPolygonCreation(){
-        t.setToTranslation(x,y);
-        t.scale(getWidth()/2,getHeight()/2);
-        t.translate(1,1);//transform to account for the scale
+        t.setToTranslation(x+getWidth()/2,y+getHeight()/2);
+        t.scale(getWidth()*stretchFactorX,getHeight()*stretchFactorY);
         shape = (Path2D)t.createTransformedShape(model);
     }
 
