@@ -17,6 +17,7 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 	private ModeTextField modeTextField;
 	private JButton[] shapeButtons;
 	private static final String[] buttonLabels = { "Selection", "TextBox", "Polyline", "Squiggle", "Triangle", "Rectangle", "Circle", "Polygon"};
+	private static final int[] buttonEdges = { 0,0,0,0,3,4,100,5};
 	private PaintPanel paintPanel;
 
 	public ShapeChooserPanel(PaintPanel paintPanel) {
@@ -46,6 +47,7 @@ class ShapeChooserPanel extends JPanel implements ActionListener {
 		shapeButtons[this.activeButton].setEnabled(false);
 		modeTextField.setEnabled(activeButton==7);
 		paintPanel.setMode(activeButton);
+		paintPanel.setEdges(buttonEdges[activeButton]);
 		modeTextField.setText(buttonLabels[activeButton]);
 	}
 
