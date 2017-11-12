@@ -1,6 +1,7 @@
 package ca.utoronto.utm.paint;
 
 import java.awt.*;
+import java.awt.geom.Path2D;
 
 public class ConcavePolygon extends RegularPolygon {
     /**
@@ -21,14 +22,26 @@ public class ConcavePolygon extends RegularPolygon {
     }
     @Override
     protected void calculateModel() {
-        double angles = 2 * Math.PI / polygon.npoints;
-        final double radius = 1.0;
+        double angles = 2 * Math.PI / nVerticies;
         model.moveTo(0,1);//every polygon vertex starts from the top middle
-        for (int i = 1; i < polygon.npoints; i++) {
-            double x = (radius-0.5*(i%2)) * Math.sin(i * angles);
-            double y = (radius-0.5*(i%2)) * Math.cos(i * angles);
+        for (int i = 1; i < nVerticies; i++) {
+            double x = (1-0.5*(i%2)) * Math.sin(i * angles);
+            double y = (1-0.5*(i%2)) * Math.cos(i * angles);
             model.lineTo(x,y);
         }
         model.closePath();
+        stretchFactorX = 1.0/(model.getBounds2D().getWidth());
+        stretchFactorY = 1.0/(model.getBounds2D().getHeight());
+    }
+    @Override
+    protected void centeredPolygonCreation(){
+        t.setToTranslation(x,y);
+        double mouseAngle = Math.atan2(-getWidth(),getHeight());
+        t.rotate(mouseAngle);
+        int dx = getWidth();
+        int dy = getHeight();
+        double r = Math.sqrt(dx*dx+dy*dy);
+        t.scale(r,r);
+        shape = (Path2D)t.createTransformedShape(model);//applies the transformations to the model
     }
 }
