@@ -6,6 +6,9 @@ import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
+/**
+ * TextBox is a drawable object that holds a String with the desired styles attached to it.
+ */
 public class TextBox  extends PaintShape{
 
     private String textString;
@@ -25,6 +28,7 @@ public class TextBox  extends PaintShape{
         this.y = y;
         this.bounds = new Rectangle2D.Float(x, y, 1, 1);
     }
+
 
     @Override
     public void mouseMoved(int x, int y) {
