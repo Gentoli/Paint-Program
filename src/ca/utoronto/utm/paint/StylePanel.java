@@ -227,4 +227,20 @@ public class StylePanel extends JPanel implements Observer, ChangeListener {
         this.colour = newColor;
         this.openColourPanel.setForeground(newColor);
     }
+
+    public Color getColour() {
+        return colour;
+    }
+
+    public float getLineThickness() {
+        return lineThickness;
+    }
+
+    public int getStrokeStyle() {
+        return strokeStyle;
+    }
+
+    public boolean isFill() {
+        return fill;
+    }
 }
