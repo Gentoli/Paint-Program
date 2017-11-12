@@ -4,11 +4,11 @@
 # 1 Color chooser UI (which could be a USER STORY)
 # 2 Implementation of selected color into the drawing stream.
 --------------------------------------------------------------------------
-TYPE     : USER STORY 17 :
+TYPE     : USER STORY 17 : dongshu2
 NAME     : Add Layers
-OWNER    :
+OWNER    : Shuyi
 PRIORITY : 1
-ESTIMATE : 2 hours
+ESTIMATE : 5 hours
 AS A     : user
 I WANT   : To be able to add and remove layers with their own shapes
 SO THAT  : I can have more control on the drawings
