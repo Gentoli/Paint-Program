@@ -6,7 +6,7 @@ import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
-/*creates a polygon that is equiangular (verticie anglues are of equal value). This can be stretched in either the x
+/*creates a polygon that is equiangular (vertex angles are of equal value). This can be stretched in either the x
 * or y direction and flipped around.*/
 public class RegularPolygon extends PaintShape {
     public int[] verticiesX;

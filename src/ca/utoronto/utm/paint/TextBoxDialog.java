@@ -12,6 +12,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.text.ParseException;
 
+/**
+ * The TextBoxDialog pops up when the TextBoxTool is selected.
+ * In the dialog, a user can customize the drawable string that TextBoxTool will create.
+ */
 public class TextBoxDialog extends JDialog {
 
     private JTextField textField;
@@ -27,6 +31,10 @@ public class TextBoxDialog extends JDialog {
 
     private final static int DEFAULT_SIZE = 12;
 
+    /**
+     * Constructs the JDialog that holds the textBox customization options
+     * @param view View of the paint project
+     */
     public TextBoxDialog(Frame view) {
         super(view);
         this.setTitle("Text Editor");

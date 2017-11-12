@@ -18,7 +18,6 @@ import java.util.Observer;
  * @author arnold
  * The View is comprised of the PaintPanel, ShapeChoosingPanel and StylePanel,
  * and links them together, Observing the PaintModel.
- *
  */
 public class View extends JFrame implements Observer {
 	

@@ -9,6 +9,9 @@ import javax.swing.event.ChangeListener;
 import javax.swing.text.Style;
 import java.awt.event.MouseEvent;
 
+/**
+ * The TextBoxTool builds TextBox PaintShapes depending on the parameters in the StylePanel and handles mouse events.
+ */
 public class TextBoxTool implements ITool, ChangeListener {
 
     private TextBoxDialog textBoxDialog;
