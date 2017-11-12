@@ -38,7 +38,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 
 		this.mode = 0;
 		this.model.addObserver(this);
-
+        setFocusable(true);
 		addComponentListener(model);
 		WindowsPointer.getInstance().addListener(this, this);
 	}
@@ -122,11 +122,11 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 
 	@Override
 	public void modifierUpdated(ModifierEvent e) {
-		if(e.isControlDown()&&e.getID()== KeyEvent.KEY_PRESSED){
-			if(e.getKeyChar()=='Z'){
+        if(e.isControlDown()&&e.getID()== KeyEvent.KEY_PRESSED){
+			if(e.getKeyChar()=='Z'||(char)e.getKeyCode()=='Z'){
 				undo();
 				return;
-			}else if(e.getKeyChar()=='Y'){
+			}else if(e.getKeyChar()=='Y'||(char)e.getKeyCode()=='Y'){
 				redo();
 				return;
 			}
