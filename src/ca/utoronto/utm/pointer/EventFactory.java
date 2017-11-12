@@ -41,4 +41,9 @@ public class EventFactory {
 		return point.x < base.getWidth() && point.x > 0 && point.y < base.getHeight() && point.y > 0;
 	}
 
+	public void fireModifierEvent(ModifierEvent event) {
+		for(PointerListener l:listeners) {
+			l.modifierUpdated(event);
+		}
+	}
 }
