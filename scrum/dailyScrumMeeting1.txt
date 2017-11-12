@@ -78,5 +78,10 @@ Nov 10, 2017
 
 Nov 11, 2017
 	Yesterday : Added user stories and worked on bug 11
-	Today     : Finish bug 11 and work on another user story
-	Obstacles :
+	Today     : Finish bug 11 and work on UserStory21 and UserStory24
+	Obstacles : Drawing is still active while scrolling the scrollpane
+
+Nov 12, 2017
+    Yesterday : Finished UserStory24 and Bug11
+    Today     : Finish UserStory21 and continue with other UserStories
+    Obstacles :

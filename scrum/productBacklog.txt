@@ -44,9 +44,9 @@ I WANT   : To be able to select a color from the screen
 SO THAT  : I will never forget which color I used earlier for a specific line
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : USER STORY 21 :
+TYPE     : USER STORY 21 : legaul30
 NAME     : Text Boxes
-OWNER    :
+OWNER    : Jarod
 PRIORITY : 1
 ESTIMATE : 2 hours
 AS A     : user
@@ -54,9 +54,9 @@ I WANT   : To be able to add text boxes
 SO THAT  : I can add typed words to the screen
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : USER STORY 22 :
+TYPE     : USER STORY 22 : legaul30
 NAME     : Font styles for text boxes
-OWNER    :
+OWNER    : Jarod
 PRIORITY : 2
 ESTIMATE : 2 hours
 AS A     : user
@@ -73,66 +73,124 @@ AS A     : user
 I WANT   : To be able to erase
 SO THAT  : I can fix mistakes with an eraser tool
 --------------------------------------------------------------------------
+# COMPLETED USER STORIES/BUGS BELOW ###########################################
 --------------------------------------------------------------------------
-TYPE     : USER STORY 24 :
-NAME     : Scrollable screen
-OWNER    :
-PRIORITY : 2
-ESTIMATE : 2 hours
-AS A     : user
-I WANT   : To be able to scroll the screen to see other parts of the canvas
-SO THAT  : I can see other parts of the canvas without expanding it
---------------------------------------------------------------------------
---------------------------------------------------------------------------
-TYPE     : BUG 8 : assadkur
-NAME     : Hotkey Shift for drawing polygons with equal sides
-OWNER    : Kurtis
-PRIORITY : 4
-ESTIMATE : 1 hour
-ISSUE    : polygons have equal sides but don't stick to the first click's point
+TYPE     : USER STORY 2.1 : assadkur
+NAME     : Implement Poly Line
+OWNER    : COMPLETED IN SPRINT 1
+PRIORITY :
+ESTIMATE :
+ISSUE    :
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : BUG 9 : assadkur
-NAME     : Add More Stroke Styles
-OWNER    : Kurtis
-PRIORITY : 1
-ESTIMATE : 3 hours
-Issue: There aren't enough stroke styles
---------------------------------------------------------------------------
---------------------------------------------------------------------------
-TYPE     : BUG 11 : legaul30
-NAME     : Sub-Optimal Tools architecture
+TYPE     : BUG 2.1 : legaul30
+NAME     : Architecture for drawing shapes can be improved
 OWNER    : Jarod
 PRIORITY : 1
-ESTIMATE : 3 hours
-ISSUE    : Need to make all tools use the factory design pattern
---------------------------------------------------------------------------
---------------------------------------------------------------------------
-TYPE     : BUG 12 : dongshu2
-NAME     : Shapes not changing on modifier buttons
-OWNER    : Shuyi
-PRIORITY : 1
-ESTIMATE : 3 hours
-ISSUE    : Shapes don't change draw style when alt or shift are pressed, only after the mouse is moved.
---------------------------------------------------------------------------
---------------------------------------------------------------------------
-TYPE     : BUG 13 : dongshu2
-NAME     : Not Generic Inputs
-OWNER    : Shuyi
-PRIORITY : 1
-ESTIMATE : 3 hours
-ISSUE    : Pointer movements aren't generic throughout all actors in the paint panel
---------------------------------------------------------------------------
---------------------------------------------------------------------------
-TYPE     : BUG 15 : dongshu2
-NAME     : WindowPointer only support one Frame
-OWNER    : Shuyi
-PRIORITY : 1
-ESTIMATE : 3 hours
-ISSUE    : WindowPointer doesn't work with multiple Frames
---------------------------------------------------------------------------
+ESTIMATE : 4 hours
+ISSUE    : The architecture can be improved if we implement the Command Design
+Pattern to draw shapes as follows:
 
-# COMPLETED USER STORIES/BUGS BELOW ###########################################
+The PaintModel should use the command design pattern.
+That is, each shape knows how to draw itself, so there is a single list of
+DrawingCommands maintained by the PaintModel and used by the PaintPanel.
+paintComponent simply asks the PaintModel to ask command to execute(g2d).
+The simplest way to make this happen is to make each shape implement the
+DrawingCommand interface which requires execute(g2d) to be implemented.
+Well sort of.
+
+NOTE: The PaintModel does know how to logically draw itself, so does
+know about strokes and pen colors etc. Depending on how much you want
+to split off the logical from the GUI, it may not have to know how to
+draw on the screen. This is a subtle difference. For example, the
+following logically describes a scene, without actually knowing
+how to draw it on the screen (using j2d)...
+
+Color = green
+Fill = off
+Border = on
+BorderWidth = 10
+Circle radius 10 at 12,15
+Color = red
+Fill = on
+FillColor = black
+Border = on
+BorderWidth = 7
+Square width 20 at 100,200
+
+If you want to build a more 'logical' PaintModel, you can consider ...
+
+1) Create a mirror hierarchy for Shape, this mirror hirerachy
+has things like DrawableCircle which has a Circle. The DrawableCircle
+knows how to draw the instance of Circle it holds. Each Shape will
+still need information about its color, and stroke, one way or another.
+
+OR
+
+2) Lookup and apply the Visitor design pattern to the more logical
+PaintModel.
+
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 2.2 : dongshu2
+NAME     : Architecture for handling shape modifiers can be improved
+OWNER    : Shuyi
+PRIORITY : 1
+ESTIMATE : 4 hours
+ISSUE    : The architecture can be improved if we implement the Command Design
+Pattern to handle changes to the graphics contex such as changing drawing
+color, stroke width etc. You can accomplished this by wrapping the changes
+to the graphics context in a DrawingCommand. This way these changes can be
+added to the Bug 2.1 DrawingCommand list. That is, these new types of
+DrawingCommands appear on PaintPanel's list right along side
+the Shape type DrawingCommands.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 2.3 : legaul30
+NAME     : Architecture behind choosing drawing mode is poor
+OWNER    : Jarod
+PRIORITY : 1
+ESTIMATE : 4 hours
+ISSUE    : A better architecture behind selecting a drawing mode can be created
+by implementing the Factory Design Pattern as follows:
+
+The factory design pattern should be used by the paint buttons.
+The factory is responsible for creating different ShapeManipulatorStrategy
+instances (see BUG 2.4). That is, when a button is pressed, the appropriate
+ShapeManipulatorStrategy is created and installed in the PaintPanel.
+Note that you can associate text with a button, even if you
+display an ImageIcon. The string attached to the button causes the right choice
+of object creation.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 2.4 : dongshu2
+NAME     : Architecture behind creating shape instances is poor
+OWNER    : Shuyi
+PRIORITY : 1
+ESTIMATE : 4 hours
+ISSUE    : A better architecture for creating shape instances so that it is
+more flexible, and easier to work with can be created using the Strategy Design
+pattern as follows:
+
+Create class/abstract class/interface  ShapeManipulatorStrategy as well
+as subclasses/implementators for each type of Shape. Call these the
+concrete ShapeNamipulatorStrategies
+
+The concrete ShapeManipulatorStrategies are responsible for
+
+1. Creating instances of Shape and putting them on top of
+   the PaintModel command stack.
+
+2. Understanding how mouse events modify the shape at the top of the
+   PaintModel command stack.
+
+3. Calling the PaintPanel repaint at appropriate times.
+
+This strategy can be put in place either by having PaintPanel's mouse
+events forwarded through PaintPanel into the current strategy, or by
+simply switching the PaintPanel's listeners as appropriate.
+
+--------------------------------------------------------------------------
 --------------------------------------------------------------------------
 TYPE     : USER STORY 1 : assadkur
 NAME     : Draw Circle
@@ -371,6 +429,16 @@ I WANT   : To be able to have multiple inputs with touch screens
 SO THAT  : I can create multiple shapes at once
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
+TYPE     : USER STORY 24 : legaul30
+NAME     : Scrollable screen
+OWNER    : Jarod
+PRIORITY : 2
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To be able to scroll the screen to see other parts of the canvas
+SO THAT  : I can see other parts of the canvas without expanding it
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
 TYPE     : BUG 1 : assadkur
 NAME     : Icons instead of text for drawing mode selection
 OWNER    : Kurtis
@@ -450,9 +518,47 @@ PRIORITY : 1
 ESTIMATE : 3 hours
 ISSUE    : Need to make our shapes implement the java.awt.Shape interface
 --------------------------------------------------------------------------
-
+--------------------------------------------------------------------------
+TYPE     : BUG 13 : dongshu2
+NAME     : Not Generic Inputs
+OWNER    : Shuyi
+PRIORITY : 1
+ESTIMATE : 3 hours
+ISSUE    : Pointer movements aren't generic throughout all actors in the paint panel
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 8 : assadkur
+NAME     : Hotkey Shift for drawing polygons with equal sides
+OWNER    : Kurtis
+PRIORITY : 4
+ESTIMATE : 1 hour
+ISSUE    : polygons have equal sides but don't stick to the first click's point
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 9 : assadkur
+NAME     : Add More Stroke Styles
+OWNER    : Kurtis
+PRIORITY : 1
+ESTIMATE : 3 hours
+Issue: There aren't enough stroke styles
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 11 : legaul30
+NAME     : Sub-Optimal Tools architecture
+OWNER    : Jarod
+PRIORITY : 1
+ESTIMATE : 3 hours
+ISSUE    : Need to make all tools use the factory design pattern
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 12 : dongshu2
+NAME     : Shapes not changing on modifier buttons
+OWNER    : Shuyi
+PRIORITY : 1
+ESTIMATE : 3 hours
+ISSUE    : Shapes don't change draw style when alt or shift are pressed, only after the mouse is moved.
+--------------------------------------------------------------------------
 # OMITTED USER STORIES/BUGS BELOW   ###########################################
-
 --------------------------------------------------------------------------
 TYPE     : USER STORY 9
 NAME     : File tab
@@ -485,4 +591,12 @@ OWNER    : Shuyi
 PRIORITY : 1
 ESTIMATE : 12 hours
 ISSUE    : WindowPointer doesn't work on Linux
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 15 : dongshu2
+NAME     : WindowPointer only supports one Frame
+OWNER    : Shuyi
+PRIORITY : 1
+ESTIMATE : 3 hours
+ISSUE    : WindowPointer doesn't work with multiple Frames
 --------------------------------------------------------------------------
