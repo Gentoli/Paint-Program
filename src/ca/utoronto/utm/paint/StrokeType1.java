@@ -39,7 +39,12 @@ public class StrokeType1 implements Stroke {
                 moveY = lastY = points[1];
                 path.moveTo(moveX,moveY);
 
-            }else if(state ==PathIterator.SEG_LINETO){
+            }else if(state ==PathIterator.SEG_LINETO || state == PathIterator.SEG_CLOSE){
+                if(state == PathIterator.SEG_CLOSE){
+                    points[0] = moveX;
+                    points[1] = moveY;
+
+                }
                 thisX = points[0];
                 thisY = points[1];
                 double distance = Math.sqrt(Math.pow(thisX-lastX,2)+Math.pow(thisY-lastY,2));
@@ -56,30 +61,6 @@ public class StrokeType1 implements Stroke {
                 offset -= distance;
                 lastX = thisX;
                 lastY = thisY;
-                //break;
-            }else if(state == PathIterator.SEG_CLOSE){
-                points[0] = moveX;
-                points[1] = moveY;
-                thisX = points[0];
-                thisY = points[1];
-                double dx = thisX-lastX;
-                double dy = thisY-lastY;
-                double distance = Math.sqrt(Math.pow(dx,2)+Math.pow(dy,2));
-                double angle = Math.atan2(dy,dx);
-                while(distance >= offset && shapeIndex < shapes.length){
-                    double x = lastX + offset*(dx)/distance;
-                    double y = lastY + offset*(dy)/distance;
-                    t.setToTranslation(x,y);
-                    t.rotate(angle);
-                    path.append(t.createTransformedShape(shapes[shapeIndex]),false);//set the shapes position to the correct spot
-
-                    offset += spacing;
-                    shapeIndex++; shapeIndex %= shapes.length;// increments and loops if it is out of bounds
-                }
-                offset -= distance;
-                lastX = thisX;
-                lastY = thisY;
-                //break;
             }
             pi.next();
         }
