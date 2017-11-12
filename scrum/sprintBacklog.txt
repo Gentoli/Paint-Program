@@ -364,9 +364,9 @@ I WANT   : To have different Icons for each tool button
 SO THAT  : I can know quickly which tool is selected just by looking at the mouse
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : USER STORY 19 :
+TYPE     : USER STORY 19 : assadkur
 NAME     : Inverted Polygons
-OWNER    :
+OWNER    : Kurtis
 PRIORITY : 1
 ESTIMATE : 2 hours
 AS A     : user
