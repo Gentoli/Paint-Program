@@ -70,7 +70,11 @@ public class RegularPolygon extends PaintShape {
         t.setToTranslation(x,y);
         int dx = getWidth(); int dy = -getHeight();
         int scaleAmount = Math.min(Math.abs(dx),Math.abs(dy));
-        int xflip = dx/Math.abs(dx); int yflip = dy/Math.abs(dy);
+        int xflip = 1; int yflip = 1;
+        if(Math.abs(dx) != 0 && Math.abs(dy) != 0) {
+            xflip = dx / Math.abs(dx);
+            yflip = dy / Math.abs(dy);
+        }
         System.out.println(xflip);
         t.scale(xflip*scaleAmount/2,-yflip*scaleAmount/2);
         t.translate(1,1);//transform to account for the scale
