@@ -46,10 +46,14 @@ public class TextBoxDialog extends JDialog {
         c.add(textField);
 
 
+
         String fonts[] =
                 GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
         fontChooser = new JComboBox(fonts);
-        fontChooser.setSelectedIndex(218);
+        JEditorPane editorPane = new JEditorPane();
+        String fontFamily = editorPane.getFont().getFamily();
+        fontChooser.setSelectedItem(fontFamily);
+        //fontChooser.setSelectedIndex(218);
         //fontName = fontChooser.getSelectedItem().toString();
         c.add(fontChooser);
 
