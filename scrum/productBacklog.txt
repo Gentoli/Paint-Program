@@ -558,6 +558,14 @@ PRIORITY : 1
 ESTIMATE : 3 hours
 ISSUE    : Pointer movements aren't generic throughout all actors in the paint panel
 --------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 16 : legaul30
+NAME     : update shape icons
+OWNER    : Jarod
+PRIORITY : 2
+ESTIMATE : 1 hour
+ISSUE    : We added shapes to the shapeChooserPanel and some of the old icons need to be redone.
+--------------------------------------------------------------------------
 # OMITTED USER STORIES/BUGS BELOW   ###########################################
 --------------------------------------------------------------------------
 TYPE     : USER STORY 9
