@@ -36,7 +36,6 @@ public class RegularPolygon extends PaintShape {
         polygon.ypoints=verticiesY;
 	    this.center = center;
 	    this.right = right;
-        calculateVerticies();
     }
     //calculates the vericies angle values of the polygon
     private void calculateVerticies() {
@@ -115,8 +114,16 @@ public class RegularPolygon extends PaintShape {
         double retY = x*Math.sin(angle) + y*Math.cos(angle);
         return new Point((int)retX,(int)retY);
     }
+
+    @Override
+    public void mouseMoved(int x, int y) {
+        xEnd=x;yEnd=y;
+        calculateVerticies();
+    }
+
     //prints the polygon to the screen
     @Override
+
     public void print(Graphics2D g2) {
     	prepare(g2);
         g2.setStroke(stroke);

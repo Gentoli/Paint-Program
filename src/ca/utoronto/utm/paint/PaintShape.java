@@ -41,6 +41,8 @@ public abstract class PaintShape implements Drawable, Shape {
 		g2.setStroke(stroke==null?new BasicStroke(lineThickness):stroke);
 	}
 
+	public abstract void mouseMoved(int x, int y);
+
     public abstract void print(Graphics2D g2);
 
 	@Override

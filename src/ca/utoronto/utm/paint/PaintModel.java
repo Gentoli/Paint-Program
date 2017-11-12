@@ -7,6 +7,7 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Observable;
 
 /**
@@ -40,7 +41,17 @@ public class PaintModel extends Observable implements ComponentListener {
 		graphics.fillRect(0, 0, image.getWidth(), image.getHeight() );
 		graphics.dispose();
 	}
+
+	public void addAllPrint(List<Drawable> l){
+		if(l!=null)
+			for(Drawable d:l) {
+				addPrint(d);
+			}
+	}
+
 	public void addPrint(Drawable c){
+		if(c==null)
+			return;
 		synchronized(drawables) {
 			drawables.add(c);
 			while(drawables.size()>50) {

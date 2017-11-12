@@ -34,7 +34,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 
 		this.model = model;
 
-		this.mode = 4;
+		this.mode = 0;
 		this.model.addObserver(this);
 
 		addComponentListener(model);
@@ -43,10 +43,10 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 
 	public void initializeTools(StylePanel stylePanel){
 		toolList = new ITool[]{new SelectionTool(this.model, shapes),
-				new TextBoxTool(shapes),
-				new PolylineTool(stylePanel, shapes),
-				new SquiggleTool(stylePanel, shapes),
-				new PolygonTool(stylePanel, shapes)};
+                                new TextBoxTool(shapes),
+								new PolylineTool(stylePanel, shapes),
+								new SquiggleTool(stylePanel, shapes),
+								new PolygonTool(stylePanel, this,shapes)};
 	}
 
 	/**
@@ -77,17 +77,18 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	 * Controller aspect of this
 	 */
 	public void setMode(int mode) {
-		this.mode = mode;
+		model.addPrint(toolList[this.mode].deselect());
+		this.mode = Math.min(mode,toolList.length-1);
 	}
 
 	public void setEdges(int edges) { this.edges = edges; }
 
-	public int getMode() { return this.mode; }
+	public int getEdges() {
+		return edges;
+	}
 
-	private int activePointer = -1;
-
-//	@Override
-//	public void pointerUpdated(PointerEvent e) {
+	//	@Override
+//	public void handlePointerUpdate(PointerEvent e) {
 //		try {
 //			int shapeId = activePointer==-1?e.getPointerId():0;
 //			switch(e.getID()) {
@@ -186,23 +187,36 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	public void clear(){
 		setMode(mode);
 		model.clear();
+		repaint();
 	}
 
 	public void undo() {
+		setMode(mode);
 		model.undo();
+		repaint();
 	}
 
 	public void redo() {
+		setMode(mode);
 		model.redo();
+		repaint();
 	}
 
 	@Override
 	public void pointerUpdated(PointerEvent e) {
-
+		//System.out.println(mode);
+		model.addPrint(toolList[mode].handlePointerUpdate(e));
+		repaint();
 	}
 
 	@Override
 	public void modifierUpdated(ModifierEvent e) {
-
+		if(e.getKeyChar()=='z'){
+			undo();
+		}else if(e.getKeyChar()=='y'){
+			redo();
+		}else
+		toolList[mode].handleModifierUpdated(e);
+		repaint();
 	}
 }
