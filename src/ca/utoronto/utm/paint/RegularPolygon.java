@@ -117,12 +117,16 @@ public class RegularPolygon extends PaintShape {
         }
     }
     
-    public void setCenter(boolean center) {
+    public boolean setCenter(boolean center) {
+        boolean orig = this.center;
         this.center = center;
+        return orig != center;
     }
 
-    public void setRight(boolean right) {
+    public boolean setRight(boolean right) {
+        boolean orig = this.right;
         this.right = right;
+        return orig != right;
     }
 
     @Override
