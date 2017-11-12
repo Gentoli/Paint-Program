@@ -1,6 +1,7 @@
 package ca.utoronto.utm.paint;
 
-import javax.swing.JFrame;
+import java.awt.Dimension;
+import java.awt.Toolkit;
 
 /**
  * Creates the paint application
@@ -21,7 +22,8 @@ public class Paint {
 		// Create MVC components and hook them together
 
 		// Model
-		this.model = new PaintModel();
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		this.model = new PaintModel(screenSize);
 
 		// View+Controller
 		this.view = new View(model);
