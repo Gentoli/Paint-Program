@@ -5,10 +5,8 @@ import ca.utoronto.utm.pointer.PointerListener;
 import ca.utoronto.utm.pointer.WindowsPointer;
 
 import javax.swing.JPanel;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
+import javax.swing.JScrollPane;
+import java.awt.*;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -29,7 +27,10 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 
 	public PaintPanel(PaintModel model){
 		this.setBackground(Color.white);
-		this.setPreferredSize(new Dimension(516,300));
+		//this.setPreferredSize(new Dimension(516,300));
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		this.setPreferredSize(new Dimension(screenSize.width - 125, screenSize.height - 205));
+
 		this.model = model;
 
 		this.mode = 4;
