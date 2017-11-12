@@ -6,8 +6,9 @@ import ca.utoronto.utm.pointer.PointerListener;
 import ca.utoronto.utm.pointer.WindowsPointer;
 
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -29,8 +30,8 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	public PaintPanel(PaintModel model){
 		this.setBackground(Color.white);
 		//this.setPreferredSize(new Dimension(516,300));
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		this.setPreferredSize(new Dimension(screenSize.width - 125, screenSize.height - 205));
+//		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+//		this.setPreferredSize(new Dimension(screenSize.width - 125, screenSize.height - 205));
 
 		this.model = model;
 
@@ -56,6 +57,8 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 		// the javadoc to see more of what this can do for you!!
 		super.paintComponent(g); //paint background
 		Graphics2D g2 = (Graphics2D) g;
+		g2.setColor(Color.WHITE);
+		g2.fillRect(0,0,getWidth(),getHeight());
 		this.model.paint(g2);
 
 		for(PaintShape s : shapes) {
@@ -86,102 +89,6 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 		return edges;
 	}
 
-	//	@Override
-//	public void handlePointerUpdate(PointerEvent e) {
-//		try {
-//			int shapeId = activePointer==-1?e.getPointerId():0;
-//			switch(e.getID()) {
-//				case MouseEvent.MOUSE_PRESSED:
-//					switch(mode) {
-//						case ShapeBuilder.MODIFY:
-//							if(activePointer==-1){
-//								if(shapes[0]==null) {
-//									activePointer=e.getPointerId();
-//									shapes[0] = new Selection(e.getX(), e.getY(), model);
-//								}else{
-//									if(shapes[0].contains(e.getX(),e.getY())){
-//										activePointer=e.getPointerId();
-//										((Selection) shapes[0]).move(e.getX(),e.getY());
-//									}else{
-//										((Selection) shapes[0]).setReleased();
-//										setMode(mode);
-//									}
-//								}
-//							}
-//							break;
-//						case ShapeBuilder.POLYLINE:
-//							if(activePointer==-1){
-//								activePointer=e.getPointerId();
-//								if(shapes[0]==null) {
-//									shapeId=0;
-//								}else {
-//									break;
-//								}
-//							}else
-//								break;
-//						default:
-//							shapes[shapeId] = new ShapeBuilder(mode, e.getX(), e.getY()).setColour(colour)
-//									.setCenter((e.getModifiers() & InputEvent.ALT_MASK) != 0).setLineThickness(lineThickness * e.getPressure())
-//									.setFill(fill).setStrokeStyle(strokeStyle).setRight((e.getModifiers() & InputEvent.SHIFT_MASK) != 0).build();
-//
-//					}
-//					break;
-//				case MouseEvent.MOUSE_MOVED:
-//					switch(mode) {
-//						case ShapeBuilder.POLYLINE:
-//							if(shapes[shapeId]!=null)
-//							((Polyline)shapes[shapeId]).setTemp(e.getX(),e.getY());
-//							break;
-//						case ShapeBuilder.SQUIGGLE:
-//							if(shapes[shapeId] != null)
-//								shapes[shapeId].setEnd(e.getX(), e.getY());
-//							break;
-//						case ShapeBuilder.MODIFY:if(e.getPointerId()!=activePointer)break;
-//						default:
-//							if(shapes[shapeId] != null) {
-//								shapes[shapeId].setEnd(e.getX(), e.getY());
-//								shapes[shapeId].setRight((e.getModifiers() & InputEvent.SHIFT_MASK) != 0);
-//								shapes[shapeId].setCenter((e.getModifiers() & InputEvent.ALT_MASK) != 0);
-//								shapes[shapeId].setLineThickness(lineThickness * e.getPressure());
-//							}
-//					}
-//					break;
-//				case MouseEvent.MOUSE_RELEASED:
-//					switch(mode) {
-//						case ShapeBuilder.MODIFY:
-//							if(e.getPointerId()!=activePointer||activePointer==-1)break;
-//							((Selection) shapes[0]).release(e.getX(), e.getY());
-//							activePointer=-1;
-//							if(e.getButton()==3){
-//								setMode(mode);
-//							}
-//							break;
-//						case ShapeBuilder.POLYLINE:
-//							activePointer=-1;
-//							if(e.getButton()==3){
-//								((Polyline)shapes[shapeId]).end();
-//								model.addPrint(shapes[shapeId]);
-//								shapes[shapeId] = null;
-//							}else{
-//								if(shapes[shapeId]!=null)
-//									shapes[shapeId].setEnd(e.getX(), e.getY());
-//							}
-//							break;
-//						default:
-//							if(shapes[shapeId] != null) {
-//								shapes[shapeId].setEnd(e.getX(), e.getY());
-//								model.addPrint(shapes[shapeId]);
-//								shapes[shapeId] = null;
-//								activePointer=-1;
-//							}
-//					}
-//					break;
-//			}
-//			repaint();
-//		} catch(Exception e1) {
-//			e1.printStackTrace();
-//		}
-//	}
 
 	public void clear(){
 		setMode(mode);

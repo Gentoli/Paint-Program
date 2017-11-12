@@ -80,3 +80,8 @@ Nov 11, 2017
 	Yesterday :
 	Today     : Add keyboard feature for WindowsTouch, fix bug 12,13
 	Obstacles :
+
+Nov 12, 2017
+	Yesterday :
+	Today     : UserStory 17, Cleanup
+	Obstacles :
