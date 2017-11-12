@@ -1,7 +1,6 @@
 package ca.utoronto.utm.paint;
 
 import ca.utoronto.utm.pointer.WindowsPointer;
-import javafx.scene.control.TextFormatter;
 
 import javax.swing.*;
 import javax.swing.event.ChangeListener;
