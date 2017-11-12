@@ -25,22 +25,13 @@ class ModeTextField extends JTextField implements ActionListener,KeyListener {
 		((AbstractDocument) getDocument()).setDocumentFilter(new DocumentFilter() {
 			@Override
 			public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
-//				if (offset < TEXT_NOT_TO_TOUCH.length()) {
-//					return;
-//				}
 				super.insertString(fb, offset, string, attr);
 			}
 
 			@Override
 			public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
-				//System.out.println(text.length());
-				System.out.println(length);
-				System.out.println(offset);
 				if (isEnabled()) {
 					if (offset < TEXT_NOT_TO_TOUCH.length()) {
-//						length = Math.max(0, length - TEXT_NOT_TO_TOUCH.length());
-//						offset = TEXT_NOT_TO_TOUCH.length();
-						text = "Edges: " + text;
 						length = Math.min(getText().length() - TEXT_NOT_TO_TOUCH.length(), length);
 						offset = getText().length() - length;
 					}
