@@ -46,8 +46,6 @@ public class PolylineTool implements ITool {
                 }
                 break;
             case MouseEvent.MOUSE_MOVED:
-            	if(activePointer!=e.getPointerId())
-            		break;
                 if(shapes[0]!=null) {
                     ((Polyline)shapes[0]).mouseTemp(e.getX(), e.getY());
                 }

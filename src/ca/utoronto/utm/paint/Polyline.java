@@ -24,6 +24,7 @@ public class Polyline extends PaintShape {
 
     public void addPoint(Point point){
         p.add(point);
+        end();
     }
     @Override
     public void print(Graphics2D g2) {
