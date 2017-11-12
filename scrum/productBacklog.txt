@@ -24,16 +24,6 @@ I WANT   : To have different Icons for each tool button
 SO THAT  : I can know quickly which tool is selected just by looking at the mouse
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : USER STORY 19 :
-NAME     : Inverted Polygons
-OWNER    :
-PRIORITY : 1
-ESTIMATE : 2 hours
-AS A     : user
-I WANT   : To be able to draw inverted polygons
-SO THAT  : I can have more choices of different, unique shapes
---------------------------------------------------------------------------
---------------------------------------------------------------------------
 TYPE     : USER STORY 20 : kairoshs
 NAME     : EyeDropper tool/ Get color from screen
 OWNER    : Sanjar
@@ -42,26 +32,6 @@ ESTIMATE : 2 hours
 AS A     : user
 I WANT   : To be able to select a color from the screen
 SO THAT  : I will never forget which color I used earlier for a specific line
---------------------------------------------------------------------------
---------------------------------------------------------------------------
-TYPE     : USER STORY 21 : legaul30
-NAME     : Text Boxes
-OWNER    : Jarod
-PRIORITY : 1
-ESTIMATE : 2 hours
-AS A     : user
-I WANT   : To be able to add text boxes
-SO THAT  : I can add typed words to the screen
---------------------------------------------------------------------------
---------------------------------------------------------------------------
-TYPE     : USER STORY 22 : legaul30
-NAME     : Font styles for text boxes
-OWNER    : Jarod
-PRIORITY : 2
-ESTIMATE : 2 hours
-AS A     : user
-I WANT   : To be able to add text boxes with different fonts
-SO THAT  : I can add typed words with certain styles to the screen
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
 TYPE     : USER STORY 23 :
@@ -429,6 +399,36 @@ I WANT   : To be able to have multiple inputs with touch screens
 SO THAT  : I can create multiple shapes at once
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
+TYPE     : USER STORY 19 : assadkur
+NAME     : Concave Polygons
+OWNER    : Kurtis
+PRIORITY : 1
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To be able to draw inverted polygons
+SO THAT  : I can have more choices of different, unique shapes
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 21 : legaul30
+NAME     : Text Boxes
+OWNER    : Jarod
+PRIORITY : 1
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To be able to add text boxes
+SO THAT  : I can add typed words to the screen
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 22 : legaul30
+NAME     : Font styles for text boxes
+OWNER    : Jarod
+PRIORITY : 2
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To be able to add text boxes with different fonts
+SO THAT  : I can add typed words with certain styles to the screen
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
 TYPE     : USER STORY 24 : legaul30
 NAME     : Scrollable screen
 OWNER    : Jarod
@@ -511,22 +511,6 @@ ISSUE    : The first thing drawn should be behind the second thing drawn on top
 		   of it, but instead points are drawn first, then circles on top of it.
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-TYPE     : BUG 10 : assadkur
-NAME     : Sub-Optimal Shape architecture
-OWNER    : Kurtis
-PRIORITY : 1
-ESTIMATE : 3 hours
-ISSUE    : Need to make our shapes implement the java.awt.Shape interface
---------------------------------------------------------------------------
---------------------------------------------------------------------------
-TYPE     : BUG 13 : dongshu2
-NAME     : Not Generic Inputs
-OWNER    : Shuyi
-PRIORITY : 1
-ESTIMATE : 3 hours
-ISSUE    : Pointer movements aren't generic throughout all actors in the paint panel
---------------------------------------------------------------------------
---------------------------------------------------------------------------
 TYPE     : BUG 8 : assadkur
 NAME     : Hotkey Shift for drawing polygons with equal sides
 OWNER    : Kurtis
@@ -540,7 +524,15 @@ NAME     : Add More Stroke Styles
 OWNER    : Kurtis
 PRIORITY : 1
 ESTIMATE : 3 hours
-Issue: There aren't enough stroke styles
+ISSUE    : There aren't enough stroke styles
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 10 : assadkur
+NAME     : Sub-Optimal Shape architecture
+OWNER    : Kurtis
+PRIORITY : 1
+ESTIMATE : 3 hours
+ISSUE    : Need to make our shapes implement the java.awt.Shape interface
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
 TYPE     : BUG 11 : legaul30
@@ -557,6 +549,14 @@ OWNER    : Shuyi
 PRIORITY : 1
 ESTIMATE : 3 hours
 ISSUE    : Shapes don't change draw style when alt or shift are pressed, only after the mouse is moved.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : BUG 13 : dongshu2
+NAME     : Not Generic Inputs
+OWNER    : Shuyi
+PRIORITY : 1
+ESTIMATE : 3 hours
+ISSUE    : Pointer movements aren't generic throughout all actors in the paint panel
 --------------------------------------------------------------------------
 # OMITTED USER STORIES/BUGS BELOW   ###########################################
 --------------------------------------------------------------------------
