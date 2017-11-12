@@ -1,19 +1,20 @@
 package ca.utoronto.utm.paint;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.PathIterator;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
+import java.awt.geom.*;
 
-/*creates a polygon that is equiangular (vertex angles are of equal value). This can be stretched in either the x
+/*creates a polygon that is equiangular (verticie anglues are of equal value). This can be stretched in either the x
 * or y direction and flipped around.*/
 public class RegularPolygon extends PaintShape {
-    public int[] verticiesX;
-    public int[] verticiesY;
     protected boolean center;
     protected boolean right;
-    private Polygon polygon;
+    protected Polygon polygon;
+    protected double stretchFactorX;
+    protected double stretchFactorY;
+    protected Path2D model;
+    protected Path2D shape;
+    protected int nVerticies;
+    protected AffineTransform t = new AffineTransform();
     /**
      * creates a regular polygon
      * @param x the initial x coordinate
@@ -28,176 +29,157 @@ public class RegularPolygon extends PaintShape {
      */
     public RegularPolygon(int x, int y, Color colour, float lineThickness, boolean fill, int strokeStyle,int vertices,boolean center,boolean right) {
         super(x, y, colour, lineThickness, fill, strokeStyle);
-        this.verticiesX = new int[vertices];
-        this.verticiesY = new int[vertices];
-        polygon=new Polygon();
-        polygon.npoints=vertices;
-        polygon.xpoints=verticiesX;
-        polygon.ypoints=verticiesY;
-	    this.center = center;
+        model = new Path2D.Double();
+        shape = new Path2D.Double();
+        nVerticies=vertices;
+	    this.center = false;
 	    this.right = right;
+	    calculateModel();
     }
-    //calculates the vericies angle values of the polygon
-    private void calculateVerticies() {
-        double angles = 2 * Math.PI / polygon.npoints;
-        int absMin = Math.min(Math.abs(getWidth()),Math.abs(getHeight()));
-        double radiusSquared;
-        double radius = absMin/2;
-        double mouseAngle = 0;
-        int offsetX;
-        int offsetY;
-        double rFactor = 2;
-        double xFactor = Math.abs(getWidth())/(rFactor*radius);
-        double yFactor = Math.abs(getHeight())/(rFactor*radius);
-        int flip = 1;
-        if(center){
-           radiusSquared =  Math.pow(getWidth(), 2) + Math.pow(getHeight(),2);
-           if(polygon.npoints == 4){
-               radius = Math.sqrt(radiusSquared);
-               mouseAngle = Math.atan2(-getHeight(), getWidth())-Math.PI/2;
-           }
-           offsetX = x;
-           offsetY = y;
-           if(right){
-               xFactor = 1;
-               yFactor = 1;
-           }
-        }else{
-            if(polygon.npoints == 4){
-                mouseAngle = Math.PI/4;
-            }
-            if(getHeight() < 0){
-                flip = -1;
-            }
-            offsetX = getXMid();
-            offsetY = getYMid();
+    //draws the polygon out in model view (centered on axis with radius 1)
+    protected void calculateModel() {
+        double angles = 2 * Math.PI / nVerticies;
+        model.moveTo(Math.sin(Math.PI / nVerticies),Math.cos(Math.PI / nVerticies));//every polygon vertex starts from the top middle
+        for (int i = 1; i < nVerticies; i++) {
+            double x = Math.sin(i * angles+Math.PI/nVerticies);
+            double y = Math.cos(i * angles+Math.PI/nVerticies);
+            model.lineTo(x,y);
         }
-        if(polygon.npoints == 4){
-            rFactor = Math.sqrt(2);
-        }/*
-        double radiusSquared = center?Math.pow(getWidth(), 2) + Math.pow(getHeight(),2):2*Math.pow(absMin/2,2);
-        double radius = center||polygon.npoints==4?Math.sqrt(radiusSquared):absMin/2;
-        double mouseAngle = center?Math.atan2(-getHeight(), getWidth())-Math.PI/2:(polygon.npoints==4?Math.PI/4:0);
-        int offsetX = center?x:getXMid();
-        int offsetY = center?y:getYMid();
-        double rFactor=polygon.npoints==4?Math.sqrt(2):2;
-        double xFactor=center||right?1:Math.abs(getWidth())/(rFactor*radius);
-        double yFactor=center||right?1:Math.abs(getHeight())/(rFactor*radius);
-        int flip = !center&&getHeight()<0?-1:1;
-        */
-        for (int i = 0; i < polygon.npoints; i++) {
-            double x = radius * Math.sin(i * angles + mouseAngle) * xFactor;
-            double y = flip*radius * Math.cos(i * angles + mouseAngle) * yFactor;
-            Point p = rotate(x, y, Math.PI);
-            verticiesX[i] = p.x+offsetX;
-            verticiesY[i] = p.y+offsetY;
-        }
+        model.closePath();
+        stretchFactorX = 1.0/(model.getBounds2D().getWidth());
+        stretchFactorY = 1.0/(model.getBounds2D().getHeight());
+    }
+    protected void centeredPolygonCreation(){
+        t.setToTranslation(x,y);
+        double mouseAngle = Math.atan2(-getWidth(),getHeight());
+        t.rotate(mouseAngle-Math.PI/nVerticies);
+        int dx = getWidth();
+        int dy = getHeight();
+        double r = Math.sqrt(dx*dx+dy*dy);
+        t.scale(r,r);
+        shape = (Path2D)t.createTransformedShape(model);//applies the transformations to the model
     }
 
-    private int getXMid() {
-        return getWidth()/2;
-    }
-    private int getYMid() {
-        return getHeight()/2;
+    protected void stretchPolygonCreation(){
+        t.setToTranslation(x+getWidth()/2,y+getHeight()/2);
+        t.scale(getWidth()*stretchFactorX,getHeight()*stretchFactorY);
+        shape = (Path2D)t.createTransformedShape(model);
+        System.out.println(shape);
     }
 
-    private int getHeight() {
+    protected void regularPolygonCreation(){
+        t.setToTranslation(x,y);
+        int dx = getWidth(); int dy = -getHeight();
+        int scaleAmount = Math.min(Math.abs(dx),Math.abs(dy));
+        int xflip = 1; int yflip = 1;
+        if(Math.abs(dx) != 0 && Math.abs(dy) != 0) {
+            xflip = dx / Math.abs(dx);
+            yflip = dy / Math.abs(dy);
+        }
+        System.out.println(xflip);
+        t.scale(xflip*scaleAmount/2,-yflip*scaleAmount/2);
+        t.translate(1,1);//transform to account for the scale
+        shape = (Path2D)t.createTransformedShape(model);
+    }
+
+    protected int getHeight() {
         return yEnd-y;
     }
 
-    private int getWidth() {
+    protected int getWidth() {
         return xEnd-x;
     }
 
-    public Point rotate(double x, double y, double angle){
-        double retX = x*Math.cos(angle) - y*Math.sin(angle);
-        double retY = x*Math.sin(angle) + y*Math.cos(angle);
-        return new Point((int)retX,(int)retY);
-    }
 
     @Override
     public void mouseMoved(int x, int y) {
         xEnd=x;yEnd=y;
-        calculateVerticies();
+        if(center){
+            centeredPolygonCreation();
+        }else if (right){
+            regularPolygonCreation();
+        }else{
+            stretchPolygonCreation();
+        }
     }
 
     //prints the polygon to the screen
     @Override
-
-    public void print(Graphics2D g2) {
-    	prepare(g2);
-        g2.setStroke(stroke);
-        calculateVerticies();
+    public void print(Graphics2D g) {
+	    prepare(g);
+        g.setStroke(stroke);
         if(fill)
-            g2.fillPolygon(polygon);
-        else
-        g2.drawPolygon(polygon);
-        //g.drawRect(x,y,getWidth(),getHeight());
+            g.fill(shape);
+        else {
+            g.draw(shape);
+        }
     }
     
-    public void setCenter(boolean center) {
+    public boolean setCenter(boolean center) {
+        boolean orig = this.center;
         this.center = center;
+        return orig != center;
     }
 
-    public void setRight(boolean right) {
+    public boolean setRight(boolean right) {
+        boolean orig = this.right;
         this.right = right;
+        return orig != right;
     }
 
     @Override
-    public Rectangle getBounds() {
-        return polygon.getBounds();
-    }
+    public Rectangle getBounds() {return shape.getBounds();}
 
     public boolean contains(Point p) {
-        return polygon.contains(p);
+        return shape.contains(p);
     }
 
     public boolean contains(int x, int y) {
-        return polygon.contains(x, y);
+        return shape.contains(x, y);
     }
 
     @Override
     public Rectangle2D getBounds2D() {
-        return polygon.getBounds2D();
+        return shape.getBounds2D();
     }
 
     @Override
     public boolean contains(double x, double y) {
-        return polygon.contains(x, y);
+        return shape.contains(x, y);
     }
 
     @Override
     public boolean contains(Point2D p) {
-        return polygon.contains(p);
+        return shape.contains(p);
     }
 
     @Override
     public boolean intersects(double x, double y, double w, double h) {
-        return polygon.intersects(x, y, w, h);
+        return shape.intersects(x, y, w, h);
     }
 
     @Override
     public boolean intersects(Rectangle2D r) {
-        return polygon.intersects(r);
+        return shape.intersects(r);
     }
 
     @Override
     public boolean contains(double x, double y, double w, double h) {
-        return polygon.contains(x, y, w, h);
+        return shape.contains(x, y, w, h);
     }
 
     @Override
     public boolean contains(Rectangle2D r) {
-        return polygon.contains(r);
+        return shape.contains(r);
     }
 
     @Override
     public PathIterator getPathIterator(AffineTransform at) {
-        return polygon.getPathIterator(at);
+        return shape.getPathIterator(at);
     }
 
     @Override
     public PathIterator getPathIterator(AffineTransform at, double flatness) {
-        return polygon.getPathIterator(at, flatness);
+        return shape.getPathIterator(at, flatness);
     }
 }

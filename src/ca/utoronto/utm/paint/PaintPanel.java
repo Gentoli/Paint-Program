@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.event.KeyEvent;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -37,7 +38,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 
 		this.mode = 0;
 		this.model.addObserver(this);
-
+        setFocusable(true);
 		addComponentListener(model);
 		WindowsPointer.getInstance().addListener(this, this);
 	}
@@ -47,7 +48,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
                                 new TextBoxTool(textBoxDialog, stylePanel, shapes),
 								new PolylineTool(stylePanel, shapes),
 								new SquiggleTool(stylePanel, shapes),
-								new PolygonTool(stylePanel, this,shapes)};
+								new ConcavePolygonTool(stylePanel, this,shapes)};
 	}
 
 	/**
@@ -117,14 +118,20 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 		repaint();
 	}
 
+	private boolean keyDown =false;
+
 	@Override
 	public void modifierUpdated(ModifierEvent e) {
-		if(e.getKeyChar()=='z'){
-			undo();
-		}else if(e.getKeyChar()=='y'){
-			redo();
-		}else
-		toolList[mode].handleModifierUpdated(e);
-		repaint();
+        if(e.isControlDown()&&e.getID()== KeyEvent.KEY_PRESSED){
+			if(e.getKeyChar()=='Z'||(char)e.getKeyCode()=='Z'){
+				undo();
+				return;
+			}else if(e.getKeyChar()=='Y'||(char)e.getKeyCode()=='Y'){
+				redo();
+				return;
+			}
+		}
+		if(toolList[mode].handleModifierUpdated(e))
+			repaint();
 	}
 }

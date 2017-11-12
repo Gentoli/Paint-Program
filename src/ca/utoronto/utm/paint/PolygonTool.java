@@ -3,12 +3,10 @@ package ca.utoronto.utm.paint;
 import ca.utoronto.utm.pointer.ModifierEvent;
 import ca.utoronto.utm.pointer.PointerEvent;
 
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.event.MouseEvent;
 
 
-public class PolygonTool implements ITool, ChangeListener {
+public class PolygonTool implements ITool {
 	private StylePanel style;
 	private PaintPanel paintPanel;
 	private PaintShape[] shapes;
@@ -21,7 +19,6 @@ public class PolygonTool implements ITool, ChangeListener {
 
 	@Override
     public Drawable deselect() {
-
 		return null;
 	}
 
@@ -57,17 +54,14 @@ public class PolygonTool implements ITool, ChangeListener {
     }
 
     @Override
-    public void handleModifierUpdated(ModifierEvent e) {
+    public boolean handleModifierUpdated(ModifierEvent e) {
+		boolean changed = false;
 	    for(PaintShape s : shapes) {
 		    if(s != null) {
-			    ((RegularPolygon)s).setCenter(e.isAltDown());
-			    ((RegularPolygon)s).setRight(e.isShiftDown());
+			    changed |= ((RegularPolygon)s).setCenter(e.isAltDown());
+			    changed |= ((RegularPolygon)s).setRight(e.isShiftDown());
 		    }
 	    }
-    }
-
-    @Override
-    public void stateChanged(ChangeEvent e) {
-
+	    return changed;
     }
 }
