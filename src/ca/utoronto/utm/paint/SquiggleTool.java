@@ -5,7 +5,7 @@ import ca.utoronto.utm.pointer.PointerEvent;
 
 import java.awt.event.MouseEvent;
 
-public class SquiggleTool implements ITool {
+public class SquiggleTool implements ShapeManipulatorStrategy {
     private StylePanel style;
     private PaintShape[] shapes;
 
