@@ -25,7 +25,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 
 
 	private PaintShape[] shapes = new PaintShape[WindowsPointer.POINTER_MAX];
-	private ITool[] toolList;
+	private ShapeManipulatorStrategy[] toolList;
 	private int edges;
 
 	public PaintPanel(PaintModel model){
@@ -44,7 +44,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	}
 
 	public void initializeTools(StylePanel stylePanel, TextBoxDialog textBoxDialog){
-		toolList = new ITool[]{new SelectionTool(this.model, shapes),
+		toolList = new ShapeManipulatorStrategy[]{new SelectionTool(this.model, shapes),
                                 new TextBoxTool(textBoxDialog, stylePanel, shapes),
 								new PolylineTool(stylePanel, shapes),
 								new SquiggleTool(stylePanel, shapes),

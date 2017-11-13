@@ -5,7 +5,7 @@ import ca.utoronto.utm.pointer.PointerEvent;
 
 import java.awt.event.MouseEvent;
 
-public class PolylineTool implements ITool {
+public class PolylineTool implements ShapeManipulatorStrategy {
     private StylePanel style;
     private PaintShape[] shapes;
     private int activePointer = -1;

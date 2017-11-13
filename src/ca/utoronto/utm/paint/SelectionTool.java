@@ -5,7 +5,7 @@ import ca.utoronto.utm.pointer.PointerEvent;
 
 import java.awt.event.MouseEvent;
 
-public class SelectionTool implements ITool {
+public class SelectionTool implements ShapeManipulatorStrategy {
     private PaintModel model;
     private PaintShape[] shapes;
     private int activePointer = -1;

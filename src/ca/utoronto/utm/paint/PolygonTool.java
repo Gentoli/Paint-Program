@@ -9,7 +9,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 
-public class PolygonTool implements ITool {
+public class PolygonTool implements ShapeManipulatorStrategy {
 	private StylePanel style;
 	private PaintPanel paintPanel;
 	private PaintShape[] shapes;
