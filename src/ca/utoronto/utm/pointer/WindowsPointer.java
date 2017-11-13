@@ -13,58 +13,39 @@ import java.util.Map;
 /**
  * Object Handle Win32 API Calls from JNI bridge
  */
-public final class WindowsPointer extends MouseAdapter {
+public class WindowsPointer extends MouseAdapter {
 	public static final int POINTER_MAX = 20;
-	private static boolean touchSupported = true;
-	private static WindowsPointer instance;
+	public static final int MAX_PRESSURE = 1024;
+	private static final boolean TOUCH_SUPPORTED;
 
 	static {
+		boolean dllLoaded = true;
 		try {
 			System.loadLibrary("JNI");
 		} catch(Error e) {
 			System.out.println("JNI failed to load... falling back to MouseListener");
-			touchSupported = false;
+			dllLoaded = false;
 		}
+		TOUCH_SUPPORTED = dllLoaded;
 	}
 
 	private Frame frame;
 	private int[] points = new int[POINTER_MAX];
 	private Map<Component, EventFactory> listeners = new HashMap<Component, EventFactory>();
 
-	private WindowsPointer() {
-		for(int i = 0; i < points.length; i++) {
-			points[i] = -1;
-		}
-	}
-
-	public static boolean isTouchSupported() {
-		return touchSupported;
-	}
-
-	private static void Update(int eventId, long when, int modifiers, int xAbs, int yAbs, int clickCount, int pointerId, int pressure) {
-		float fPressure = pressure == 0 ? 1f : ((float) pressure / 1024);
-		WindowsPointer p = getInstance();
-		int index = p.getPointId(pointerId);
-		for(EventFactory e : p.listeners.values()) {
-			e.firePointerEvent(eventId, when, modifiers, xAbs, yAbs, clickCount, index, fPressure);
-		}
-
-		if(eventId == MouseEvent.MOUSE_EXITED)
-			p.releasePoint(index);
-	}
-
-	private static void KeyUpdate(int eventId, long when, int modifiers, int keyCode, char keyChar) {
-		WindowsPointer p = getInstance();
-		ModifierEvent event = new ModifierEvent(p.frame, eventId, when, modifiers, keyCode, keyChar);
-		for(EventFactory e : p.listeners.values()) {
-			e.fireModifierEvent(event);
-		}
-	}
-
-	public static synchronized WindowsPointer getInstance() {
-		if(instance == null)
-			instance = new WindowsPointer();
-		return instance;
+	public WindowsPointer(Frame frame) {
+		if(frame == null)
+			throw new IllegalArgumentException("null frame");
+		if(TOUCH_SUPPORTED)
+			try {
+				init(getHWnd(frame));
+				this.frame = frame;
+				for(int i = 0; i < points.length; i++) {
+					points[i] = -1;
+				}
+			} catch(RuntimeException | UnsatisfiedLinkError e) {
+				e.printStackTrace();
+			}
 	}
 
 	private static long getHWnd(Frame component) {
@@ -83,25 +64,29 @@ public final class WindowsPointer extends MouseAdapter {
 		throw new RuntimeException("No HWND found for " + c);
 	}
 
-	private native void init(long hWnd);
+	private void update(int eventId, long when, int modifiers, int xAbs, int yAbs, int clickCount, int pointerId, int pressure) {
+		float fPressure = pressure == 0 ? 1f : ((float) pressure / MAX_PRESSURE);
+		int index = getPointId(pointerId);
+		for(EventFactory e : listeners.values()) {
+			e.firePointerEvent(eventId, when, modifiers, xAbs, yAbs, clickCount, index, fPressure);
+		}
 
-	public void setFrame(Frame frame) {
-		if(frame == null)
-			throw new IllegalArgumentException("null frame");
-		if(this.frame == frame || !touchSupported)
-			return;
-		this.frame = frame;
-		try {
-			init(getHWnd(frame));
-			touchSupported = true;
-		} catch(RuntimeException | UnsatisfiedLinkError e) {
-			e.printStackTrace();
-			touchSupported = false;
+		if(eventId == MouseEvent.MOUSE_EXITED)
+			releasePoint(index);
+	}
+
+	private void keyUpdate(int eventId, long when, int modifiers, int keyCode, char keyChar) {
+		ModifierEvent event = new ModifierEvent(frame, eventId, when, modifiers, keyCode, keyChar);
+		for(EventFactory e : listeners.values()) {
+			e.fireModifierEvent(event);
 		}
 	}
 
+	private native void init(long hWnd);
+
 	public void addListener(PointerListener pointerListener, Component component, JScrollPane scrollPane) {
-		if(touchSupported) {
+		if(frame.isAncestorOf(component))
+		if(frame != null) {
 			EventFactory f = listeners.get(component);
 			if(f == null) {
 				EventFactory eventFactory = new EventFactory(component, scrollPane);

@@ -76,12 +76,14 @@ public class View extends JFrame implements Observer {
 
 		JScrollPane scrollPane = new JScrollPane(paintPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		c.add(scrollPane, BorderLayout.CENTER);
-		WindowsPointer.getInstance().addListener(paintPanel, paintPanel, scrollPane);
+
+		WindowsPointer windowsPointer = new WindowsPointer(this);
+		windowsPointer.addListener(paintPanel, paintPanel, scrollPane);
 
 		model.addObserver(this);
 		pack();
 
-		WindowsPointer.getInstance().setFrame(this);
+
 		setMinimumSize(new Dimension(624, 462));
 		setSize(624, 462);
 		setVisible(true);
