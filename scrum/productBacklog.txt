@@ -7,7 +7,7 @@
 TYPE     : USER STORY 17 : dongshu2
 NAME     : Add Layers
 OWNER    : Shuyi
-PRIORITY : 1
+PRIORITY : 5
 ESTIMATE : 5 hours
 AS A     : user
 I WANT   : To be able to add and remove layers with their own shapes
@@ -17,7 +17,7 @@ SO THAT  : I can have more control on the drawings
 TYPE     : USER STORY 18 :
 NAME     : Mouse Icons
 OWNER    :
-PRIORITY : 2
+PRIORITY : 5
 ESTIMATE : 1 hour
 AS A     : user
 I WANT   : To have different Icons for each tool button
@@ -27,7 +27,7 @@ SO THAT  : I can know quickly which tool is selected just by looking at the mous
 TYPE     : USER STORY 20 : kairoshs
 NAME     : EyeDropper tool/ Get color from screen
 OWNER    : Sanjar
-PRIORITY : 2
+PRIORITY : 4
 ESTIMATE : 2 hours
 AS A     : user
 I WANT   : To be able to select a color from the screen
@@ -37,7 +37,7 @@ SO THAT  : I will never forget which color I used earlier for a specific line
 TYPE     : USER STORY 23 :
 NAME     : Eraser tool
 OWNER    :
-PRIORITY : 1
+PRIORITY : 4
 ESTIMATE : 1 hour
 AS A     : user
 I WANT   : To be able to erase
@@ -47,11 +47,21 @@ SO THAT  : I can fix mistakes with an eraser tool
 TYPE     : USER STORY 25 : legaul30
 NAME     : Border
 OWNER    : Jarod
-PRIORITY : 1
+PRIORITY : 2
 ESTIMATE : 2 hours
 AS A     : user
 I WANT   : To have a border option
 SO THAT  : I can have a shape with a border that has a different color than it's inside
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 26 : dongshu2
+NAME     : Pen pressure
+OWNER    : Shuyi
+PRIORITY : 4
+ESTIMATE : 6 hours
+AS A     : user
+I WANT   : To use my pen with pressure support
+SO THAT  : I can draw a line with variable width
 --------------------------------------------------------------------------
 # COMPLETED USER STORIES/BUGS BELOW ###########################################
 --------------------------------------------------------------------------

@@ -85,3 +85,8 @@ Nov 12, 2017
 	Yesterday :
 	Today     : UserStory 17, Cleanup
 	Obstacles :
+
+Nov 12, 2017
+	Yesterday : Too many changes needed for UserStory 17(Layers) - OMITTED
+	Today     : USER STORY 26 (pen pressure)
+	Obstacles : Stroke may be hard to manipulate
