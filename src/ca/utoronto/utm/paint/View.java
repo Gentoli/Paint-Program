@@ -25,6 +25,7 @@ public class View extends JFrame implements Observer {
 			" - Right click to break Polyline mode line\n" +
 			" - Set number of edges for Polygon mode in left textfield\n" +
 			"Hotkeys:\n" +
+			" - Hold Shift to draw regular polygons\n" +
 			" - Hold Alt to draw regular polygons relative to center\n" +
 			" - Ctrl-Z to undo, Ctrl-Y to redo\n" +
 			"Extras:\n" +

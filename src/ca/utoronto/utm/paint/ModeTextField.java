@@ -75,8 +75,7 @@ class ModeTextField extends JTextField implements ActionListener,KeyListener {
 			if (value > 100) {
 				value = 100;
 			}
-			if(value<0) {}
-			else if (value < 3) {
+			if (value < 3) {
 				value = 3;
 			}
 			if (e != null) {
