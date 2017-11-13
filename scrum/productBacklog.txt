@@ -569,6 +569,14 @@ ESTIMATE : 3 hours
 ISSUE    : Pointer movements aren't generic throughout all actors in the paint panel
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
+TYPE     : BUG 15 : dongshu2
+NAME     : WindowPointer only supports one Frame
+OWNER    : Shuyi
+PRIORITY : 1
+ESTIMATE : 4 hours
+ISSUE    : WindowPointer doesn't work with multiple Frames
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
 TYPE     : BUG 16 : legaul30
 NAME     : update shape icons
 OWNER    : Jarod
@@ -609,12 +617,4 @@ OWNER    : Shuyi
 PRIORITY : 1
 ESTIMATE : 12 hours
 ISSUE    : WindowPointer doesn't work on Linux
---------------------------------------------------------------------------
---------------------------------------------------------------------------
-TYPE     : BUG 15 : dongshu2
-NAME     : WindowPointer only supports one Frame
-OWNER    : Shuyi
-PRIORITY : 1
-ESTIMATE : 3 hours
-ISSUE    : WindowPointer doesn't work with multiple Frames
 --------------------------------------------------------------------------
