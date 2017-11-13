@@ -43,6 +43,16 @@ AS A     : user
 I WANT   : To be able to erase
 SO THAT  : I can fix mistakes with an eraser tool
 --------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 25 : legaul30
+NAME     : Border
+OWNER    : Jarod
+PRIORITY : 1
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To have a border option
+SO THAT  : I can have a shape with a border that has a different color than it's inside
+--------------------------------------------------------------------------
 # COMPLETED USER STORIES/BUGS BELOW ###########################################
 --------------------------------------------------------------------------
 TYPE     : USER STORY 2.1 : assadkur
