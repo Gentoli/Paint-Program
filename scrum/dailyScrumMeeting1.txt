@@ -83,5 +83,5 @@ Nov 11, 2017
 
 Nov 12, 2017
     Yesterday : Finished UserStory24 and Bug11
-    Today     : Finish UserStory21 and continue with other UserStories
-    Obstacles :
+    Today     : Finish UserStory21 and work on UserStory25 and Bug 16
+    Obstacles : Connecting the TextBox dialog to the model
