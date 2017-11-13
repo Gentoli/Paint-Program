@@ -54,6 +54,7 @@ public class RegularPolygon extends PaintShape {
         stretchFactorX = 1.0/(model.getBounds2D().getWidth());
         stretchFactorY = 1.0/(model.getBounds2D().getHeight());
     }
+    //updates the width and height of the shape (corresponds to when control is pressed, shape is centered)
     protected void centeredPolygonCreation(){
         t.setToTranslation(x,y);
         double mouseAngle = Math.atan2(-getWidth(),getHeight());
@@ -64,13 +65,14 @@ public class RegularPolygon extends PaintShape {
         t.scale(r,r);
         shape = (Path2D)t.createTransformedShape(model);//applies the transformations to the model
     }
-
+    //updates the width and height of the shape (shape is drawn from corner)
     protected void stretchPolygonCreation(){
         t.setToTranslation(x+getWidth()/2,y+getHeight()/2);
         t.scale(getWidth()*stretchFactorX,getHeight()*stretchFactorY);
         shape = (Path2D)t.createTransformedShape(model);
     }
-
+    //updates the width and height of the shape (corresponds to when shift is pressed,
+    // shape is drawn from corner but length and height are minimum of the dx and dy)
     protected void regularPolygonCreation(){
         int dx = getWidth(); int dy = -getHeight();
         int scaleAmount = Math.min(Math.abs(dx),Math.abs(dy));
@@ -83,17 +85,22 @@ public class RegularPolygon extends PaintShape {
         t.scale(xflip*stretchFactorX*scaleAmount,-yflip*stretchFactorY*scaleAmount);
         shape = (Path2D)t.createTransformedShape(model);
     }
-
+    //returns the x difference between the start point and where the mouse is dragged to
     protected int getHeight() {
         return yEnd-y;
     }
-
+    //returns the y difference between the start point and where the mouse is dragged to
     protected int getWidth() {
         return xEnd-x;
     }
 
 
     @Override
+    /*
+    updates the mouse movement and calls the apropriate shape building methods based on key input
+     * @param x the x coordinate of the mouse
+     * @param y the y coordinate of the mouse
+     */
     public void mouseMoved(int x, int y) {
         xEnd=x;yEnd=y;
         if(center){
@@ -120,13 +127,19 @@ public class RegularPolygon extends PaintShape {
             g2.draw(shape);
         }
     }
-    
+
+    /*sets the center boolean to the value specified by center
+     * @param center - whether or not the shape should be drawn from center
+     */
     public boolean setCenter(boolean center) {
         boolean orig = this.center;
         this.center = center;
         return orig != center;
     }
 
+    /*sets the right boolean to the value specified by right
+     * @param right - whether or not the shape should be at right angles
+     */
     public boolean setRight(boolean right) {
         boolean orig = this.right;
         this.right = right;

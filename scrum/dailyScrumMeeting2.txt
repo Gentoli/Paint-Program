@@ -6,41 +6,6 @@ Oct 23, 2017
 	Today     : Taking a break until October 31st
 	Obstacles :
 
-Oct 24, 2017
-	Yesterday :
-	Today     :
-	Obstacles :
-
-Oct 25, 2017
-	Yesterday :
-	Today     :
-	Obstacles :
-
-Oct 26, 2017
-	Yesterday :
-	Today     :
-	Obstacles :
-
-Oct 27, 2017
-	Yesterday :
-	Today     :
-	Obstacles :
-
-Oct 28, 2017
-	Yesterday :
-	Today     :
-	Obstacles :
-
-Oct 29, 2017
-	Yesterday :
-	Today     :
-	Obstacles :
-
-Oct 30, 2017
-	Yesterday :
-	Today     :
-	Obstacles :
-
 Oct 31, 2017
 	Yesterday :
 	Today     :came back from holidays
@@ -70,3 +35,18 @@ Nov 5, 2017
 	Yesterday : finished implemented regular polygon class
 	Today     : touching up polygon class and finishing up the project
 	Obstacles :
+
+Nov 10, 2017
+	Yesterday :
+	Today     : Fixed up regular polygon architecture to make it clean, and used the affine transform class
+	Obstacles :
+
+Nov 11, 2017
+	Yesterday :
+	Today     : made concave polygon class
+	Obstacles :
+
+Nov 12, 2017
+    Yesterday :
+    Today     : Made ShapeStroke, and added many instances of it
+    Obstacles :

@@ -5,7 +5,7 @@ import java.awt.geom.Path2D;
 
 public class ConcavePolygon extends RegularPolygon {
     /**
-     * creates a regular polygon
+     * creates a regular concave polygon (star-shaped)
      *
      * @param x             the initial x coordinate
      * @param y             the initial y coordinate

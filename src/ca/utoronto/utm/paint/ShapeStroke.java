@@ -3,13 +3,25 @@ package ca.utoronto.utm.paint;
 import java.awt.*;
 import java.awt.geom.*;
 
+//sets the stroke(the outline of the shape) to be what is specified by the shape parameter of the
+// constructor
 public class ShapeStroke implements Stroke {
     private Shape[] shapes;
     private double spacing;
     private AffineTransform t = new AffineTransform();
     private boolean serendipity;
 
+    /*Default constructor for when you only have one shape
+     * @param s - the shape that you want to make repeat
+     * @param spacing - how far apart each space is
+     * @param serendipity - 3d-esque strokes
+    */
     public ShapeStroke(Shape s, double spacing, boolean serendipity){this(new Shape[] {s}, spacing ,serendipity);}
+    /*Constructor for when you have multiple shapes
+     * @param s - the shape that you want to make repeat
+     * @param spacing - how far apart each space is
+     * @param serendipity - 3d-esque strokes
+    */
     public ShapeStroke(Shape[] s, double spacing, boolean serendipity){
         this.shapes = new Shape[s.length];
         this.spacing = spacing;
@@ -24,7 +36,11 @@ public class ShapeStroke implements Stroke {
             shapes[i] = t.createTransformedShape(s[i]);//applies the transformation to each shape
         }
     }
-
+    /*required method by the interface Stroke. The meat and potatoes of this class,
+     * it returns the shape that will become the line stroke.
+     * @param s - the initial shape of the stroke
+     * @return the shape of the stroke
+    */
     public Shape createStrokedShape(Shape s) {
         GeneralPath path = new GeneralPath();
         PathIterator pi = new FlatteningPathIterator(s.getPathIterator(null) , 1);
