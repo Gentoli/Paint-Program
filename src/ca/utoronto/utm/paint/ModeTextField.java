@@ -14,20 +14,21 @@ import java.awt.event.KeyListener;
  * ModeTextField is the JTextField that denotes the number of edges of the shape selected.
  * Restricts the inputs that it can take.
  */
-class ModeTextField extends JTextField implements ActionListener,KeyListener {
+public class ModeTextField extends JTextField implements ActionListener, KeyListener {
 
 	private static final String TEXT_NOT_TO_TOUCH = "Edges: ";
 	private PaintPanel paintPanel;
 	private int value = 6;
-	public ModeTextField(PaintPanel paintPanel){
-		super(TEXT_NOT_TO_TOUCH + "6",10);
+
+	public ModeTextField(PaintPanel paintPanel) {
+		super(TEXT_NOT_TO_TOUCH + "6", 10);
 		this.paintPanel = paintPanel;
 		((AbstractDocument) getDocument()).setDocumentFilter(new DocumentFilter() {
 
 			@Override
 			public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
-				if (isEnabled()) {
-					if (offset < TEXT_NOT_TO_TOUCH.length()) {
+				if(isEnabled()) {
+					if(offset < TEXT_NOT_TO_TOUCH.length()) {
 						length = Math.min(getText().length() - TEXT_NOT_TO_TOUCH.length(), length);
 						offset = getText().length() - length;
 					}
@@ -40,13 +41,13 @@ class ModeTextField extends JTextField implements ActionListener,KeyListener {
 			@Override
 			public void remove(FilterBypass fb, int offset, int length) throws BadLocationException {
 				System.out.println("remove");
-				if (offset < TEXT_NOT_TO_TOUCH.length()) {
+				if(offset < TEXT_NOT_TO_TOUCH.length()) {
 //					length = Math.max(0, length + offset - TEXT_NOT_TO_TOUCH.length());
 //					offset = TEXT_NOT_TO_TOUCH.length();
-					length = Math.min(getText().length()-TEXT_NOT_TO_TOUCH.length(),length);
-					offset = getText().length()-length;
+					length = Math.min(getText().length() - TEXT_NOT_TO_TOUCH.length(), length);
+					offset = getText().length() - length;
 				}
-				if (length > 0) {
+				if(length > 0) {
 					super.remove(fb, offset, length);
 				}
 				actionPerformed(null);
@@ -55,7 +56,8 @@ class ModeTextField extends JTextField implements ActionListener,KeyListener {
 		addActionListener(this);
 		addKeyListener(this);
 	}
-	public void setValue(int value){
+
+	public void setValue(int value) {
 		this.value = value;
 		//setText(String.valueOf(Math.max(value,0)));
 		setText(String.valueOf(value));
@@ -68,20 +70,22 @@ class ModeTextField extends JTextField implements ActionListener,KeyListener {
 			return;
 		try {
 			int value = Integer.valueOf(getText().substring(7));
-			if (value > 100) {
+			if(value > 100) {
 				value = 100;
 			}
-			if (value < 3) {
+			if(value < 3) {
 				value = 3;
 			}
-			if (e != null) {
+			if(e != null) {
 				setValue(value);
 			} else {
 				this.value = value;
 			}
-		} catch (Exception exception) {
+		} catch(NumberFormatException e1) {
+			e1.printStackTrace();
+		} catch(Exception exception) {
 			//exception.printStackTrace();
-			if (e != null) {
+			if(e != null) {
 				setValue(6);
 			}
 		}
@@ -91,11 +95,11 @@ class ModeTextField extends JTextField implements ActionListener,KeyListener {
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		if (!Character.isDigit((e.getKeyChar()))) {
+		if(!Character.isDigit((e.getKeyChar()))) {
 			e.consume();
 		}
 		String s = getText();
-		if (s.length() >= 9) {
+		if(s.length() >= 9) {
 			e.consume();
 		}
 	}

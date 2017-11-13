@@ -10,40 +10,52 @@ import java.awt.event.MouseEvent;
  */
 public class PointerEvent {
 
-    private int pointerId;
+	private final MouseEvent event;
+	private int pointerId;
 	private float pressure;
-    private final MouseEvent event;
+	private int overridEvent;
 
-
-    /**
-     * Constructs a prototypical Event.
-     *
-     * @param source The object on which the Event initially occurred.
-     * @param pressure
-     * @throws IllegalArgumentException if source is null.
-     */
-    public PointerEvent(Component source, int eventId, long when, int modifiers, int x, int y, int xAbs, int yAbs, int clickCount, int button, int pointerId, float pressure) {
-        event = new MouseEvent(source,eventId,when,modifiers,x,y,xAbs,yAbs,clickCount,false,button);
-        this.pointerId = pointerId;
-        this.pressure = pressure;
-    }
+	/**
+	 * Constructs a prototypical Event.
+	 *
+	 * @param source   The object on which the Event initially occurred.
+	 * @param pressure
+	 * @throws IllegalArgumentException if source is null.
+	 */
+	public PointerEvent(Component source, int eventId, long when, int modifiers, int x, int y, int xAbs, int yAbs, int clickCount, int button, int pointerId, float pressure) {
+		event = new MouseEvent(source, eventId, when, modifiers, x, y, xAbs, yAbs, clickCount, false, button);
+		this.pointerId = pointerId;
+		this.pressure = pressure;
+	}
 
 	public PointerEvent(MouseEvent event) {
 		this.event = event;
-		this.pointerId = 0;
-		this.pressure = 0;
+		pointerId = 0;
+		pressure = 0;
+	}
+
+	public static String getMouseModifiersText(int modifiers) {
+		return MouseEvent.getMouseModifiersText(modifiers);
+	}
+
+	public static int getMaskForButton(int button) {
+		return InputEvent.getMaskForButton(button);
+	}
+
+	public static String getModifiersExText(int modifiers) {
+		return InputEvent.getModifiersExText(modifiers);
 	}
 
 	public int getPointerId() {
-        return pointerId;
-    }
+		return pointerId;
+	}
 
-    public float getPressure() {
-        return pressure;
-    }
+	public float getPressure() {
+		return pressure;
+	}
 
-	public MouseEvent getEvent(){
-    	return event;
+	public MouseEvent getEvent() {
+		return event;
 	}
 
 	public Point getLocationOnScreen() {
@@ -90,16 +102,8 @@ public class PointerEvent {
 		return event.isPopupTrigger();
 	}
 
-	public static String getMouseModifiersText(int modifiers) {
-		return MouseEvent.getMouseModifiersText(modifiers);
-	}
-
 	public String paramString() {
 		return event.paramString();
-	}
-
-	public static int getMaskForButton(int button) {
-		return InputEvent.getMaskForButton(button);
 	}
 
 	public boolean isShiftDown() {
@@ -138,31 +142,25 @@ public class PointerEvent {
 		return event.isConsumed();
 	}
 
-	public static String getModifiersExText(int modifiers) {
-		return InputEvent.getModifiersExText(modifiers);
-	}
-
 	public Component getComponent() {
 		return event.getComponent();
 	}
 
-	public void setSource(Object newSource) {
-		event.setSource(newSource);
-	}
-
-	private int overridEvent;
-
-	void eventOverride(int id){
-		overridEvent =id;
+	void eventOverride(int id) {
+		overridEvent = id;
 	}
 
 	public int getID() {
-		if(overridEvent!=0)
+		if(overridEvent != 0)
 			return overridEvent;
 		return event.getID();
 	}
 
 	public Object getSource() {
 		return event.getSource();
+	}
+
+	public void setSource(Object newSource) {
+		event.setSource(newSource);
 	}
 }

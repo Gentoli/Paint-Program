@@ -5,12 +5,12 @@ import ca.utoronto.utm.pointer.PointerEvent;
 
 public interface ShapeManipulatorStrategy {
 
-    public Drawable deselect();
+	public Drawable deselect();
 
-    public void selected();
+	public void selected();
 
-    public Drawable handlePointerUpdate(PointerEvent e);
+	public Drawable handlePointerUpdate(PointerEvent e);
 
-    public boolean handleModifierUpdated(ModifierEvent e);
+	public boolean handleModifierUpdated(ModifierEvent e);
 
 }

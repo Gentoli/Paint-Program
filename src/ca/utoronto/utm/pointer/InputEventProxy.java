@@ -9,7 +9,7 @@ import java.awt.event.MouseWheelEvent;
 /**
  * Proxy Java MouseEvent to PointerEvent
  */
-public class InputEventProxy extends MouseAdapter implements KeyListener{
+public class InputEventProxy extends MouseAdapter implements KeyListener {
 
 	private PointerListener listener;
 

@@ -13,44 +13,43 @@ import java.awt.event.ActionListener;
 /**
  * ShapeChooserPanel holds the buttons that select the mode of the paint app.
  */
-class ShapeChooserPanel extends JPanel implements ActionListener {
+public class ShapeChooserPanel extends JPanel implements ActionListener {
+	private static final String[] BUTTON_ASSETS = {"Selection", "Eraser", "TextBox", "Polyline", "Squiggle", "ConcavePolygon", "Triangle", "Rectangle", "Circle", "Polygon"};
+	private static final String[] BUTTON_LABELS = {"Selection", "Eraser", "TextBox", "Polyline", "Squiggle", "Edges: 5", "Triangle", "Rectangle", "Circle", "Edges: 5"};
+	private static final int[] BUTTON_EDGES = {0, 0, 0, 0, 0, 5, 3, 4, 100, 5};
 	private ModeTextField modeTextField;
 	private JButton[] shapeButtons;
-	private static final String[] buttonAssets = {"Selection", "Eraser","TextBox", "Polyline", "Squiggle","ConcavePolygon", "Triangle", "Rectangle", "Circle", "Polygon"};
-	private static final String[] buttonLabels = { "Selection","Eraser", "TextBox", "Polyline", "Squiggle","Edges: 5", "Triangle", "Rectangle", "Circle", "Edges: 5"};
-	private static final int[] buttonEdges = { 0,0,0,0,0,5,3,4,100,5};
 	private PaintPanel paintPanel;
+	private int activeButton = 7;
 
 	public ShapeChooserPanel(PaintPanel paintPanel) {
-		this.paintPanel=paintPanel;
-		shapeButtons = new JButton[buttonLabels.length];
-		this.setLayout(new GridLayout(buttonLabels.length+1, 1));
-		this.setPreferredSize(new Dimension(105, 300));
+		this.paintPanel = paintPanel;
+		shapeButtons = new JButton[BUTTON_LABELS.length];
+		setLayout(new GridLayout(BUTTON_LABELS.length + 1, 1));
+		setPreferredSize(new Dimension(105, 300));
 
-		for (int index = 0; index < buttonLabels.length; index++) {
-			shapeButtons[index] = new ShapeButton(index,buttonAssets[index]);
+		for(int index = 0; index < BUTTON_LABELS.length; index++) {
+			shapeButtons[index] = new ShapeButton(index, BUTTON_ASSETS[index]);
 			shapeButtons[index].setFocusable(false);
-			this.add(shapeButtons[index]);
+			add(shapeButtons[index]);
 			shapeButtons[index].addActionListener(this);
 		}
 
 
 		modeTextField = new ModeTextField(paintPanel);
 		setActiveButton(activeButton);
-		this.add(modeTextField);
+		add(modeTextField);
 	}
-
-	private int activeButton = 7;
 
 	public void setActiveButton(int activeButton) {
 		shapeButtons[this.activeButton].setEnabled(true);
 		this.activeButton = activeButton;
 		shapeButtons[this.activeButton].setEnabled(false);
 		paintPanel.setMode(activeButton);
-		paintPanel.setEdges(buttonEdges[activeButton]);
+		paintPanel.setEdges(BUTTON_EDGES[activeButton]);
 		modeTextField.setEnabled(false);
-		modeTextField.setText(buttonLabels[activeButton]);
-		modeTextField.setEnabled(activeButton==7);
+		modeTextField.setText(BUTTON_LABELS[activeButton]);
+		modeTextField.setEnabled(activeButton == 7);
 	}
 
 	/**

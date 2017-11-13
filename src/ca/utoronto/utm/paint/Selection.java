@@ -16,27 +16,27 @@ import java.beans.Transient;
 public class Selection extends PaintShape {
 	private BufferedImage selection;
 	private boolean border;
-	private int lastX=0,lastY=0;
+	private int lastX, lastY;
 	private Rectangle r;
 	private Rectangle fillRect;
 
 	public Selection(int x, int y) {
-		super(x, y, Color.RED, 5 , false, 0);
-		border=true;
-		r=new Rectangle(x,y,0,0);
+		super(x, y, Color.RED, 5, false, 0);
+		border = true;
+		r = new Rectangle(x, y, 0, 0);
 	}
 
 	@Override
 	public void print(Graphics2D g2) {
-		if(selection!=null){
+		if(selection != null) {
 			g2.setColor(Color.WHITE);
 			g2.fill(fillRect);
-			g2.drawImage(selection,x,y,null);
+			g2.drawImage(selection, x, y, null);
 			if(border) {
 				prepare(g2);
 				g2.draw(r);
 			}
-		}else if(border) {
+		} else if(border) {
 			prepare(g2);
 			g2.draw(r);
 		}
@@ -45,24 +45,24 @@ public class Selection extends PaintShape {
 
 	@Override
 	public void mouseMoved(int x, int y) {
-		if(selection==null) {
-			xEnd=x;
-			yEnd=y;
-			r.width = Math.abs(xEnd-this.x);
-			r.height = Math.abs(yEnd-this.y);
+		if(selection == null) {
+			xEnd = x;
+			yEnd = y;
+			r.width = Math.abs(xEnd - this.x);
+			r.height = Math.abs(yEnd - this.y);
 			r.x = Math.min(this.x, xEnd);
 			r.y = Math.min(this.y, yEnd);
-		}else{
-			r.x = this.x+=x-lastX;
-			r.y = this.y+=y-lastY;
-			lastY=y;
-			lastX=x;
+		} else {
+			r.x = this.x += x - lastX;
+			r.y = this.y += y - lastY;
+			lastY = y;
+			lastX = x;
 		}
 	}
 
-	public void release(int x, int y,PaintModel model) {
-		mouseMoved(x,y);
-		if(selection==null) {
+	public void release(int x, int y, PaintModel model) {
+		mouseMoved(x, y);
+		if(selection == null) {
 			r.x = this.x = Math.min(this.x, xEnd);
 			r.y = this.y = Math.min(this.y, yEnd);
 			BufferedImage image = new BufferedImage(model.getWidth(), model.getHeight(), BufferedImage.TYPE_INT_ARGB);
@@ -70,17 +70,17 @@ public class Selection extends PaintShape {
 			model.paint(g);
 			g.dispose();
 			fillRect = new Rectangle(r);
-			selection = image.getSubimage(r.x,r.y,r.width,r.height);
+			selection = image.getSubimage(r.x, r.y, r.width, r.height);
 		}
 	}
 
-	public void setReleased(){
-		border=false;
+	public void setReleased() {
+		border = false;
 	}
 
 	public void setMove(int x, int y) {
-		lastX=x;
-		lastY=y;
+		lastX = x;
+		lastY = y;
 	}
 
 	@Override

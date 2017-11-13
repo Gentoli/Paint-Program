@@ -19,7 +19,7 @@ import java.util.Observer;
 /**
  * Handles Drawing and Displaying of Shapes
  */
-class PaintPanel extends JPanel implements Observer, PointerListener {
+public class PaintPanel extends JPanel implements Observer, PointerListener {
 	private PaintModel model; // slight departure from MVC, because of the way painting works
 	private int mode; // modifies how we interpret input (could be better?)
 
@@ -27,29 +27,29 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	private PaintShape[] shapes = new PaintShape[WindowsPointer.POINTER_MAX];
 	private ShapeManipulatorStrategy[] toolList;
 	private int edges;
+	private boolean keyDown;
 
-	public PaintPanel(PaintModel model){
-		this.setBackground(Color.white);
+	public PaintPanel(PaintModel model) {
+		setBackground(Color.white);
 		//this.setPreferredSize(new Dimension(516,300));
 //		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 //		this.setPreferredSize(new Dimension(screenSize.width - 125, screenSize.height - 205));
 
 		this.model = model;
 
-		this.mode = 0;
+		mode = 0;
 		this.model.addObserver(this);
-        setFocusable(true);
+		setFocusable(true);
 		addComponentListener(model);
-		WindowsPointer.getInstance().addListener(this, this);
 	}
 
-	public void initializeTools(StylePanel stylePanel, TextBoxDialog textBoxDialog){
-		toolList = new ShapeManipulatorStrategy[]{new SelectionTool(this.model, shapes),
-                                new TextBoxTool(textBoxDialog, stylePanel, shapes),
-								new PolylineTool(stylePanel, shapes),
-								new SquiggleTool(stylePanel, shapes),
-								new PolygonTool(stylePanel, this,shapes,ConcavePolygon.class),
-								new PolygonTool(stylePanel, this,shapes,RegularPolygon.class)};
+	public void initializeTools(StylePanel stylePanel, TextBoxDialog textBoxDialog) {
+		toolList = new ShapeManipulatorStrategy[]{new SelectionTool(model, shapes),
+				new TextBoxTool(textBoxDialog, stylePanel, shapes),
+				new PolylineTool(stylePanel, shapes),
+				new SquiggleTool(stylePanel, shapes),
+				new PolygonTool(stylePanel, this, shapes, ConcavePolygon.class),
+				new PolygonTool(stylePanel, this, shapes, RegularPolygon.class)};
 	}
 
 	/**
@@ -61,8 +61,8 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 		super.paintComponent(g); //paint background
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setColor(Color.WHITE);
-		g2.fillRect(0,0,getWidth(),getHeight());
-		this.model.paint(g2);
+		g2.fillRect(0, 0, getWidth(), getHeight());
+		model.paint(g2);
 
 		for(PaintShape s : shapes) {
 			if(s != null) {
@@ -75,7 +75,7 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	@Override
 	public void update(Observable o, Object arg) {
 		// Not exactly how MVC works, but similar.
-		this.repaint(); // Schedule a call to paintComponent
+		repaint(); // Schedule a call to paintComponent
 	}
 
 	/**
@@ -83,18 +83,19 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 	 */
 	public void setMode(int mode) {
 		model.addPrint(toolList[this.mode].deselect());
-		this.mode = Math.min(mode,toolList.length-1);
+		this.mode = Math.min(mode, toolList.length - 1);
 		toolList[this.mode].selected();
 	}
-
-	public void setEdges(int edges) { this.edges = edges; }
 
 	public int getEdges() {
 		return edges;
 	}
 
+	public void setEdges(int edges) {
+		this.edges = edges;
+	}
 
-	public void clear(){
+	public void clear() {
 		setMode(mode);
 		model.clear();
 		repaint();
@@ -119,15 +120,13 @@ class PaintPanel extends JPanel implements Observer, PointerListener {
 		repaint();
 	}
 
-	private boolean keyDown =false;
-
 	@Override
 	public void modifierUpdated(ModifierEvent e) {
-        if(e.isControlDown()&&e.getID()== KeyEvent.KEY_PRESSED){
-			if(e.getKeyChar()=='Z'||(char)e.getKeyCode()=='Z'){
+		if(e.isControlDown() && e.getID() == KeyEvent.KEY_PRESSED) {
+			if(e.getKeyChar() == 'Z' || (char) e.getKeyCode() == 'Z') {
 				undo();
 				return;
-			}else if(e.getKeyChar()=='Y'||(char)e.getKeyCode()=='Y'){
+			} else if(e.getKeyChar() == 'Y' || (char) e.getKeyCode() == 'Y') {
 				redo();
 				return;
 			}

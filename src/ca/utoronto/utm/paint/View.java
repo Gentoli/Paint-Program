@@ -16,12 +16,13 @@ import java.util.Observer;
 
 /**
  * This is the top level View+Controller, it contains other aspects of the View+Controller.
+ *
  * @author arnold
  * The View is comprised of the PaintPanel, ShapeChoosingPanel and StylePanel,
  * and links them together, Observing the PaintModel.
  */
 public class View extends JFrame implements Observer {
-	
+
 	private static final long serialVersionUID = 1L;
 	private static final String message = "Notes: \n" +
 			" - Right click to break Polyline mode line\n" +
@@ -33,32 +34,32 @@ public class View extends JFrame implements Observer {
 			"Extras:\n" +
 			" - Touch-Control/Multitouch if your computer supports touchscreen\n" +
 			" - Pressure-Sensitive line thickness";
-	
+
 	private PaintModel model;
-	
+
 	// The components that make this up
 	private PaintPanel paintPanel;
 	private ShapeChooserPanel shapeChooserPanel;
 	private JMenuItem menuUndo;
 	private JMenuItem menuRedo;
 	//private JButton openColourPanel;
-	
+
 	public View(PaintModel model) {
 		super("Paint"); // set the title and do other JFrame init
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setJMenuBar(createMenuBar());
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setJMenuBar(createMenuBar());
 
-		Container c=this.getContentPane();
+		Container c = getContentPane();
 
 
 //		openColourPanel = new JButton("Extend Colour Panel");
 //		openColourPanel.addActionListener(this);
 
-		ColourDialog colourDialog = new ColourDialog(this,"Text Colour");
-		ColourDialog borderColourDialog = new ColourDialog(this,"Border Colour");
+		ColourDialog colourDialog = new ColourDialog(this, "Text Colour");
+		ColourDialog borderColourDialog = new ColourDialog(this, "Border Colour");
 
-		this.model=model;
-		this.paintPanel = new PaintPanel(model);
+		this.model = model;
+		paintPanel = new PaintPanel(model);
 		//c.add(this.paintPanel, BorderLayout.CENTER);
 
 		StylePanel stylePanel = new StylePanel(paintPanel, colourDialog, borderColourDialog);
@@ -70,19 +71,20 @@ public class View extends JFrame implements Observer {
 		paintPanel.initializeTools(stylePanel, textBoxDialog);
 		model.addObserver(stylePanel);
 
-		this.shapeChooserPanel = new ShapeChooserPanel(paintPanel);
-		c.add(this.shapeChooserPanel,BorderLayout.WEST);
+		shapeChooserPanel = new ShapeChooserPanel(paintPanel);
+		c.add(shapeChooserPanel, BorderLayout.WEST);
 
 		JScrollPane scrollPane = new JScrollPane(paintPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		c.add(scrollPane, BorderLayout.CENTER);
+		WindowsPointer.getInstance().addListener(paintPanel, paintPanel, scrollPane);
 
 		model.addObserver(this);
-		this.pack();
+		pack();
 
 		WindowsPointer.getInstance().setFrame(this);
-		this.setMinimumSize(new Dimension(624, 462));
-		this.setSize(624,462);
-		this.setVisible(true);
+		setMinimumSize(new Dimension(624, 462));
+		setSize(624, 462);
+		setVisible(true);
 		JOptionPane.showMessageDialog(this, message);
 
 	}
@@ -90,20 +92,18 @@ public class View extends JFrame implements Observer {
 //	public PaintPanel getPaintPanel(){
 //		return paintPanel;
 //	}
-	
+
 	public ShapeChooserPanel getShapeChooserPanel() {
 		return shapeChooserPanel;
 	}
 
 	private JMenuBar createMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
-		JMenu menu;
-		JMenuItem menuItem;
 
-		menu = new JMenu("File");
+		JMenu menu = new JMenu("File");
 
 		// a group of JMenuItems
-		menuItem = new JMenuItem("New");
+		JMenuItem menuItem = new JMenuItem("New");
 		menuItem.addActionListener(e -> {
 			paintPanel.clear();
 			requestFocus();
@@ -126,7 +126,7 @@ public class View extends JFrame implements Observer {
 
 		menuItem = new JMenuItem("Exit");
 		menuItem.addActionListener(e -> {
-			this.dispose();
+			dispose();
 		});
 		menu.add(menuItem);
 
@@ -190,7 +190,8 @@ public class View extends JFrame implements Observer {
 	/**
 	 * checks if there are objects in the undo and redo arrays
 	 * and showing if undo and redo buttons can be clicked accordingly
-	 * @param o PaintModel
+	 *
+	 * @param o   PaintModel
 	 * @param arg
 	 */
 	@Override

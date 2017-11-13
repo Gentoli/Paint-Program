@@ -8,6 +8,7 @@ import java.awt.Graphics;
 public interface Drawable {
 	/**
 	 * Draw on Graphics Object
+	 *
 	 * @param g Graphics drawing to
 	 */
 	public void print(Graphics g);

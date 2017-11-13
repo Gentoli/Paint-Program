@@ -8,7 +8,6 @@ import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.image.BufferedImage;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Observable;
 
 /**
@@ -18,10 +17,31 @@ public class PaintModel extends Observable implements ComponentListener {
 
 	private static final int MAX_UNDO = 50;
 
-	private static final Color TRANSLUCENT = new Color(0,0,0,0);
+	private static final Color TRANSLUCENT = new Color(0, 0, 0, 0);
+	//Store a image of that cant be undo.
+	private BufferedImage image;
+	//Store Shapes that can be undo.
+	private LinkedList<Drawable> drawables = new LinkedList<Drawable>();
+	//Store Shapes that can be redo.
+	private LinkedList<Drawable> redo = new LinkedList<Drawable>();
 
 	public PaintModel(Dimension screenSize) {
-		this(screenSize.width/2, screenSize.height/2);
+		this(screenSize.width / 2, screenSize.height / 2);
+	}
+
+	public PaintModel() {
+		this(1000, 1000);
+	}
+
+	/**
+	 * Create a PaintModel that store all Shapes and Image of the Panel
+	 */
+	public PaintModel(int width, int height) {
+		image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D graphics = image.createGraphics();
+		graphics.setColor(TRANSLUCENT);
+		graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
+		graphics.dispose();
 	}
 
 	public int getWidth() {
@@ -32,43 +52,19 @@ public class PaintModel extends Observable implements ComponentListener {
 		return image.getHeight();
 	}
 
-	//Store a image of that cant be undo.
-	private BufferedImage image;
-
-	//Store Shapes that can be undo.
-	private LinkedList<Drawable> drawables = new LinkedList<Drawable>();
-
-	//Store Shapes that can be redo.
-	private LinkedList<Drawable> redo = new LinkedList<Drawable>();
-
-	public PaintModel(){
-		this(1000,1000);
-	}
-
-	/**
-	 * Create a PaintModel that store all Shapes and Image of the Panel
-	 */
-	public PaintModel(int width, int height){
-		image = new BufferedImage(width,height,BufferedImage.TYPE_INT_ARGB);
-		Graphics2D graphics = image.createGraphics();
-		graphics.setColor(TRANSLUCENT);
-		graphics.fillRect(0, 0, image.getWidth(), image.getHeight() );
-		graphics.dispose();
-	}
-
-	public void addAllPrint(List<Drawable> l){
-		if(l!=null)
-			for(Drawable d:l) {
+	public void addAllPrint(Iterable<Drawable> l) {
+		if(l != null)
+			for(Drawable d : l) {
 				addPrint(d);
 			}
 	}
 
-	public void addPrint(Drawable c){
-		if(c==null)
+	public void addPrint(Drawable c) {
+		if(c == null)
 			return;
 		synchronized(drawables) {
 			drawables.add(c);
-			while(drawables.size()> MAX_UNDO) {
+			while(drawables.size() > MAX_UNDO) {
 				synchronized(image) {
 					Graphics2D g = image.createGraphics();
 					drawables.poll().print(g);
@@ -77,41 +73,41 @@ public class PaintModel extends Observable implements ComponentListener {
 			}
 		}
 		redo.clear();
-		this.setChanged();
-		this.notifyObservers();
+		setChanged();
+		notifyObservers();
 	}
 
-	public void clear(){
+	public void clear() {
 		synchronized(drawables) {
 			drawables.add(new ClearMask(image.getWidth(), image.getHeight()));
 		}
-		this.setChanged();
-		this.notifyObservers();
+		setChanged();
+		notifyObservers();
 	}
 
-	public void undo(){
+	public void undo() {
 		synchronized(drawables) {
 			if(!drawables.isEmpty())
-			redo.add(drawables.removeLast());
+				redo.add(drawables.removeLast());
 		}
-		this.setChanged();
-		this.notifyObservers();
+		setChanged();
+		notifyObservers();
 	}
 
-	public void redo(){
+	public void redo() {
 		synchronized(drawables) {
 			if(!redo.isEmpty())
-			drawables.add(redo.removeLast());
+				drawables.add(redo.removeLast());
 		}
-		this.setChanged();
-		this.notifyObservers();
+		setChanged();
+		notifyObservers();
 	}
 
-	public boolean canUndo(){
+	public boolean canUndo() {
 		return !drawables.isEmpty();
 	}
 
-	public boolean canRedo(){
+	public boolean canRedo() {
 		return !redo.isEmpty();
 	}
 
@@ -126,7 +122,7 @@ public class PaintModel extends Observable implements ComponentListener {
 		}
 	}
 
-	private void resize(int x,int y){
+	private void resize(int x, int y) {
 		synchronized(image) {
 			BufferedImage i = new BufferedImage(x, y, BufferedImage.TYPE_INT_ARGB);
 			Graphics2D g = i.createGraphics();
@@ -142,12 +138,12 @@ public class PaintModel extends Observable implements ComponentListener {
 	public void componentResized(ComponentEvent e) {
 		synchronized(image) {
 			Dimension d = e.getComponent().getSize();
-			int x=d.width,y=d.height;
-			if(x > image.getHeight() || y> image.getWidth()) {
-				resize(Math.max(x,image.getWidth()), Math.max(y,image.getHeight()));
+			int x = d.width, y = d.height;
+			if(x > image.getHeight() || y > image.getWidth()) {
+				resize(Math.max(x, image.getWidth()), Math.max(y, image.getHeight()));
 			}
 		}
-		((JPanel)e.getSource()).setPreferredSize(new Dimension(image.getWidth(),image.getHeight()));
+		((JPanel) e.getSource()).setPreferredSize(new Dimension(image.getWidth(), image.getHeight()));
 	}
 
 	@Override

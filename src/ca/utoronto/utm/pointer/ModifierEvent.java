@@ -4,21 +4,25 @@ import java.awt.Component;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 
-public class ModifierEvent{
+public class ModifierEvent {
 
 
 	public KeyEvent event;
 
-	public ModifierEvent(Component source, int id, long when, int modifiers,int keyCode, char keyChar) {
-		event = new KeyEvent(source,id,when,modifiers,keyCode, keyChar);
+	public ModifierEvent(Component source, int id, long when, int modifiers, int keyCode, char keyChar) {
+		event = new KeyEvent(source, id, when, modifiers, keyCode, keyChar);
 	}
 
-	public ModifierEvent(KeyEvent event){
+	public ModifierEvent(KeyEvent event) {
 		this.event = event;
 	}
 
 	public static int getMaskForButton(int button) {
 		return InputEvent.getMaskForButton(button);
+	}
+
+	public static String getModifiersExText(int modifiers) {
+		return InputEvent.getModifiersExText(modifiers);
 	}
 
 	public boolean isShiftDown() {
@@ -61,10 +65,6 @@ public class ModifierEvent{
 		return event.isConsumed();
 	}
 
-	public static String getModifiersExText(int modifiers) {
-		return InputEvent.getModifiersExText(modifiers);
-	}
-
 	public Component getComponent() {
 		return event.getComponent();
 	}
@@ -73,16 +73,16 @@ public class ModifierEvent{
 		return event.paramString();
 	}
 
-	public void setSource(Object newSource) {
-		event.setSource(newSource);
-	}
-
 	public int getID() {
 		return event.getID();
 	}
 
 	public Object getSource() {
 		return event.getSource();
+	}
+
+	public void setSource(Object newSource) {
+		event.setSource(newSource);
 	}
 
 	public int getKeyCode() {
