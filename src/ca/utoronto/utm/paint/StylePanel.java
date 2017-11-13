@@ -166,7 +166,7 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
             borderColour = newColor;
         });
 
-        colourButton = new JButton("Text Colour");
+        colourButton = new JButton("Colour");
         colourButton.addActionListener(e -> {
             if (colourDialog.isVisible()) {
                 colourDialog.setVisible(false);
