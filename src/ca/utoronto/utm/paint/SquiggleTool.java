@@ -38,6 +38,8 @@ public class SquiggleTool implements ITool {
                 }
                 break;
             case MouseEvent.MOUSE_RELEASED:
+                if(shapes[e.getPointerId()]==null)
+                    break;
                 shapes[e.getPointerId()].mouseMoved(e.getX(),e.getY());
                 rtn =  shapes[e.getPointerId()];
                 shapes[e.getPointerId()]=null;

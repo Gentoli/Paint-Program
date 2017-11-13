@@ -58,6 +58,8 @@ public class TextBoxTool implements ITool, ChangeListener {
                 }
                 break;
             case MouseEvent.MOUSE_RELEASED:
+                if(shapes[e.getPointerId()]==null)
+                    break;
                 shapes[e.getPointerId()].mouseMoved(e.getX(),e.getY());
                 rtn =  shapes[e.getPointerId()];
                 shapes[e.getPointerId()]=null;
