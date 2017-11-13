@@ -34,7 +34,7 @@ public class PolygonTool implements ITool {
 		    case MouseEvent.MOUSE_PRESSED:
 			    shapes[e.getPointerId()]=new RegularPolygon(e.getX(),e.getY(),style.getColour(),
 											    style.getLineThickness(),style.isFill(),style.getStrokeStyle(),
-											    paintPanel.getEdges(),e.isShiftDown(),e.isAltDown());
+											    paintPanel.getEdges(),style.isBorder(),style.getBorderColour(),e.isShiftDown(),e.isAltDown());
 			    break;
 		    case MouseEvent.MOUSE_MOVED:
 		    	if(shapes[e.getPointerId()]!=null) {

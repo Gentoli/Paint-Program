@@ -30,6 +30,7 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
     private boolean fill = false;
     private boolean border = false;
     private ImageIcon[] imageIconArray;
+    private final JCheckBox borderCheckBox;
 
     /**
      * Creates a JPanel, using GridBagLayout to format the components
@@ -87,21 +88,31 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
             lineThicknessText.setText(df.format(value));
         });
 
+        JLabel borderLabel = new JLabel("Border");
+        borderLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        borderCheckBox = new JCheckBox();
+        borderCheckBox.setEnabled(false);
+        borderCheckBox.addActionListener(e -> {
+            border = borderCheckBox.isSelected();
+        });
+        borderCheckBox.setHorizontalAlignment(SwingConstants.CENTER);
+
         JLabel fillLabel = new JLabel("Fill");
         fillLabel.setHorizontalAlignment(SwingConstants.CENTER);
         JCheckBox fillCheckBox = new JCheckBox();
         fillCheckBox.addActionListener(e -> {
             fill = fillCheckBox.isSelected();
+            if (!fill) {
+                border = false;
+                borderCheckBox.setSelected(false);
+                borderCheckBox.setEnabled(false);
+            }
+            else{
+                borderCheckBox.setEnabled(true);
+            }
         });
         fillCheckBox.setHorizontalAlignment(SwingConstants.CENTER);
 
-        JLabel borderLabel = new JLabel("Border");
-        borderLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        JCheckBox borderCheckBox = new JCheckBox();
-        borderCheckBox.addActionListener(e -> {
-            border = borderCheckBox.isSelected();
-        });
-        borderCheckBox.setHorizontalAlignment(SwingConstants.CENTER);
 
         JPanel fillAndBorderLabels = new JPanel(new GridLayout(1,2));
         fillAndBorderLabels.add(fillLabel);
@@ -113,10 +124,10 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
         JLabel styleLabel = new JLabel("Line Style");
         styleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-        String[] s = {"Basic Stroke", "Dashed Stroke", "Circle Stroke", "Wave Stroke"};
+        String[] s = {"Basic Stroke", "Dashed Stroke", "Circle Stroke", "3D Stroke", "Wave Stroke"};
         imageIconArray = new ImageIcon[s.length];
         for (int i = 0; i < s.length; i++) {
-            BufferedImage bufferedImage = new BufferedImage(100,20,BufferedImage.TYPE_INT_ARGB);
+            BufferedImage bufferedImage = new BufferedImage(80,20,BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2 = bufferedImage.createGraphics();
             g2.setColor(colour);
             StrokeFactory strokeFactory=new StrokeFactory();
@@ -293,6 +304,14 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
 
     public boolean isFill() {
         return fill;
+    }
+
+    public boolean isBorder() {
+        return border;
+    }
+
+    public Color getBorderColour() {
+        return borderColour;
     }
 
     @Override

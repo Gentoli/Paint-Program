@@ -15,6 +15,8 @@ public class RegularPolygon extends PaintShape {
     protected Path2D shape;
     protected int nVerticies;
     protected AffineTransform t = new AffineTransform();
+    protected boolean border;
+    protected Color borderColour;
     /**
      * creates a regular polygon
      * @param x the initial x coordinate
@@ -27,7 +29,8 @@ public class RegularPolygon extends PaintShape {
      * @param center if the polygon is centered or not
      * @param right if the polygon has equilateral.
      */
-    public RegularPolygon(int x, int y, Color colour, float lineThickness, boolean fill, int strokeStyle,int vertices,boolean center,boolean right) {
+    public RegularPolygon(int x, int y, Color colour, float lineThickness, boolean fill, int strokeStyle,
+                          int vertices,boolean border, Color borderColour, boolean center,boolean right) {
         super(x, y, colour, lineThickness, fill, strokeStyle);
         model = new Path2D.Double();
         shape = new Path2D.Double();
@@ -35,6 +38,8 @@ public class RegularPolygon extends PaintShape {
 	    this.center = false;
 	    this.right = right;
 	    calculateModel();
+	    this.border = border;
+	    this.borderColour = borderColour;
     }
     //draws the polygon out in model view (centered on axis with radius 1)
     protected void calculateModel() {
@@ -102,13 +107,17 @@ public class RegularPolygon extends PaintShape {
 
     //prints the polygon to the screen
     @Override
-    public void print(Graphics2D g) {
-	    prepare(g);
-        g.setStroke(stroke);
+    public void print(Graphics2D g2) {
+	    prepare(g2);
+        g2.setStroke(stroke);
         if(fill)
-            g.fill(shape);
+            g2.fill(shape);
         else {
-            g.draw(shape);
+            g2.draw(shape);
+        }
+        if(border) {
+            g2.setColor(borderColour);
+            g2.draw(shape);
         }
     }
     

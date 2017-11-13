@@ -34,7 +34,7 @@ public class ConcavePolygonTool implements ITool{
                 try {
                     shapes[e.getPointerId()]=new ConcavePolygon(e.getX(),e.getY(),style.getColour(),
                             style.getLineThickness(),style.isFill(),style.getStrokeStyle(),
-                            paintPanel.getEdges(),e.isShiftDown(),e.isAltDown());
+                            paintPanel.getEdges(),style.isBorder(),style.getBorderColour(),e.isShiftDown(),e.isAltDown());
                 } catch (Exception e1) {
                     e1.printStackTrace();
                 }

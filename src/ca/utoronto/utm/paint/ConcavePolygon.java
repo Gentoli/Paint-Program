@@ -17,8 +17,8 @@ public class ConcavePolygon extends RegularPolygon {
      * @param center        if the polygon is centered or not
      * @param right         if the polygon has equilateral.
      */
-    public ConcavePolygon(int x, int y, Color colour, float lineThickness, boolean fill, int strokeStyle, int vertices, boolean center, boolean right) {
-        super(x, y, colour, lineThickness, fill, strokeStyle, vertices * 2, center, right);
+    public ConcavePolygon(int x, int y, Color colour, float lineThickness, boolean fill, int strokeStyle, int vertices, boolean border, Color borderColour, boolean center, boolean right) {
+        super(x, y, colour, lineThickness, fill, strokeStyle, vertices * 2, border, borderColour, center, right);
     }
     @Override
     protected void calculateModel() {
