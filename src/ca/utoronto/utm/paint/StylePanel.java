@@ -1,11 +1,12 @@
 package ca.utoronto.utm.paint;
 
+import com.sun.org.apache.xpath.internal.SourceTree;
+
 import javax.swing.*;
 import javax.swing.colorchooser.DefaultColorSelectionModel;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Observable;
@@ -16,35 +17,27 @@ import java.util.Observer;
  * that holds all the style options, including undo,redo,clear,
  * fill,lineStyle,lineThickness and the colour panel button.
  */
-public class StylePanel extends JPanel implements Observer, ChangeListener {
+public class StylePanel extends JPanel implements Observer, ComponentListener {
 
-//    private JPanel lineThicknessPanel;
-//    private JLabel lineThicknessLabel;
-//    private JTextField lineThicknessText;
-//    private JSlider lineThicknessSlider;
-//    private JLabel fillLabel;
-//    private JCheckBox fillCheckBox;
-//    private JLabel styleLabel;
-//    private JComboBox styleComboBox;
-//    private JLabel colourLabel;
-//    private ColourDialog colourDialog;
-    private JButton openColourPanel;
+    private JButton borderColourButton;
+    private JButton colourButton;
     private JButton undo, redo, clear;
-//    private JPanel buttonPanel;
 
+    private Color borderColour = Color.black;
     private Color colour = Color.black;
     private float lineThickness = 1f;
     private int strokeStyle = 0;
     private boolean fill = false;
+    private boolean border = false;
+    private ImageIcon[] imageIconArray;
 
     /**
      * Creates a JPanel, using GridBagLayout to format the components
      */
-    public StylePanel(PaintPanel paintPanel, ColourDialog colourDialog) {
+    public StylePanel(PaintPanel paintPanel, ColourDialog colourDialog, ColourDialog borderColourDialog) {
 
         this.setLayout(new GridBagLayout());
         this.setPreferredSize(new Dimension(0,100));
-        colourDialog.addChangeListener(this);
         JPanel lineThicknessPanel = new JPanel();
         JLabel lineThicknessLabel = new JLabel("Line Thickness");
         lineThicknessLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -94,7 +87,7 @@ public class StylePanel extends JPanel implements Observer, ChangeListener {
             lineThicknessText.setText(df.format(value));
         });
 
-        JLabel fillLabel = new JLabel("Fill Shapes");
+        JLabel fillLabel = new JLabel("Fill");
         fillLabel.setHorizontalAlignment(SwingConstants.CENTER);
         JCheckBox fillCheckBox = new JCheckBox();
         fillCheckBox.addActionListener(e -> {
@@ -102,11 +95,39 @@ public class StylePanel extends JPanel implements Observer, ChangeListener {
         });
         fillCheckBox.setHorizontalAlignment(SwingConstants.CENTER);
 
+        JLabel borderLabel = new JLabel("Border");
+        borderLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        JCheckBox borderCheckBox = new JCheckBox();
+        borderCheckBox.addActionListener(e -> {
+            border = borderCheckBox.isSelected();
+        });
+        borderCheckBox.setHorizontalAlignment(SwingConstants.CENTER);
+
+        JPanel fillAndBorderLabels = new JPanel(new GridLayout(1,2));
+        fillAndBorderLabels.add(fillLabel);
+        fillAndBorderLabels.add(borderLabel);
+        JPanel fillAndBorderChecks = new JPanel(new GridLayout(1,2));
+        fillAndBorderChecks.add(fillCheckBox);
+        fillAndBorderChecks.add(borderCheckBox);
+
         JLabel styleLabel = new JLabel("Line Style");
         styleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
         String[] s = {"Basic Stroke", "Dashed Stroke", "Circle Stroke", "Wave Stroke"};
-        JComboBox styleComboBox = new JComboBox(s);
+        imageIconArray = new ImageIcon[s.length];
+        for (int i = 0; i < s.length; i++) {
+            BufferedImage bufferedImage = new BufferedImage(100,20,BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = bufferedImage.createGraphics();
+            g2.setColor(colour);
+            StrokeFactory strokeFactory=new StrokeFactory();
+            g2.setStroke(strokeFactory.createStroke(i, 5));
+            g2.drawLine(0,(int)(bufferedImage.getHeight()/2), bufferedImage.getWidth(),(int)(bufferedImage.getHeight()/2));
+            imageIconArray[i] = new ImageIcon(bufferedImage);
+        }
+
+        JComboBox styleComboBox = new JComboBox(imageIconArray);
+        styleComboBox.addComponentListener(this);
+
         styleComboBox.setSelectedIndex(0);
         styleComboBox.addActionListener(e -> {
             strokeStyle = styleComboBox.getSelectedIndex();;
@@ -114,17 +135,45 @@ public class StylePanel extends JPanel implements Observer, ChangeListener {
 
         JLabel colourLabel = new JLabel("Choose Colour");
         colourLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        openColourPanel = new JButton("Extend Colour Panel");
-        openColourPanel.addActionListener(e -> {
+
+        JPanel colourPanel = new JPanel(new GridLayout(2,1));
+
+        borderColourButton = new JButton("Border Colour");
+        borderColourButton.addActionListener(e -> {
+            if (borderColourDialog.isVisible()) {
+                borderColourDialog.setVisible(false);
+            }
+            else {
+                borderColourDialog.setLocation(this.getLocationOnScreen().x + this.getWidth() - 450, this.getLocationOnScreen().y + this.getHeight() - 285);
+                borderColourDialog.setVisible(true);
+            }
+        });
+        colourPanel.add(borderColourButton);
+        borderColourDialog.addChangeListener(e -> {
+            DefaultColorSelectionModel jccSelectionModel = (DefaultColorSelectionModel) e.getSource();
+            Color newColor = jccSelectionModel.getSelectedColor();
+            borderColourButton.setForeground(newColor);
+            borderColour = newColor;
+        });
+
+        colourButton = new JButton("Text Colour");
+        colourButton.addActionListener(e -> {
             if (colourDialog.isVisible()) {
                 colourDialog.setVisible(false);
-                openColourPanel.setText("Extend Colour Panel");
+//                colourButton.setText("Extend Colour Panel");
             }
             else {
                 colourDialog.setLocation(this.getLocationOnScreen().x + this.getWidth() - 450, this.getLocationOnScreen().y + this.getHeight() - 285);
                 colourDialog.setVisible(true);
-                openColourPanel.setText(" Close Colour Panel ");
+//                colourButton.setText(" Close Colour Panel ");
             }
+        });
+        colourPanel.add(colourButton);
+        colourDialog.addChangeListener(e -> {
+            DefaultColorSelectionModel jccSelectionModel = (DefaultColorSelectionModel) e.getSource();
+            Color newColor = jccSelectionModel.getSelectedColor();
+            colourButton.setForeground(newColor);
+            this.colour = newColor;
         });
 
         undo = new JButton("Undo");
@@ -167,9 +216,9 @@ public class StylePanel extends JPanel implements Observer, ChangeListener {
         c.gridy = 0;
         c.gridx = 5;
         c.weightx = 0.2;
-        this.add(fillLabel, c);
+        this.add(fillAndBorderLabels, c);
         c.gridy = 1;
-        this.add(fillCheckBox, c);
+        this.add(fillAndBorderChecks, c);
         c.weightx = 1;
         c.gridy = 0;
         c.gridx = 7;
@@ -180,7 +229,7 @@ public class StylePanel extends JPanel implements Observer, ChangeListener {
         c.gridx = 9;
         this.add(colourLabel, c);
         c.gridy = 1;
-        this.add(openColourPanel, c);
+        this.add(colourPanel, c);
         c.weightx = 0.1;
         c.gridy = 0;
         c.gridx = 10;
@@ -198,13 +247,13 @@ public class StylePanel extends JPanel implements Observer, ChangeListener {
 
         colourDialog.addComponentListener(new ComponentAdapter() {
             /**
-             * Change the text of openColourPanel button if the colour panel was closed with top-right X
+             * Change the text of colourButton button if the colour panel was closed with top-right X
              * @param e ColourDialog event
              */
             @Override
             public void componentHidden(ComponentEvent e) {
                 // TODO Auto-generated method stub
-                openColourPanel.setText("Extend Colour Panel");
+                //colourButton.setText("Extend Colour Panel");
             }
         });
     }
@@ -222,13 +271,13 @@ public class StylePanel extends JPanel implements Observer, ChangeListener {
         redo.setEnabled(paintModel.canRedo());
     }
 
-    @Override
-    public void stateChanged(ChangeEvent e) {
-        DefaultColorSelectionModel jccSelectionModel = (DefaultColorSelectionModel) e.getSource();
-        Color newColor = jccSelectionModel.getSelectedColor();
-        this.colour = newColor;
-        this.openColourPanel.setForeground(newColor);
-    }
+//    @Override
+//    public void stateChanged(ChangeEvent e) {
+//        DefaultColorSelectionModel jccSelectionModel = (DefaultColorSelectionModel) e.getSource();
+//        Color newColor = jccSelectionModel.getSelectedColor();
+//        this.colour = newColor;
+//        this.colourButton.setForeground(newColor);
+//    }
 
     public Color getColour() {
         return colour;
@@ -244,5 +293,39 @@ public class StylePanel extends JPanel implements Observer, ChangeListener {
 
     public boolean isFill() {
         return fill;
+    }
+
+    @Override
+    public void componentResized(ComponentEvent e) {
+        JComboBox comboBox = (JComboBox)e.getSource();
+        int height = comboBox.getHeight();
+        int width = comboBox.getWidth();
+        System.out.println(height);
+        System.out.println(width);
+        for (int i = 0; i < imageIconArray.length; i++) {
+            BufferedImage bufferedImage = new BufferedImage(width,height,BufferedImage.TYPE_INT_ARGB);
+            Graphics2D g2 = bufferedImage.createGraphics();
+            g2.setColor(colour);
+            StrokeFactory strokeFactory=new StrokeFactory();
+            g2.setStroke(strokeFactory.createStroke(i, 5));
+            g2.drawLine(0,height/2, width,height/2);
+            imageIconArray[i].setImage(bufferedImage);
+        }
+
+    }
+
+    @Override
+    public void componentMoved(ComponentEvent e) {
+
+    }
+
+    @Override
+    public void componentShown(ComponentEvent e) {
+
+    }
+
+    @Override
+    public void componentHidden(ComponentEvent e) {
+
     }
 }

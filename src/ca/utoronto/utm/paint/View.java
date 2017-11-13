@@ -55,13 +55,14 @@ public class View extends JFrame implements Observer {
 //		openColourPanel = new JButton("Extend Colour Panel");
 //		openColourPanel.addActionListener(this);
 
-		ColourDialog colourPanel = new ColourDialog(this);
+		ColourDialog colourDialog = new ColourDialog(this,"Text Colour");
+		ColourDialog borderColourDialog = new ColourDialog(this,"Border Colour");
 
 		this.model=model;
 		this.paintPanel = new PaintPanel(model);
 		//c.add(this.paintPanel, BorderLayout.CENTER);
 
-		this.stylePanel = new StylePanel(paintPanel,colourPanel);
+		this.stylePanel = new StylePanel(paintPanel,colourDialog,borderColourDialog);
 		c.add(this.stylePanel, BorderLayout.SOUTH);
 
 		this.textBoxDialog = new TextBoxDialog(this);
@@ -78,8 +79,6 @@ public class View extends JFrame implements Observer {
 
 		model.addObserver(this);
 		this.pack();
-
-
 
 		WindowsPointer.getInstance().setFrame(this);
 		this.setMinimumSize(new Dimension(624, 462));

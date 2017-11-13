@@ -11,7 +11,7 @@ public class StrokeFactory {
         if(strokeStyle==0)return new BasicStroke(lineThickness);
         if(strokeStyle==1)return new BasicStroke(lineThickness, 0, 0, 10.0f, new float[] {16.0f,20.0f},0.0f);
         if(strokeStyle==2)return new ShapeStroke(new Ellipse2D.Double(0,0,lineThickness,lineThickness), lineThickness+5);
-        if(strokeStyle==3)return new ShapeStroke(new QuadCurve2D.Double(50,100,100,170,150,100),1);
+        if(strokeStyle==3)return new ShapeStroke(new QuadCurve2D.Double(50,100,100,170,150,100),3);
         return null;
     }
 }
