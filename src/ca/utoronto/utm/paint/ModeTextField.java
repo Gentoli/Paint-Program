@@ -80,7 +80,7 @@ public class ModeTextField extends JTextField implements ActionListener, KeyList
 				this.value = value;
 			}
 		} catch(NumberFormatException e1) {
-			e1.printStackTrace();
+			//e1.printStackTrace();
 		} catch(Exception exception) {
 			//exception.printStackTrace();
 			if(e != null) {
