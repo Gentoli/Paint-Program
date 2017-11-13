@@ -84,8 +84,7 @@ public class WindowsPointer extends MouseAdapter {
 	private native void init(long hWnd);
 
 	public void addListener(PointerListener pointerListener, Component component, ViewBorder border) {
-		if(frame.isAncestorOf(component))
-		if(frame != null) {
+		if(frame != null&&frame.isAncestorOf(component)) {
 			EventFactory f = listeners.get(component);
 			if(f == null) {
 				EventFactory eventFactory = new EventFactory(component, border);
