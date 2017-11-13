@@ -135,7 +135,6 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
             g2.drawLine(0,(int)(bufferedImage.getHeight()/2), bufferedImage.getWidth(),(int)(bufferedImage.getHeight()/2));
             imageIconArray[i] = new ImageIcon(bufferedImage);
         }
-
         JComboBox styleComboBox = new JComboBox(imageIconArray);
         styleComboBox.addComponentListener(this);
 
@@ -319,8 +318,6 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
         JComboBox comboBox = (JComboBox)e.getSource();
         int height = comboBox.getHeight();
         int width = comboBox.getWidth();
-        System.out.println(height);
-        System.out.println(width);
         for (int i = 0; i < imageIconArray.length; i++) {
             BufferedImage bufferedImage = new BufferedImage(width,height,BufferedImage.TYPE_INT_ARGB);
             Graphics2D g2 = bufferedImage.createGraphics();
@@ -330,6 +327,7 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
             g2.drawLine(0,height/2, width,height/2);
             imageIconArray[i].setImage(bufferedImage);
         }
+        comboBox.repaint();
 
     }
 
