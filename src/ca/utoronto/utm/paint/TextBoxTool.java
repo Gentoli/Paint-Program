@@ -15,7 +15,6 @@ public class TextBoxTool implements ShapeManipulatorStrategy, ChangeListener {
     private TextBoxDialog textBoxDialog;
     private PaintShape[] shapes;
     private StylePanel stylePanel;
-    private int fontStyle;
 
     public TextBoxTool(TextBoxDialog textBoxDialog, StylePanel stylePanel, PaintShape[] shapes) {
         this.textBoxDialog = textBoxDialog;
@@ -45,7 +44,7 @@ public class TextBoxTool implements ShapeManipulatorStrategy, ChangeListener {
         Drawable rtn = null;
         switch(e.getID()){
             case MouseEvent.MOUSE_PRESSED:
-                this.fontStyle = (textBoxDialog.getBoldCheck().isSelected()?1:0) + (textBoxDialog.getItalicCheck().isSelected()?2:0);
+                int fontStyle = (textBoxDialog.getBoldCheck().isSelected() ? 1 : 0) + (textBoxDialog.getItalicCheck().isSelected() ? 2 : 0);
                 System.out.println(fontStyle);
                 shapes[e.getPointerId()]=new TextBox(e.getX(),e.getY(),stylePanel.getColour(),
                         Integer.valueOf(textBoxDialog.getFontSizeChooser().getSelectedItem().toString()),

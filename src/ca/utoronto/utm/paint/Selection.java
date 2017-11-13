@@ -61,10 +61,11 @@ public class Selection extends PaintShape {
 	}
 
 	public void release(int x, int y,PaintModel model) {
+		mouseMoved(x,y);
 		if(selection==null) {
 			r.x = this.x = Math.min(this.x, xEnd);
 			r.y = this.y = Math.min(this.y, yEnd);
-			BufferedImage image = new BufferedImage(model.getWidth(), model.getHeight(), 1);
+			BufferedImage image = new BufferedImage(model.getWidth(), model.getHeight(), BufferedImage.TYPE_INT_ARGB);
 			Graphics2D g = image.createGraphics();
 			model.paint(g);
 			g.dispose();

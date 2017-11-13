@@ -1,8 +1,6 @@
 package ca.utoronto.utm.paint;
 
 import java.awt.*;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.QuadCurve2D;
 
 /**
  *  PaintShape base object for all shapes(Actors) on ShapePanel. Implements Drawable
@@ -14,7 +12,6 @@ public abstract class PaintShape implements Drawable, Shape {
     protected float lineThickness;
 	protected boolean fill;
     protected Stroke stroke;
-	protected int strokeStyle;
 
 	public PaintShape(int x, int y, Color colour, float lineThickness, boolean fill, int strokeStyle) {
 		this.x = x;
@@ -24,7 +21,6 @@ public abstract class PaintShape implements Drawable, Shape {
 		this.colour = colour;
 		this.lineThickness = lineThickness;
 		this.fill = fill;
-		this.strokeStyle = strokeStyle;
 		StrokeFactory strokeFactory = new StrokeFactory();
 		this.stroke = strokeFactory.createStroke(strokeStyle, lineThickness);
 	}

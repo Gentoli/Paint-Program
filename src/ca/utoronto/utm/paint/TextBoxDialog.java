@@ -1,16 +1,18 @@
 package ca.utoronto.utm.paint;
 
-import javax.swing.*;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.AttributeSet;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DocumentFilter;
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.text.ParseException;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JDialog;
+import javax.swing.JEditorPane;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.Frame;
+import java.awt.GraphicsEnvironment;
+import java.awt.GridLayout;
 
 /**
  * The TextBoxDialog pops up when the TextBoxTool is selected.
@@ -20,14 +22,9 @@ public class TextBoxDialog extends JDialog {
 
     private JTextField textField;
     private JComboBox fontChooser;
-    private JLabel fontSizeLabel;
     private JComboBox fontSizeChooser;
-    private JLabel boldLabel;
     private JCheckBox boldCheck;
-    private JLabel italicLabel;
     private JCheckBox italicCheck;
-
-    private JPanel bottomPanel;
 
     private final static int DEFAULT_SIZE = 12;
 
@@ -57,9 +54,9 @@ public class TextBoxDialog extends JDialog {
         //fontName = fontChooser.getSelectedItem().toString();
         c.add(fontChooser);
 
-        bottomPanel = new JPanel(new GridLayout(2,3));
+        JPanel bottomPanel = new JPanel(new GridLayout(2, 3));
 
-        fontSizeLabel = new JLabel("Font Size");
+        JLabel fontSizeLabel = new JLabel("Font Size");
         String[] sizes = new String[30];
         for (int i = 1; i <= sizes.length; i++) {
             sizes[i-1] = String.valueOf(i);
@@ -68,11 +65,11 @@ public class TextBoxDialog extends JDialog {
         fontSizeChooser.setSelectedIndex(DEFAULT_SIZE-1);
         //int size = Integer.valueOf(fontSizeChooser.getSelectedItem().toString());
 
-        boldLabel = new JLabel("Bold");
+        JLabel boldLabel = new JLabel("Bold");
         boldCheck = new JCheckBox();
         //fontStyle += (boldCheck.isSelected()?1:-1);
 
-        italicLabel = new JLabel("Italic");
+        JLabel italicLabel = new JLabel("Italic");
         italicCheck = new JCheckBox();
         //fontStyle += (italicCheck.isSelected()?2:-2);
 

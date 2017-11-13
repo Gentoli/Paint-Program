@@ -1,11 +1,27 @@
 package ca.utoronto.utm.paint;
 
-import com.sun.org.apache.xpath.internal.SourceTree;
-
-import javax.swing.*;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSeparator;
+import javax.swing.JSlider;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 import javax.swing.colorchooser.DefaultColorSelectionModel;
-import java.awt.*;
-import java.awt.event.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics2D;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -21,7 +37,8 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
 
     private JButton borderColourButton;
     private JButton colourButton;
-    private JButton undo, redo, clear;
+    private JButton undo;
+    private JButton redo;
 
     private Color borderColour = Color.black;
     private Color colour = Color.black;
@@ -132,7 +149,7 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
             g2.setColor(colour);
             StrokeFactory strokeFactory=new StrokeFactory();
             g2.setStroke(strokeFactory.createStroke(i, 5));
-            g2.drawLine(0,(int)(bufferedImage.getHeight()/2), bufferedImage.getWidth(),(int)(bufferedImage.getHeight()/2));
+            g2.drawLine(0,(int)(bufferedImage.getHeight()/2), bufferedImage.getWidth(), bufferedImage.getHeight()/2);
             imageIconArray[i] = new ImageIcon(bufferedImage);
         }
         JComboBox styleComboBox = new JComboBox(imageIconArray);
@@ -140,7 +157,7 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
 
         styleComboBox.setSelectedIndex(0);
         styleComboBox.addActionListener(e -> {
-            strokeStyle = styleComboBox.getSelectedIndex();;
+            strokeStyle = styleComboBox.getSelectedIndex();
         });
 
         JLabel colourLabel = new JLabel("Choose Colour");
@@ -194,7 +211,7 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
         redo.addActionListener(e -> {
             paintPanel.redo();
         });
-        clear = new JButton("Clear");
+        JButton clear = new JButton("Clear");
         clear.addActionListener(e -> {
             paintPanel.clear();
         });

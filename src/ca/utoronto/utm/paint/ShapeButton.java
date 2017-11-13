@@ -12,19 +12,19 @@ import java.io.IOException;
  */
 public class ShapeButton extends JButton {
     private int shapeNum;
-    private Image image;
 
     /**
      * Creates an instance of ShapeButton, using shapeNum to choose the right image to draw on itself.
      * @param shapeNum number corresponding to it's shape
+     * @param buttonAsset
      */
-    public ShapeButton(int shapeNum) {
+    public ShapeButton(int shapeNum, String buttonAsset) {
         this.shapeNum = shapeNum;
         try {
-            image = ImageIO.read(new File(String.format("assets"+File.separator+"%d.png",shapeNum)));
+            Image image = ImageIO.read(new File(String.format("assets" + File.separator + "%s.png", buttonAsset)));
             setIcon(new ImageIcon(image));
         } catch(IOException e) {
-            this.setText("Selection");
+            this.setText(buttonAsset);
         }
 
     }

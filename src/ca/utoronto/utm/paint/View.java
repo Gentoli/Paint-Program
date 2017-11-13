@@ -2,13 +2,15 @@ package ca.utoronto.utm.paint;
 
 import ca.utoronto.utm.pointer.WindowsPointer;
 
-import javax.swing.*;
-import javax.swing.event.ChangeListener;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -37,12 +39,8 @@ public class View extends JFrame implements Observer {
 	// The components that make this up
 	private PaintPanel paintPanel;
 	private ShapeChooserPanel shapeChooserPanel;
-	//private ColourDialog colourPanel;
-	private StylePanel stylePanel;
-	private TextBoxDialog textBoxDialog;
 	private JMenuItem menuUndo;
 	private JMenuItem menuRedo;
-	private JMenuItem menuHelp;
 	//private JButton openColourPanel;
 	
 	public View(PaintModel model) {
@@ -63,10 +61,10 @@ public class View extends JFrame implements Observer {
 		this.paintPanel = new PaintPanel(model);
 		//c.add(this.paintPanel, BorderLayout.CENTER);
 
-		this.stylePanel = new StylePanel(paintPanel,colourDialog,borderColourDialog);
-		c.add(this.stylePanel, BorderLayout.SOUTH);
+		StylePanel stylePanel = new StylePanel(paintPanel, colourDialog, borderColourDialog);
+		c.add(stylePanel, BorderLayout.SOUTH);
 
-		this.textBoxDialog = new TextBoxDialog(this);
+		TextBoxDialog textBoxDialog = new TextBoxDialog(this);
 		textBoxDialog.setPreferredSize(new Dimension(300, 100));
 
 		paintPanel.initializeTools(stylePanel, textBoxDialog);
@@ -178,7 +176,7 @@ public class View extends JFrame implements Observer {
 		menuBar.add(menu);
 
 		menu = new JMenu("Help");
-		menuHelp = new JMenuItem("Help");
+		JMenuItem menuHelp = new JMenuItem("Help");
 		menuHelp.addActionListener(e -> {
 
 			JOptionPane.showMessageDialog(this, message);
