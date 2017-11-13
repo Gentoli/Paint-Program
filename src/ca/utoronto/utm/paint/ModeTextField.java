@@ -59,9 +59,7 @@ public class ModeTextField extends JTextField implements ActionListener, KeyList
 
 	public void setValue(int value) {
 		this.value = value;
-		//setText(String.valueOf(Math.max(value,0)));
 		setText(String.valueOf(value));
-		paintPanel.setMode(6);
 	}
 
 	@Override
