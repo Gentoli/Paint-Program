@@ -105,7 +105,7 @@ public class StylePanel extends JPanel implements Observer, ChangeListener {
         JLabel styleLabel = new JLabel("Line Style");
         styleLabel.setHorizontalAlignment(SwingConstants.CENTER);
 
-        String[] s = {"Basic Stroke", "Dashed Stroke"};
+        String[] s = {"Basic Stroke", "Dashed Stroke", "Circle Stroke", "Wave Stroke"};
         JComboBox styleComboBox = new JComboBox(s);
         styleComboBox.setSelectedIndex(0);
         styleComboBox.addActionListener(e -> {
