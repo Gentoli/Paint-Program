@@ -31,9 +31,6 @@ public class PaintPanel extends JPanel implements Observer, PointerListener {
 
 	public PaintPanel(PaintModel model) {
 		setBackground(Color.white);
-		//this.setPreferredSize(new Dimension(516,300));
-//		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-//		this.setPreferredSize(new Dimension(screenSize.width - 125, screenSize.height - 205));
 
 		this.model = model;
 
@@ -45,6 +42,7 @@ public class PaintPanel extends JPanel implements Observer, PointerListener {
 
 	public void initializeTools(StylePanel stylePanel, TextBoxDialog textBoxDialog) {
 		toolList = new ShapeManipulatorStrategy[]{new SelectionTool(model, shapes),
+				new SquiggleTool(stylePanel, shapes),
 				new TextBoxTool(textBoxDialog, stylePanel, shapes),
 				new PolylineTool(stylePanel, shapes),
 				new SquiggleTool(stylePanel, shapes),

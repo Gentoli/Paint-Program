@@ -33,14 +33,14 @@ public class ModeTextField extends JTextField implements ActionListener, KeyList
 						offset = getText().length() - length;
 					}
 				}
-				System.out.println(text);
+				//System.out.println(text);
 				super.replace(fb, offset, length, text, attrs);
 				actionPerformed(null);
 			}
 
 			@Override
 			public void remove(FilterBypass fb, int offset, int length) throws BadLocationException {
-				System.out.println("remove");
+//				System.out.println("remove");
 				if(offset < TEXT_NOT_TO_TOUCH.length()) {
 //					length = Math.max(0, length + offset - TEXT_NOT_TO_TOUCH.length());
 //					offset = TEXT_NOT_TO_TOUCH.length();

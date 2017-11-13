@@ -41,7 +41,7 @@ public class ShapeChooserPanel extends JPanel implements ActionListener {
 		add(modeTextField);
 	}
 
-	public void setActiveButton(int activeButton) {
+	private void setActiveButton(int activeButton) {
 		shapeButtons[this.activeButton].setEnabled(true);
 		this.activeButton = activeButton;
 		shapeButtons[this.activeButton].setEnabled(false);
@@ -49,7 +49,7 @@ public class ShapeChooserPanel extends JPanel implements ActionListener {
 		paintPanel.setEdges(BUTTON_EDGES[activeButton]);
 		modeTextField.setEnabled(false);
 		modeTextField.setText(BUTTON_LABELS[activeButton]);
-		modeTextField.setEnabled(activeButton == 7);
+		modeTextField.setEnabled(BUTTON_EDGES[activeButton] == 5);
 	}
 
 	/**
