@@ -64,7 +64,9 @@ public class ShapeStroke implements Stroke {
                     double y = lastY + offset*Math.sin(angle);
                     t.setToTranslation(x,y);
                     t.rotate(angle);
-                    path.curveTo(x-1,y-1,firstX,firstY,x+1,y+1);
+                    if(serendipity) {
+                        path.curveTo(x - 1, y - 1, firstX, firstY, x + 1, y + 1);
+                    }
                     path.append(t.createTransformedShape(shapes[shapeIndex]),false);//set the shapes position to the correct spot
                     offset += spacing;
                     shapeIndex++; shapeIndex %= shapes.length;// increments and loops if it is out of bounds
