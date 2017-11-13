@@ -18,8 +18,9 @@ public class ColourDialog extends JDialog{
 	 *
 	 * @param view Paint View
 	 */
-	public ColourDialog(Frame view) {
+	public ColourDialog(Frame view, String title) {
 		super(view);
+		this.setTitle(title);
 		jcc = new JColorChooser();
 		jcc.setColor(Color.black);
         jcc.setBorder(BorderFactory.createTitledBorder("Choose Color"));

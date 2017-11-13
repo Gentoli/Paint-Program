@@ -47,7 +47,8 @@ public class PolygonTool implements ITool {
 			    try {
 				    shapes[e.getPointerId()]=constructor.newInstance(e.getX(),e.getY(),style.getColour(),
 												    style.getLineThickness(),style.isFill(),style.getStrokeStyle(),
-												    paintPanel.getEdges(),e.isShiftDown(),e.isAltDown());
+												    paintPanel.getEdges(),style.isBorder(),style.getBorderColour(),
+						                            e.isShiftDown(),e.isAltDown());
 			    } catch(InstantiationException | IllegalAccessException | InvocationTargetException e1) {
 				    e1.printStackTrace();
 			    }

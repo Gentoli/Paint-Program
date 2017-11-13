@@ -21,12 +21,15 @@ public class Polyline extends PaintShape {
     public void mouseMoved(int x, int y) {
         addPoint(new Point(x,y));
     }
-
+    /*adds a point to the polyline
+     * @param point - the point to be added to the polyline arrayList
+     */
     public void addPoint(Point point){
         p.add(point);
         end();
     }
     @Override
+    //prints hte polyline to the screen
     public void print(Graphics2D g2) {
         prepare(g2);
         for(int i = 0; i < p.size()-1; i++){
@@ -39,9 +42,8 @@ public class Polyline extends PaintShape {
     }
 
     private Point temp;
-
+    //clears the temporary point
     public void end() {
-//	    System.out.println(this.p.get(this.p.size()-1).getX()+" "+temp.getX());
 	    temp = null;
     }
 
@@ -94,7 +96,10 @@ public class Polyline extends PaintShape {
     public PathIterator getPathIterator(AffineTransform at, double flatness) {
         return path.getPathIterator(at, flatness);
     }
-
+    /*stores the temporary mouse point
+     * @param x the x coordinate of the mouse
+     * @param y the y coordinate of the mouse
+     */
     public void mouseTemp(int x, int y) {
         temp=new Point(x,y);
     }
