@@ -23,10 +23,6 @@ class ModeTextField extends JTextField implements ActionListener,KeyListener {
 		super(TEXT_NOT_TO_TOUCH + "6",10);
 		this.paintPanel = paintPanel;
 		((AbstractDocument) getDocument()).setDocumentFilter(new DocumentFilter() {
-			@Override
-			public void insertString(FilterBypass fb, int offset, String string, AttributeSet attr) throws BadLocationException {
-				super.insertString(fb, offset, string, attr);
-			}
 
 			@Override
 			public void replace(FilterBypass fb, int offset, int length, String text, AttributeSet attrs) throws BadLocationException {
