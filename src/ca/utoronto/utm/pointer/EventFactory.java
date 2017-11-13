@@ -14,10 +14,10 @@ import java.util.List;
  */
 public class EventFactory {
 	private Component base;
-	private JScrollPane bounds;
+	private ViewBorder bounds;
 	private List<PointerListener> listeners = new ArrayList<PointerListener>();
 
-	public EventFactory(Component component, JScrollPane bounds) {
+	public EventFactory(Component component, ViewBorder bounds) {
 		base = component;
 		this.bounds = bounds;
 	}
@@ -40,11 +40,9 @@ public class EventFactory {
 	}
 
 	private boolean isVisible(int xAbs, int yAbs) {
-		Point p = new Point(xAbs, yAbs);
-		SwingUtilities.convertPointFromScreen(p, bounds);
 		if(bounds == null)
 			return true;
-		return bounds.getViewportBorderBounds().contains(p);
+		return bounds.contains(new Point(xAbs, yAbs));
 	}
 
 	public void fireModifierEvent(ModifierEvent event) {

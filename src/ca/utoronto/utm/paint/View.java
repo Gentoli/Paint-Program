@@ -8,6 +8,8 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
+import javax.swing.SwingUtilities;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -52,9 +54,6 @@ public class View extends JFrame implements Observer {
 		Container c = getContentPane();
 
 
-//		openColourPanel = new JButton("Extend Colour Panel");
-//		openColourPanel.addActionListener(this);
-
 		ColourDialog colourDialog = new ColourDialog(this, "Text Colour");
 		ColourDialog borderColourDialog = new ColourDialog(this, "Border Colour");
 
@@ -74,15 +73,17 @@ public class View extends JFrame implements Observer {
 		shapeChooserPanel = new ShapeChooserPanel(paintPanel);
 		c.add(shapeChooserPanel, BorderLayout.WEST);
 
-		JScrollPane scrollPane = new JScrollPane(paintPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		JScrollPane scrollPane = new JScrollPane(paintPanel, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS, ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 		c.add(scrollPane, BorderLayout.CENTER);
 
 		WindowsPointer windowsPointer = new WindowsPointer(this);
-		windowsPointer.addListener(paintPanel, paintPanel, scrollPane);
+		windowsPointer.addListener(paintPanel, paintPanel, point -> {
+			SwingUtilities.convertPointFromScreen(point, scrollPane);
+			return scrollPane.getViewportBorderBounds().contains(point);
+		});
 
 		model.addObserver(this);
 		pack();
-
 
 		setMinimumSize(new Dimension(624, 462));
 		setSize(624, 462);

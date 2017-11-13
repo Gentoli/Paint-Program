@@ -1,6 +1,5 @@
 package ca.utoronto.utm.pointer;
 
-import javax.swing.JScrollPane;
 import java.awt.Component;
 import java.awt.Frame;
 import java.awt.event.MouseAdapter;
@@ -84,12 +83,12 @@ public class WindowsPointer extends MouseAdapter {
 
 	private native void init(long hWnd);
 
-	public void addListener(PointerListener pointerListener, Component component, JScrollPane scrollPane) {
+	public void addListener(PointerListener pointerListener, Component component, ViewBorder border) {
 		if(frame.isAncestorOf(component))
 		if(frame != null) {
 			EventFactory f = listeners.get(component);
 			if(f == null) {
-				EventFactory eventFactory = new EventFactory(component, scrollPane);
+				EventFactory eventFactory = new EventFactory(component, border);
 				eventFactory.add(pointerListener);
 				listeners.put(component, eventFactory);
 			} else
