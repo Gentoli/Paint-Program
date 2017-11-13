@@ -14,7 +14,7 @@ public class PolygonTool implements ITool {
 	private PaintPanel paintPanel;
 	private PaintShape[] shapes;
 	private Constructor<RegularPolygon> constructor;
-	private static final Class[] constClasses = {int.class, int.class, Color.class, float.class, boolean.class, int.class,int.class,boolean.class,boolean.class};
+	private static final Class[] constClasses = {int.class, int.class, Color.class, float.class, boolean.class, int.class,int.class,boolean.class,Color.class,boolean.class,boolean.class};
 
 	public PolygonTool(StylePanel stylePanel, PaintPanel paintPanel, PaintShape[] shapes,Class type) {
 		style = stylePanel;
