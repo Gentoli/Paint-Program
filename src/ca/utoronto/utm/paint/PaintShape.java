@@ -2,6 +2,7 @@ package ca.utoronto.utm.paint;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
+import java.awt.geom.QuadCurve2D;
 
 /**
  *  PaintShape base object for all shapes(Actors) on ShapePanel. Implements Drawable
@@ -25,10 +26,13 @@ public abstract class PaintShape implements Drawable, Shape {
 		this.fill = fill;
 		this.strokeStyle = strokeStyle;
 		switch (strokeStyle) {
-			case 0:  this.stroke = new StrokeType1(new Ellipse2D.Double(0,0,5.0,5.0),15.0);
+			case 0:  this.stroke = new BasicStroke(lineThickness);
 				break;
 			case 1:  this.stroke = new BasicStroke(lineThickness, 0, 0, 10.0f, new float[] {16.0f,20.0f},0.0f);
 				break;
+			case 2: this.stroke = new ShapeStroke(new QuadCurve2D.Double(-0.1,0.1,0.0,0.0,0.1,0.1),1.0,true);
+				break;
+			case 3: this.stroke = new  ShapeStroke(new QuadCurve2D.Double(50,100,100.0,170.0,150,100),1.0,false);
 			default: this.stroke = new BasicStroke(lineThickness);
 				break;
 		}
