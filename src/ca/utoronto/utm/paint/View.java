@@ -2,6 +2,7 @@ package ca.utoronto.utm.paint;
 
 import ca.utoronto.utm.pointer.WindowsPointer;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -13,6 +14,9 @@ import javax.swing.SwingUtilities;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
+import java.awt.Image;
+import java.io.File;
+import java.io.IOException;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -48,6 +52,11 @@ public class View extends JFrame implements Observer {
 
 	public View(PaintModel model) {
 		super("Paint"); // set the title and do other JFrame init
+		try {
+			setIconImage(ImageIO.read(new File("assets" + File.separator + "Polygon.png")));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setJMenuBar(createMenuBar());
 

@@ -21,7 +21,7 @@ public class Selection extends PaintShape {
 	private Rectangle fillRect;
 
 	public Selection(int x, int y) {
-		super(x, y, Color.RED, 5, false, 0);
+		super(x, y, Color.RED, 2, false, 1);
 		border = true;
 		r = new Rectangle(x, y, 0, 0);
 	}
@@ -40,6 +40,7 @@ public class Selection extends PaintShape {
 			prepare(g2);
 			g2.draw(r);
 		}
+
 
 	}
 

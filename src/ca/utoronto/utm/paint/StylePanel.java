@@ -193,9 +193,8 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
 		colourPanel.add(colourButton);
 		colourDialog.addChangeListener(e -> {
 			ColorSelectionModel jccSelectionModel = (ColorSelectionModel) e.getSource();
-			Color newColor = jccSelectionModel.getSelectedColor();
-			colourButton.setForeground(newColor);
-			colour = newColor;
+			colour = jccSelectionModel.getSelectedColor();
+			colourButton.setForeground(colour);
 		});
 
 		undo = new JButton("Undo");
@@ -266,18 +265,6 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
 			}
 		}
 
-
-		colourDialog.addComponentListener(new ComponentAdapter() {
-			/**
-			 * Change the text of colourButton button if the colour panel was closed with top-right X
-			 * @param e ColourDialog event
-			 */
-			@Override
-			public void componentHidden(ComponentEvent e) {
-				// TODO Auto-generated method stub
-				//colourButton.setText("Extend Colour Panel");
-			}
-		});
 	}
 
 	/**
@@ -294,13 +281,6 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
 		redo.setEnabled(paintModel.canRedo());
 	}
 
-//    @Override
-//    public void stateChanged(ChangeEvent e) {
-//        DefaultColorSelectionModel jccSelectionModel = (DefaultColorSelectionModel) e.getSource();
-//        Color newColor = jccSelectionModel.getSelectedColor();
-//        this.colour = newColor;
-//        this.colourButton.setForeground(newColor);
-//    }
 
 	public Color getColour() {
 		return colour;
