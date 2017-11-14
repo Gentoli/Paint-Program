@@ -60,22 +60,38 @@ public class Selection extends PaintShape {
 		}
 	}
 
-	public void release(int x, int y, PaintModel model) {
+	public boolean release(int x, int y, PaintModel model) {
 		mouseMoved(x, y);
 		if(selection == null) {
 			r.x = this.x = Math.min(this.x, xEnd);
 			r.y = this.y = Math.min(this.y, yEnd);
+			if(r.x < 0) {
+				r.width += r.x;
+				r.x = this.x = 0;
+			}
+			if(r.y < 0) {
+				r.height += r.y;
+				r.y = this.y = 0;
+			}
+			r.width = Math.min(r.width, model.getWidth() - r.x);
+			r.height = Math.min(r.height, model.getHeight() - r.y);
+			if(r.width==0||r.height==0)
+				return false;
 			BufferedImage image = new BufferedImage(model.getWidth(), model.getHeight(), BufferedImage.TYPE_INT_ARGB);
 			Graphics2D g = image.createGraphics();
 			model.paint(g);
 			g.dispose();
 			fillRect = new Rectangle(r);
 			selection = image.getSubimage(r.x, r.y, r.width, r.height);
+			return true;
 		}
+		return false;
 	}
 
-	public void setReleased() {
+	//return true if Selection is moved
+	public boolean setReleased() {
 		border = false;
+		return lastX != 0 || lastY != 0;
 	}
 
 	public void setMove(int x, int y) {

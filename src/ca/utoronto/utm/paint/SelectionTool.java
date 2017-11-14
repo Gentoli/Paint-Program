@@ -19,8 +19,8 @@ public class SelectionTool implements ShapeManipulatorStrategy {
 	public Drawable deselect() {
 		Drawable rtn = null;
 		if(shapes[0] != null) {
-			((Selection) shapes[0]).setReleased();
-			rtn = shapes[0];
+			if(((Selection) shapes[0]).setReleased())
+				rtn = shapes[0];
 			shapes[0] = null;
 		}
 		activePointer = -1;
@@ -62,7 +62,8 @@ public class SelectionTool implements ShapeManipulatorStrategy {
 				if(e.getButton() == 3) {
 					rtn = deselect();
 				} else {
-					selection.release(e.getX(), e.getY(), model);
+					if(!selection.release(e.getX(), e.getY(), model))
+						deselect();
 				}
 				activePointer = -1;
 		}
