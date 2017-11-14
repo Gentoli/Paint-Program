@@ -9,33 +9,29 @@ import java.awt.geom.Path2D;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
-import java.util.ArrayList;
 
 /**
  * PaintShape with multiple dots connecting to each other.
  */
 public class Polyline extends PaintShape {
-	private ArrayList<Point> p;
 	private Path2D path;
-	private Point temp;
+	private Point last,temp;
 
 	public Polyline(int x, int y, Color colour, float lineThickness, boolean fill, int strokeStyle) {
 		super(x, y, colour, lineThickness, fill, strokeStyle);
 		path = new Path2D.Float();
-		p = new ArrayList<Point>();
-		p.add(new Point(x, y));
+		path.moveTo(x,y);
+		last = new Point(x, y);
 	}
 
-	@Override
-	public void mouseMoved(int x, int y) {
-		addPoint(new Point(x, y));
-	}
 
 	/*adds a point to the polyline
 	 * @param point - the point to be added to the polyline arrayList
 	 */
-	public void addPoint(Point point) {
-		p.add(point);
+	@Override
+	public void mouseMoved(int x, int y) {
+		last = new Point(x, y);
+		path.lineTo(x,y);
 		end();
 	}
 
@@ -43,12 +39,9 @@ public class Polyline extends PaintShape {
 	//prints hte polyline to the screen
 	public void print(Graphics2D g2) {
 		prepare(g2);
-		for(int i = 0; i < p.size() - 1; i++) {
-			g2.drawLine(p.get(i).x, p.get(i).y, p.get(i + 1).x, p.get(i + 1).y);
-		}
+		g2.draw(this);
 		if(temp != null) {
-			Point p = this.p.get(this.p.size() - 1);
-			g2.drawLine(p.x, p.y, temp.x, temp.y);
+			g2.drawLine(last.x, last.y, temp.x, temp.y);
 		}
 	}
 

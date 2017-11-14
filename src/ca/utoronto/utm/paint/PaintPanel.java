@@ -10,6 +10,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -113,7 +114,8 @@ public class PaintPanel extends JPanel implements Observer, PointerListener {
 
 	@Override
 	public void pointerUpdated(PointerEvent e) {
-		//System.out.println(mode);
+		if(e.getID()== MouseEvent.MOUSE_PRESSED)
+			requestFocus();
 		model.addPrint(toolList[mode].handlePointerUpdate(e));
 		repaint();
 	}
@@ -121,15 +123,16 @@ public class PaintPanel extends JPanel implements Observer, PointerListener {
 	@Override
 	public void modifierUpdated(ModifierEvent e) {
 		if(e.isControlDown() && e.getID() == KeyEvent.KEY_PRESSED) {
-			if(e.getKeyChar() == 'Z' || (char) e.getKeyCode() == 'Z') {
+			if(e.getKeyChar() == 'Z' || ((char) e.getKeyCode() == 'Z')) {
 				undo();
 				return;
-			} else if(e.getKeyChar() == 'Y' || (char) e.getKeyCode() == 'Y') {
+			} else if(e.getKeyChar() == 'Y' || ((char) e.getKeyCode() == 'Y')) {
 				redo();
 				return;
 			}
 		}
-		if(toolList[mode].handleModifierUpdated(e))
+		if(toolList[mode].handleModifierUpdated(e)) {
 			repaint();
+		}
 	}
 }

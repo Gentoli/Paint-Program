@@ -70,7 +70,7 @@ public class WindowsPointer extends MouseAdapter {
 			e.firePointerEvent(eventId, when, modifiers, xAbs, yAbs, clickCount, index, fPressure);
 		}
 
-		if(eventId == MouseEvent.MOUSE_EXITED)
+		if(eventId == MouseEvent.MOUSE_EXITED&&index!=-1)
 			releasePoint(index);
 	}
 
