@@ -32,6 +32,7 @@ public class TextBoxDialog extends JDialog {
 		setPreferredSize(new Dimension(200, 150));
 		Container c = getContentPane();
 		c.setLayout(new GridLayout(3, 1));
+		pointRelativeToParent = new Point(0,0);
 
 		addComponentListener(new ComponentAdapter(){
 			@Override

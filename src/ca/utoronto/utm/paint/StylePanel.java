@@ -313,7 +313,7 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
 	}
 
 	public float getLineThickness(float ratio){
-		return lineThickness*(.5f+ratio==0?.5f:ratio);
+		return lineThickness*(.5f+((ratio==0)?.5f:ratio));
 	}
 
 	public boolean isBorder() {
