@@ -13,12 +13,10 @@ import java.util.List;
  */
 public class WindowsEventComponent {
 	private Component base;
-	private ViewBorder bounds;
 	private List<PointerListener> listeners = new ArrayList<PointerListener>();
 
-	public WindowsEventComponent(Component component, ViewBorder bounds) {
+	WindowsEventComponent(Component component) {
 		base = component;
-		this.bounds = bounds;
 	}
 
 	public boolean add(PointerListener pointerListener) {
@@ -28,19 +26,13 @@ public class WindowsEventComponent {
 	public void firePointerEvent(int eventId, long when, int modifiers, int xAbs, int yAbs, int clickCount, int button, int pointerId, float pressure) {
 		Point p = new Point(xAbs, yAbs);
 		SwingUtilities.convertPointFromScreen(p, base);
-		if(eventId == MouseEvent.MOUSE_PRESSED && (!base.contains(p) || !isVisible(xAbs, yAbs))) {
+		if(eventId == MouseEvent.MOUSE_PRESSED && (!base.contains(p))) {
 			return;
 		}
 		PointerEvent event = new PointerEvent(base, eventId, when, modifiers, p.x, p.y, xAbs, yAbs, clickCount, button, pointerId, pressure);
 		for(PointerListener l : listeners) {
 			l.pointerUpdated(event);
 		}
-	}
-
-	private boolean isVisible(int xAbs, int yAbs) {
-		if(bounds == null)
-			return true;
-		return bounds.contains(new Point(xAbs, yAbs));
 	}
 
 	public void fireModifierEvent(ModifierEvent event) {

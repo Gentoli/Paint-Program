@@ -13,6 +13,7 @@ import java.util.Map;
 
 /**
  * Object Handle Win32 API Calls from JNI bridge
+ * Bin for windows can be compiled from WindowsProc.cpp and WindowsProc.h in the root dir
  */
 public class WindowsPointer extends MouseAdapter {
 	public static final int POINTER_MAX = 20;
@@ -22,6 +23,7 @@ public class WindowsPointer extends MouseAdapter {
 	static {
 		boolean dllLoaded = true;
 		try {
+			// try to load the dll in the working dir, if failed set the flag to tell the call its failed
 			System.loadLibrary("JNI");
 		} catch(Error e) {
 			System.out.println("JNI failed to load... falling back to MouseListener");
@@ -35,6 +37,10 @@ public class WindowsPointer extends MouseAdapter {
 	private Component[] components = new Component[POINTER_MAX];
 	private Map<Component, WindowsEventComponent> listeners = new HashMap<Component, WindowsEventComponent>();
 
+	/**
+	 * Create WindowsPointer handle for frame.
+	 * @param frame the frame
+	 */
 	public WindowsPointer(Frame frame) {
 		if(frame == null)
 			throw new IllegalArgumentException("null frame");
@@ -50,9 +56,15 @@ public class WindowsPointer extends MouseAdapter {
 			}
 	}
 
-	private static long getHWnd(Frame component) {
+	/**
+	 *  Returns the windows handle id for the Frame
+	 *
+	 * @param frame the Frame
+	 * @return
+	 */
+	private static long getHWnd(Frame frame) {
 		//noinspection deprecation
-		Object peer = component.getPeer();
+		Object peer = frame.getPeer();
 		Class c = peer.getClass();
 		try {
 			for(Method m : c.getMethods()) {
@@ -66,16 +78,32 @@ public class WindowsPointer extends MouseAdapter {
 		throw new RuntimeException("No HWND found for " + c);
 	}
 
+	/**
+	 *  Called by c++ part when mouse is updated
+	 *
+	 * @param eventId
+	 * @param when
+	 * @param modifiers
+	 * @param xAbs
+	 * @param yAbs
+	 * @param clickCount
+	 * @param button
+	 * @param pointerId
+	 * @param pressure
+	 */
 	private void update(int eventId, long when, int modifiers, int xAbs, int yAbs, int clickCount,int button, int pointerId, int pressure) {
 		float fPressure = pressure == 0 ? 1f : ((float) pressure / MAX_PRESSURE);
 		int index = getPointId(pointerId);
-		if(eventId==MouseEvent.MOUSE_PRESSED&&components[index]==null) {
+		if(eventId==MouseEvent.MOUSE_PRESSED) {
 			Point p = new Point(xAbs, yAbs);
 			SwingUtilities.convertPointFromScreen(p,frame);
 			Component comp = frame.findComponentAt(p);
 			if(listeners.containsKey(comp))
-				components[index] = frame.findComponentAt(xAbs, yAbs);
+				components[index] = comp;
+			else
+				components[index]=null;
 		}
+
 		if(components[index]!=null){
 			listeners.get(components[index]).firePointerEvent(eventId, when, modifiers, xAbs, yAbs, clickCount, button, index, fPressure);
 		}
@@ -85,6 +113,15 @@ public class WindowsPointer extends MouseAdapter {
 			releasePoint(index);
 	}
 
+	/**
+	 *  Called by c++ part when key is pressed
+	 *
+	 * @param eventId
+	 * @param when
+	 * @param modifiers
+	 * @param keyCode
+	 * @param keyChar
+	 */
 	private void keyUpdate(int eventId, long when, int modifiers, int keyCode, char keyChar) {
 		ModifierEvent event = new ModifierEvent(frame, eventId, when, modifiers, keyCode, keyChar);
 		for(WindowsEventComponent e : listeners.values()) {
@@ -92,13 +129,24 @@ public class WindowsPointer extends MouseAdapter {
 		}
 	}
 
+	/**
+	 *  initialize the c++ part of the class
+	 *
+	 * @param hWnd Window Handle from winodows
+	 */
 	private native void init(long hWnd);
 
-	public void addListener(PointerListener pointerListener, Component component, ViewBorder border) {
+	/**
+	 * Adds the specified pointer listener to receive pointer and key events for the component.
+	 *
+	 * @param pointerListener the mouse listener
+	 * @param component the component
+	 */
+	public void addListener(PointerListener pointerListener, Component component) {
 		if(frame != null&&frame.isAncestorOf(component)) {
 			WindowsEventComponent f = listeners.get(component);
 			if(f == null) {
-				WindowsEventComponent windowsEventComponent = new WindowsEventComponent(component, border);
+				WindowsEventComponent windowsEventComponent = new WindowsEventComponent(component);
 				windowsEventComponent.add(pointerListener);
 				listeners.put(component, windowsEventComponent);
 			} else
@@ -111,6 +159,12 @@ public class WindowsPointer extends MouseAdapter {
 		}
 	}
 
+	/**
+	 * Returns the index in the array of a system pointer id.
+	 *
+	 * @param id system id for the pointer
+	 * @return index of the pointer
+	 */
 	private int getPointId(int id) {
 		for(int i = 0; i < points.length; i++) {
 			if(points[i] == id)
