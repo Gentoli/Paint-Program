@@ -14,9 +14,6 @@ import java.awt.event.MouseEvent;
 import java.util.Observable;
 import java.util.Observer;
 
-// https://docs.oracle.com/javase/8/docs/api/java/awt/Graphics2D.html
-// https://docs.oracle.com/javase/tutorial/2d/
-
 /**
  * Handles Drawing and Displaying of Shapes
  */
@@ -41,9 +38,16 @@ public class PaintPanel extends JPanel implements Observer, PointerListener {
 		addComponentListener(model);
 	}
 
+	/**
+	 * Initializes all the tools (strategy) using given style panel and dialog boxes
+	 * Factory is not useful because all tools are pre-created
+	 * and associated with the index (mode) of an array (toolList)
+	 * @param stylePanel Contains all of the styles
+	 * @param textBoxDialog Contains the styles for TextBox shapes
+	 */
 	public void initializeTools(StylePanel stylePanel, TextBoxDialog textBoxDialog) {
 		toolList = new ShapeManipulatorStrategy[]{new SelectionTool(model, shapes),
-				new SquiggleTool(stylePanel, shapes),
+				new SquiggleTool(stylePanel, true,shapes),
 				new TextBoxTool(stylePanel, textBoxDialog, shapes),
 				new SprayPaintTool(stylePanel, this, shapes),
 				new PolylineTool(stylePanel, shapes),
@@ -56,14 +60,11 @@ public class PaintPanel extends JPanel implements Observer, PointerListener {
 	 * View aspect of this
 	 */
 	public void paintComponent(Graphics g) {
-		// Use g to draw on the JPanel, lookup java.awt.Graphics in
-		// the javadoc to see more of what this can do for you!!
 		super.paintComponent(g); //paint background
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setColor(Color.WHITE);
 		g2.fillRect(0, 0, getWidth(), getHeight());
 		model.paint(g2);
-
 		for(PaintShape s : shapes) {
 			if(s != null) {
 				s.print(g2);
@@ -74,12 +75,12 @@ public class PaintPanel extends JPanel implements Observer, PointerListener {
 
 	@Override
 	public void update(Observable o, Object arg) {
-		// Not exactly how MVC works, but similar.
 		repaint(); // Schedule a call to paintComponent
 	}
 
 	/**
 	 * Controller aspect of this
+	 * The mode decides which tool to use for when the mouse is clicked
 	 */
 	public void setMode(int mode) {
 		model.addPrint(toolList[this.mode].deselect());

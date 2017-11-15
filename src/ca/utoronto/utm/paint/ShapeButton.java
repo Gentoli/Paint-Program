@@ -17,7 +17,7 @@ public class ShapeButton extends JButton {
 	 * Creates an instance of ShapeButton, using shapeNum to choose the right image to draw on itself.
 	 *
 	 * @param shapeNum    number corresponding to it's shape
-	 * @param buttonAsset
+	 * @param buttonAsset The name of the image that it will load
 	 */
 	public ShapeButton(int shapeNum, String buttonAsset) {
 		this.shapeNum = shapeNum;

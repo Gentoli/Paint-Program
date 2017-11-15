@@ -41,14 +41,21 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
 	private JButton redo;
 	private Color borderColour = Color.black;
 	private Color colour = Color.black;
-	private float lineThickness = 1f;
+	private float lineThickness = 5f;
 	private int strokeStyle;
 	private boolean fill;
 	private boolean border;
 	private ImageIcon[] imageIconArray;
 
+
 	/**
+	 *
 	 * Creates a JPanel, using GridBagLayout to format the components
+	 *
+	 * @param paintPanel PaintPanel object
+	 * @param colourDialog JDialog holding JColorChooser object corresponding to the overall colour
+	 * @param borderColourDialog JDialog holding JColorChooser object corresponding to the shape border colour
+	 *                           when fill and border are activated.
 	 */
 	public StylePanel(PaintPanel paintPanel, ColourDialog colourDialog, ColourDialog borderColourDialog) {
 
@@ -57,8 +64,9 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
 		JPanel lineThicknessPanel = new JPanel();
 		JLabel lineThicknessLabel = new JLabel("Line Thickness");
 		lineThicknessLabel.setHorizontalAlignment(SwingConstants.CENTER);
-		JTextField lineThicknessText = new JTextField("1", 3);
-		JSlider lineThicknessSlider = new JSlider(1, 1024, 1);
+		JTextField lineThicknessText = new JTextField("5", 3);
+		JSlider lineThicknessSlider = new JSlider(1, 1024, 256);
+		// JSlider max is 1024 to match what the built-in windows pen-pressure max is for convenience.
 		lineThicknessText.setHorizontalAlignment(SwingConstants.CENTER);
 		lineThicknessText.addActionListener(e -> {
 			try {
@@ -84,22 +92,22 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
 			public void keyTyped(KeyEvent e) {
 				if(!Character.isDigit((e.getKeyChar()))) {
 					if(e.getKeyChar() != ('.'))
-						e.consume();
+						e.consume(); // Only accept digits in the textbox
 				}
 				String s = lineThicknessText.getText();
-				if(s.length() >= 3 && (!s.substring(s.length() - 1).equals(".") || s.substring(s.length() - 2).equals(".."))) {
-					e.consume();
+				if(s.length() >= 3 && (!s.substring(s.length() - 1).equals(".") ||
+						s.substring(s.length() - 2).equals(".."))) {
+					e.consume(); // Don't allow more than 3 digits in the textbox unless the last one was a "."
 				}
 			}
 		});
 		lineThicknessPanel.add(lineThicknessLabel);
 		lineThicknessPanel.add(lineThicknessText);
 
-
 		lineThicknessSlider.addChangeListener(e -> {
 			float value = (float) (((JSlider) e.getSource()).getValue() / 51.2);
 			lineThickness = value;
-			DecimalFormat df = new DecimalFormat("#.#");
+			DecimalFormat df = new DecimalFormat("#.#"); // Rounds up to nearest float at 1 decimal point
 			df.setRoundingMode(RoundingMode.CEILING);
 			if (value < 1) value = 1;
 			lineThicknessText.setText(df.format(value));
@@ -220,6 +228,7 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
 		buttonPanel.add(redo);
 		buttonPanel.add(clear);
 
+		// GridBagLayout with two rows and 11 columns.
 		GridBagConstraints c = new GridBagConstraints();
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 0.1;
@@ -259,6 +268,8 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
 		c.gridx = 10;
 		add(new JLabel(), c);
 		c.weightx = 0.2;
+
+		// Each column containing important JComponents are separated with JSeparators.
 		for(int i = 2; i < 10; i += 2) {
 			c.gridx = i;
 			for(int j = 0; j < 3; j++) {

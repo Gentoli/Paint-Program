@@ -449,6 +449,16 @@ I WANT   : To have a border option
 SO THAT  : I can have a shape with a border that has a different color than it's inside
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
+TYPE     : USER STORY 27 : legaul30
+NAME     : Spray paint tool
+OWNER    : Jarod
+PRIORITY : 4
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To have a spray paint tool
+SO THAT  : I can draw with more styles
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
 TYPE     : BUG 1 : assadkur
 NAME     : Icons instead of text for drawing mode selection
 OWNER    : Kurtis
@@ -583,16 +593,6 @@ OWNER    : Jarod
 PRIORITY : 2
 ESTIMATE : 1 hour
 ISSUE    : We added shapes to the shapeChooserPanel and some of the old icons need to be redone.
---------------------------------------------------------------------------
---------------------------------------------------------------------------
-TYPE     : USER STORY 27 : legaul30
-NAME     : Spray paint tool
-OWNER    : Jarod
-PRIORITY : 4
-ESTIMATE : 2 hours
-AS A     : user
-I WANT   : To have a spray paint tool
-SO THAT  : I can draw with more styles
 --------------------------------------------------------------------------
 # OMITTED USER STORIES/BUGS BELOW   ###########################################
 --------------------------------------------------------------------------

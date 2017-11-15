@@ -18,6 +18,7 @@ public class ColourDialog extends JDialog {
 	private JColorChooser jcc;
 
 	/**
+	 * Creates a JColorChooser with the appropriate title.
 	 * @param view Paint View
 	 */
 	public ColourDialog(Frame view, String title) {

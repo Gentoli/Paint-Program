@@ -22,6 +22,16 @@ public class TextBox extends PaintShape {
 	private Rectangle2D bounds;
 	private int x, y;
 
+	/**
+	 * Makes a TextBox object
+	 * @param x Current mouse x position
+	 * @param y Current mouse y position
+	 * @param colour Current colour
+	 * @param fontSize Current fontSize
+	 * @param fontName Current fontName
+	 * @param textString Current textString
+	 * @param fontStyle Current fontStyle
+	 */
 	public TextBox(int x, int y, Color colour, int fontSize, String fontName, String textString, int fontStyle) {
 		super(x, y, colour, 1, false, 0);
 		this.textString = textString;
