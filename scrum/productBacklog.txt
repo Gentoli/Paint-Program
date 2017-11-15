@@ -3,36 +3,7 @@
 # For example, the color chooser user story involves: 
 # 1 Color chooser UI (which could be a USER STORY)
 # 2 Implementation of selected color into the drawing stream.
---------------------------------------------------------------------------
-TYPE     : USER STORY 17 : dongshu2
-NAME     : Add Layers
-OWNER    : Shuyi
-PRIORITY : 5
-ESTIMATE : 5 hours
-AS A     : user
-I WANT   : To be able to add and remove layers with their own shapes
-SO THAT  : I can have more control on the drawings
---------------------------------------------------------------------------
---------------------------------------------------------------------------
-TYPE     : USER STORY 18 :
-NAME     : Mouse Icons
-OWNER    :
-PRIORITY : 5
-ESTIMATE : 1 hour
-AS A     : user
-I WANT   : To have different Icons for each tool button
-SO THAT  : I can know quickly which tool is selected just by looking at the mouse
---------------------------------------------------------------------------
---------------------------------------------------------------------------
-TYPE     : USER STORY 20 : kairoshs
-NAME     : EyeDropper tool/ Get color from screen
-OWNER    : Sanjar
-PRIORITY : 4
-ESTIMATE : 2 hours
-AS A     : user
-I WANT   : To be able to select a color from the screen
-SO THAT  : I will never forget which color I used earlier for a specific line
---------------------------------------------------------------------------
+
 # COMPLETED USER STORIES/BUGS BELOW ###########################################
 --------------------------------------------------------------------------
 TYPE     : USER STORY 2.1 : assadkur
@@ -621,6 +592,16 @@ I WANT   : To have the edit tab functionality including:
 SO THAT  : I can easily copy/paste images
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
+TYPE     : USER STORY 20 : kairoshs
+NAME     : EyeDropper tool/ Get color from screen
+OWNER    : Sanjar
+PRIORITY : 4
+ESTIMATE : 2 hours
+AS A     : user
+I WANT   : To be able to select a color from the screen
+SO THAT  : I will never forget which color I used earlier for a specific line
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
 TYPE     : USER STORY 26 : dongshu2
 NAME     : Pen pressure
 OWNER    : Shuyi
@@ -637,4 +618,24 @@ OWNER    : Shuyi
 PRIORITY : 1
 ESTIMATE : 12 hours
 ISSUE    : WindowPointer doesn't work on Linux
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 17 : dongshu2
+NAME     : Add Layers
+OWNER    : Shuyi
+PRIORITY : 5
+ESTIMATE : 5 hours
+AS A     : user
+I WANT   : To be able to add and remove layers with their own shapes
+SO THAT  : I can have more control on the drawings
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+TYPE     : USER STORY 18 :
+NAME     : Mouse Icons
+OWNER    :
+PRIORITY : 5
+ESTIMATE : 1 hour
+AS A     : user
+I WANT   : To have different Icons for each tool button
+SO THAT  : I can know quickly which tool is selected just by looking at the mouse
 --------------------------------------------------------------------------
