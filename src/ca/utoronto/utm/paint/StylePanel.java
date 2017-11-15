@@ -173,7 +173,7 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
 				borderColourDialog.setVisible(true);
 			}
 		});
-		colourPanel.add(borderColourButton);
+
 		borderColourDialog.addChangeListener(e -> {
 			ColorSelectionModel jccSelectionModel = (ColorSelectionModel) e.getSource();
 			Color newColor = jccSelectionModel.getSelectedColor();
@@ -190,13 +190,15 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
 				colourDialog.setVisible(true);
 			}
 		});
-		colourPanel.add(colourButton);
+
 		colourDialog.addChangeListener(e -> {
 			ColorSelectionModel jccSelectionModel = (ColorSelectionModel) e.getSource();
-			Color newColor = jccSelectionModel.getSelectedColor();
-			colourButton.setForeground(newColor);
-			colour = newColor;
+			colour = jccSelectionModel.getSelectedColor();
+			colourButton.setForeground(colour);
 		});
+
+		colourPanel.add(colourButton);
+		colourPanel.add(borderColourButton);
 
 		undo = new JButton("Undo");
 		undo.setEnabled(false);
@@ -266,18 +268,6 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
 			}
 		}
 
-
-		colourDialog.addComponentListener(new ComponentAdapter() {
-			/**
-			 * Change the text of colourButton button if the colour panel was closed with top-right X
-			 * @param e ColourDialog event
-			 */
-			@Override
-			public void componentHidden(ComponentEvent e) {
-				// TODO Auto-generated method stub
-				//colourButton.setText("Extend Colour Panel");
-			}
-		});
 	}
 
 	/**
@@ -294,13 +284,6 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
 		redo.setEnabled(paintModel.canRedo());
 	}
 
-//    @Override
-//    public void stateChanged(ChangeEvent e) {
-//        DefaultColorSelectionModel jccSelectionModel = (DefaultColorSelectionModel) e.getSource();
-//        Color newColor = jccSelectionModel.getSelectedColor();
-//        this.colour = newColor;
-//        this.colourButton.setForeground(newColor);
-//    }
 
 	public Color getColour() {
 		return colour;
