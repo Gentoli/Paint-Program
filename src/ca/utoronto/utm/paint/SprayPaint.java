@@ -9,13 +9,13 @@ import java.util.List;
 public class SprayPaint extends Polyline {
 
     private List<Point> pointArray;
-    private float diameter;
+    private float radius;
     private Thread print;
     private boolean draw = true;
 
     public SprayPaint(int x, int y, Color colour, float lineThickness, boolean fill, int strokeStyle, float radius, PaintPanel paintPanel) {
         super(x, y, colour, lineThickness, fill, strokeStyle);
-        this.diameter = radius*2;
+        this.radius = radius;
         this.pointArray = new ArrayList<Point>();
         randomPoints();
         print = new Thread(() -> {
@@ -24,7 +24,7 @@ public class SprayPaint extends Polyline {
                 paintPanel.repaint();
                 System.out.println("run");
                 try {
-                    Thread.sleep(200);
+                    Thread.sleep(100);
                 } catch (InterruptedException e) {
                     break;
                 }
@@ -53,7 +53,6 @@ public class SprayPaint extends Polyline {
     public void randomPoints() {
         double centerX = last.x;
         double centerY = last.y;
-        double radius = diameter/2;
         double area = Math.PI*radius*radius;
         int amount = (int)Math.ceil(area/3);
         ArrayList<Point> pointArray = new ArrayList<Point>();
@@ -67,8 +66,8 @@ public class SprayPaint extends Polyline {
             else {
                 distance = absoluteDistance;
             }
-            pointArray.add(new Point((int) (centerX + distance * Math.cos(angle) * diameter),
-                        (int) (centerY + distance * Math.sin(angle) * diameter)));
+            pointArray.add(new Point((int) (centerX + distance * Math.cos(angle) * radius*2),
+                        (int) (centerY + distance * Math.sin(angle) * radius*2)));
         }
         synchronized (this.pointArray) {
             this.pointArray.addAll(pointArray);
@@ -81,4 +80,9 @@ public class SprayPaint extends Polyline {
         print.interrupt();
         draw=false;
     }
+
+    public void setRadius(float radius) {
+        this.radius = radius;
+    }
+
 }
