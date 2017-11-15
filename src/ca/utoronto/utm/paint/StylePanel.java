@@ -98,10 +98,11 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
 
 
 		lineThicknessSlider.addChangeListener(e -> {
-			float value = (((float) ((JSlider) e.getSource()).getValue()) / 1024) * 20;
+			float value = (float) (((JSlider) e.getSource()).getValue() / 51.2);
 			lineThickness = value;
 			DecimalFormat df = new DecimalFormat("#.#");
 			df.setRoundingMode(RoundingMode.CEILING);
+			if (value < 1) value = 1;
 			lineThicknessText.setText(df.format(value));
 		});
 
