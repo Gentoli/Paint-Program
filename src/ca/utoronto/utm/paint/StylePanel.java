@@ -173,7 +173,7 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
 				borderColourDialog.setVisible(true);
 			}
 		});
-		colourPanel.add(borderColourButton);
+
 		borderColourDialog.addChangeListener(e -> {
 			ColorSelectionModel jccSelectionModel = (ColorSelectionModel) e.getSource();
 			Color newColor = jccSelectionModel.getSelectedColor();
@@ -190,12 +190,15 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
 				colourDialog.setVisible(true);
 			}
 		});
-		colourPanel.add(colourButton);
+
 		colourDialog.addChangeListener(e -> {
 			ColorSelectionModel jccSelectionModel = (ColorSelectionModel) e.getSource();
 			colour = jccSelectionModel.getSelectedColor();
 			colourButton.setForeground(colour);
 		});
+
+		colourPanel.add(colourButton);
+		colourPanel.add(borderColourButton);
 
 		undo = new JButton("Undo");
 		undo.setEnabled(false);

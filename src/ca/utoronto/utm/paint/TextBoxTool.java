@@ -16,7 +16,7 @@ public class TextBoxTool implements ShapeManipulatorStrategy {
 	private PaintShape[] shapes;
 	private StylePanel stylePanel;
 
-	public TextBoxTool(TextBoxDialog textBoxDialog, StylePanel stylePanel, PaintShape[] shapes) {
+	public TextBoxTool(StylePanel stylePanel, TextBoxDialog textBoxDialog, PaintShape[] shapes) {
 		this.textBoxDialog = textBoxDialog;
 		this.stylePanel = stylePanel;
 		this.shapes = shapes;

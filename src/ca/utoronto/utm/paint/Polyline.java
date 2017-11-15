@@ -14,8 +14,8 @@ import java.awt.geom.Rectangle2D;
  * PaintShape with multiple dots connecting to each other.
  */
 public class Polyline extends PaintShape {
-	private Path2D path;
-	private Point last,temp;
+	protected Path2D path;
+	protected Point last,temp;
 
 	public Polyline(int x, int y, Color colour, float lineThickness, boolean fill, int strokeStyle) {
 		super(x, y, colour, lineThickness, fill, strokeStyle);
