@@ -90,3 +90,8 @@ Nov 13, 2017
     Yesterday : Finished UserStory21, UserStory25 and Bug16
     Today     : Try to add more userStories and do minor fixes to code
     Obstacles : minor fixes to architecture to make it more like design patterns shown in class
+
+Nov 14, 2017
+    Yesterday : Fixes
+    Today     : Complete UserStory27 and Javadoc
+    Obstacles : Many minor fixes to do
