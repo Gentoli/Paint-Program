@@ -10,12 +10,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.ScrollPaneConstants;
-import javax.swing.SwingUtilities;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.event.ComponentListener;
 import java.io.File;
 import java.io.IOException;
 import java.util.Observable;
@@ -87,10 +84,7 @@ public class View extends JFrame implements Observer {
 		c.add(scrollPane, BorderLayout.CENTER);
 
 		WindowsPointer windowsPointer = new WindowsPointer(this);
-		windowsPointer.addListener(paintPanel, paintPanel, point -> {
-			SwingUtilities.convertPointFromScreen(point, scrollPane);
-			return scrollPane.getViewportBorderBounds().contains(point);
-		});
+		windowsPointer.addListener(paintPanel, paintPanel);
 
 		model.addObserver(this);
 		pack();

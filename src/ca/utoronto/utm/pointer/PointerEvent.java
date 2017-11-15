@@ -22,13 +22,13 @@ public class PointerEvent {
 	 * @param pressure
 	 * @throws IllegalArgumentException if source is null.
 	 */
-	public PointerEvent(Component source, int eventId, long when, int modifiers, int x, int y, int xAbs, int yAbs, int clickCount, int button, int pointerId, float pressure) {
+	PointerEvent(Component source, int eventId, long when, int modifiers, int x, int y, int xAbs, int yAbs, int clickCount, int button, int pointerId, float pressure) {
 		event = new MouseEvent(source, eventId, when, modifiers, x, y, xAbs, yAbs, clickCount, false, button);
 		this.pointerId = pointerId;
 		this.pressure = pressure;
 	}
 
-	public PointerEvent(MouseEvent event) {
+	PointerEvent(MouseEvent event) {
 		this.event = event;
 		pointerId = 0;
 		pressure = 0;

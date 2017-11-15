@@ -3,8 +3,6 @@ package ca.utoronto.utm.paint;
 import ca.utoronto.utm.pointer.ModifierEvent;
 import ca.utoronto.utm.pointer.PointerEvent;
 
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 import java.awt.event.MouseEvent;
 
 /**

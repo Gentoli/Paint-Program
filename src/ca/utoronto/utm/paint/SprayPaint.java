@@ -11,7 +11,7 @@ public class SprayPaint extends Polyline {
     private List<Point> pointArray;
     private float radius;
     private Thread print;
-    private boolean draw = true;
+    private boolean draw = true,newPoints = true;
 
     public SprayPaint(int x, int y, Color colour, float lineThickness, boolean fill, int strokeStyle, float radius, PaintPanel paintPanel) {
         super(x, y, colour, lineThickness, fill, strokeStyle);
@@ -20,14 +20,19 @@ public class SprayPaint extends Polyline {
         randomPoints();
         print = new Thread(() -> {
             while(draw) {
-                randomPoints();
-                paintPanel.repaint();
+                if(newPoints){
+                    randomPoints();
+                    paintPanel.repaint();
+                }else{
+                    newPoints=true;
+                }
                 System.out.println("run");
                 try {
                     Thread.sleep(100);
                 } catch (InterruptedException e) {
                     break;
                 }
+                System.out.println("run");
             }
         });
         print.start();
@@ -37,6 +42,7 @@ public class SprayPaint extends Polyline {
     public void mouseMoved(int x, int y) {
         last = new Point(x, y);
         path.lineTo(x,y);
+        newPoints=false;
         randomPoints();
     }
 

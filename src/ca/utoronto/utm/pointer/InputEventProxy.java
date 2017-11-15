@@ -13,7 +13,7 @@ public class InputEventProxy extends MouseAdapter implements KeyListener {
 
 	private PointerListener listener;
 
-	public InputEventProxy(PointerListener listener) {
+	InputEventProxy(PointerListener listener) {
 		this.listener = listener;
 	}
 

@@ -9,7 +9,7 @@ public class ModifierEvent {
 
 	public KeyEvent event;
 
-	public ModifierEvent(Component source, int id, long when, int modifiers, int keyCode, char keyChar) {
+	ModifierEvent(Component source, int id, long when, int modifiers, int keyCode, char keyChar) {
 		event = new KeyEvent(source, id, when, modifiers, keyCode, keyChar);
 	}
 

@@ -50,6 +50,7 @@ private:
 	WNDPROC wndprocOrig;
 	jmethodID update, key;
 	void getMethods();
+	jint getButton(POINTER_FLAGS flags);
 	void sendKeyUpdate(int eventId, int modifiers, WPARAM wParam);
 	void sendUpdate(int eventId, POINTER_INFO pointerInfo, int modifiers, int pressure);
 	LRESULT _PtrSetup(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam);
