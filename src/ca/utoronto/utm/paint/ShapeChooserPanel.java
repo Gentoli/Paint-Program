@@ -14,9 +14,9 @@ import java.awt.event.ActionListener;
  * ShapeChooserPanel holds the buttons that select the mode of the paint app.
  */
 public class ShapeChooserPanel extends JPanel implements ActionListener {
-	private static final String[] BUTTON_ASSETS = {"Selection", "Eraser", "TextBox", "Polyline", "Squiggle", "ConcavePolygon", "Triangle", "Rectangle", "Circle", "Polygon"};
-	private static final String[] BUTTON_LABELS = {"Selection", "Eraser", "TextBox", "Polyline", "Squiggle", "Edges: 5", "Triangle", "Rectangle", "Circle", "Edges: 5"};
-	private static final int[] BUTTON_EDGES = {0, 0, 0, 0, 0, 5, 3, 4, 100, 5};
+	private static final String[] BUTTON_ASSETS = {"Selection", "Eraser", "TextBox", "SprayPaint", "Polyline", "Squiggle", "ConcavePolygon", "Triangle", "Rectangle", "Circle", "Polygon"};
+	private static final String[] BUTTON_LABELS = {"Selection", "Eraser", "TextBox", "SprayPaint", "Polyline", "Squiggle", "Edges: 5", "Triangle", "Rectangle", "Circle", "Edges: 5"};
+	private static final int[] BUTTON_EDGES = {0, 0, 0, 0, 0, 0, 5, 3, 4, 100, 5};
 	private ModeTextField modeTextField;
 	private JButton[] shapeButtons;
 	private PaintPanel paintPanel;
