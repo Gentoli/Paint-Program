@@ -17,7 +17,7 @@ public class PaintModel extends Observable implements ComponentListener {
 
 	private static final int MAX_UNDO = 50;
 
-	private static final Color TRANSLUCENT = new Color(0, 0, 0, 0);
+	private static final Color BACKGROUND_COLOUR = Color.WHITE;
 	//Store a image of that cant be undo.
 	private BufferedImage image;
 	//Store Shapes that can be undo.
@@ -39,7 +39,7 @@ public class PaintModel extends Observable implements ComponentListener {
 	public PaintModel(int width, int height) {
 		image = new BufferedImage(width, height, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D graphics = image.createGraphics();
-		graphics.setColor(TRANSLUCENT);
+		graphics.setColor(BACKGROUND_COLOUR);
 		graphics.fillRect(0, 0, image.getWidth(), image.getHeight());
 		graphics.dispose();
 	}
@@ -126,7 +126,7 @@ public class PaintModel extends Observable implements ComponentListener {
 		synchronized(image) {
 			BufferedImage i = new BufferedImage(x, y, BufferedImage.TYPE_INT_ARGB);
 			Graphics2D g = i.createGraphics();
-			g.setColor(TRANSLUCENT);
+			g.setColor(BACKGROUND_COLOUR);
 			g.fillRect(0, 0, i.getWidth(), i.getHeight());
 			g.drawImage(image, 0, 0, null);
 			g.dispose();

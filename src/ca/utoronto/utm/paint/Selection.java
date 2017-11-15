@@ -85,7 +85,7 @@ public class Selection extends PaintShape {
 			selection = image.getSubimage(r.x, r.y, r.width, r.height);
 			return true;
 		}
-		return false;
+		return selection != null;
 	}
 
 	//return true if Selection is moved

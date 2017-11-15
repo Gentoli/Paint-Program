@@ -44,7 +44,7 @@ public class SelectionTool implements ShapeManipulatorStrategy {
 				if(selection == null) {
 					shapes[0] = new Selection(e.getX(), e.getY());
 				} else {
-					if(selection.contains(e.getX(), e.getY())) {
+					if(selection.contains(e.getX(), e.getY())&&e.getButton()!=MouseEvent.BUTTON3) {
 						selection.setMove(e.getX(), e.getY());
 					} else {
 						rtn = deselect();
@@ -59,12 +59,8 @@ public class SelectionTool implements ShapeManipulatorStrategy {
 			case MouseEvent.MOUSE_RELEASED:
 				if(activePointer == -1 || activePointer != e.getPointerId() || selection == null)
 					break;
-				if(e.getButton() == 3) {
-					rtn = deselect();
-				} else {
-					if(!selection.release(e.getX(), e.getY(), model))
-						deselect();
-				}
+				if(!selection.release(e.getX(), e.getY(), model))
+					deselect();
 				activePointer = -1;
 		}
 		return rtn;

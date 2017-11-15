@@ -1,7 +1,9 @@
 package ca.utoronto.utm.pointer;
 
+import javax.swing.SwingUtilities;
 import java.awt.Component;
 import java.awt.Frame;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.lang.reflect.InvocationTargetException;
@@ -30,7 +32,8 @@ public class WindowsPointer extends MouseAdapter {
 
 	private Frame frame;
 	private int[] points = new int[POINTER_MAX];
-	private Map<Component, EventFactory> listeners = new HashMap<Component, EventFactory>();
+	private Component[] components = new Component[POINTER_MAX];
+	private Map<Component, WindowsEventComponent> listeners = new HashMap<Component, WindowsEventComponent>();
 
 	public WindowsPointer(Frame frame) {
 		if(frame == null)
@@ -63,12 +66,20 @@ public class WindowsPointer extends MouseAdapter {
 		throw new RuntimeException("No HWND found for " + c);
 	}
 
-	private void update(int eventId, long when, int modifiers, int xAbs, int yAbs, int clickCount, int pointerId, int pressure) {
+	private void update(int eventId, long when, int modifiers, int xAbs, int yAbs, int clickCount,int button, int pointerId, int pressure) {
 		float fPressure = pressure == 0 ? 1f : ((float) pressure / MAX_PRESSURE);
 		int index = getPointId(pointerId);
-		for(EventFactory e : listeners.values()) {
-			e.firePointerEvent(eventId, when, modifiers, xAbs, yAbs, clickCount, index, fPressure);
+		if(eventId==MouseEvent.MOUSE_PRESSED&&components[index]==null) {
+			Point p = new Point(xAbs, yAbs);
+			SwingUtilities.convertPointFromScreen(p,frame);
+			Component comp = frame.findComponentAt(p);
+			if(listeners.containsKey(comp))
+				components[index] = frame.findComponentAt(xAbs, yAbs);
 		}
+		if(components[index]!=null){
+			listeners.get(components[index]).firePointerEvent(eventId, when, modifiers, xAbs, yAbs, clickCount, button, index, fPressure);
+		}
+
 
 		if(eventId == MouseEvent.MOUSE_EXITED&&index!=-1)
 			releasePoint(index);
@@ -76,7 +87,7 @@ public class WindowsPointer extends MouseAdapter {
 
 	private void keyUpdate(int eventId, long when, int modifiers, int keyCode, char keyChar) {
 		ModifierEvent event = new ModifierEvent(frame, eventId, when, modifiers, keyCode, keyChar);
-		for(EventFactory e : listeners.values()) {
+		for(WindowsEventComponent e : listeners.values()) {
 			e.fireModifierEvent(event);
 		}
 	}
@@ -85,11 +96,11 @@ public class WindowsPointer extends MouseAdapter {
 
 	public void addListener(PointerListener pointerListener, Component component, ViewBorder border) {
 		if(frame != null&&frame.isAncestorOf(component)) {
-			EventFactory f = listeners.get(component);
+			WindowsEventComponent f = listeners.get(component);
 			if(f == null) {
-				EventFactory eventFactory = new EventFactory(component, border);
-				eventFactory.add(pointerListener);
-				listeners.put(component, eventFactory);
+				WindowsEventComponent windowsEventComponent = new WindowsEventComponent(component, border);
+				windowsEventComponent.add(pointerListener);
+				listeners.put(component, windowsEventComponent);
 			} else
 				f.add(pointerListener);
 		} else {
@@ -116,6 +127,7 @@ public class WindowsPointer extends MouseAdapter {
 	}
 
 	private void releasePoint(int id) {
+		components[id]=null;
 		points[id] = -1;
 	}
 }
