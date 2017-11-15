@@ -39,12 +39,14 @@ public class SprayPaintTool implements ShapeManipulatorStrategy {
             case MouseEvent.MOUSE_MOVED:
                 if(shapes[e.getPointerId()] != null) {
                     shapes[e.getPointerId()].mouseMoved(e.getX(), e.getY());
+                    shapes[e.getPointerId()].setLineThickness(style.getLineThickness(e.getPressure()));
                 }
                 break;
             case MouseEvent.MOUSE_RELEASED:
                 if(shapes[e.getPointerId()] == null)
                     break;
                 shapes[e.getPointerId()].mouseMoved(e.getX(), e.getY());
+                shapes[e.getPointerId()].setLineThickness(style.getLineThickness(e.getPressure()));
                 ((SprayPaint)shapes[e.getPointerId()]).end();
                 rtn = shapes[e.getPointerId()];
                 shapes[e.getPointerId()] = null;

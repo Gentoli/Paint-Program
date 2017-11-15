@@ -124,6 +124,10 @@ public class RegularPolygon extends PaintShape {
 	public void mouseMoved(int x, int y) {
 		xEnd = x;
 		yEnd = y;
+		updatePolygon();
+	}
+
+	private void updatePolygon() {
 		if(center) {
 			centeredPolygonCreation();
 		} else if(right) {
@@ -155,6 +159,7 @@ public class RegularPolygon extends PaintShape {
 	public boolean setCenter(boolean center) {
 		boolean orig = this.center;
 		this.center = center;
+		updatePolygon();
 		return orig != center;
 	}
 
@@ -164,6 +169,7 @@ public class RegularPolygon extends PaintShape {
 	public boolean setRight(boolean right) {
 		boolean orig = this.right;
 		this.right = right;
+		updatePolygon();
 		return orig != right;
 	}
 

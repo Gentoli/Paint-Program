@@ -56,6 +56,7 @@ public class PolygonTool implements ShapeManipulatorStrategy {
 			case MouseEvent.MOUSE_MOVED:
 				if(shapes[e.getPointerId()] != null) {
 					shapes[e.getPointerId()].mouseMoved(e.getX(), e.getY());
+					shapes[e.getPointerId()].setLineThickness(style.getLineThickness(e.getPressure()));
 					((RegularPolygon) shapes[e.getPointerId()]).setCenter(e.isAltDown());
 					((RegularPolygon) shapes[e.getPointerId()]).setRight(e.isShiftDown());
 				}

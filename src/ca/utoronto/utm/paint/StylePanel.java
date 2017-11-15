@@ -17,7 +17,6 @@ import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.ComponentListener;
 import java.awt.event.KeyAdapter;
@@ -300,6 +299,10 @@ public class StylePanel extends JPanel implements Observer, ComponentListener {
 
 	public boolean isFill() {
 		return fill;
+	}
+
+	public float getLineThickness(float ratio){
+		return lineThickness*(.5f+ratio==0?.5f:ratio);
 	}
 
 	public boolean isBorder() {
