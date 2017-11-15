@@ -44,8 +44,8 @@ public class PaintPanel extends JPanel implements Observer, PointerListener {
 	public void initializeTools(StylePanel stylePanel, TextBoxDialog textBoxDialog) {
 		toolList = new ShapeManipulatorStrategy[]{new SelectionTool(model, shapes),
 				new SquiggleTool(stylePanel, shapes),
-				new TextBoxTool(textBoxDialog, stylePanel, shapes),
-				new SprayPaintTool(stylePanel, shapes),
+				new TextBoxTool(stylePanel, textBoxDialog, shapes),
+				new SprayPaintTool(stylePanel, this, shapes),
 				new PolylineTool(stylePanel, shapes),
 				new SquiggleTool(stylePanel, shapes),
 				new PolygonTool(stylePanel, this, shapes, ConcavePolygon.class),

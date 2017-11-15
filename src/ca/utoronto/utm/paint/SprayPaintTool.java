@@ -9,16 +9,17 @@ public class SprayPaintTool implements ShapeManipulatorStrategy {
 
     private StylePanel style;
     private PaintShape[] shapes;
-    private SprayPaintThread sprayPaintThread;
+    private PaintPanel paintPanel;
 
-    public SprayPaintTool(StylePanel style, PaintShape[] shapes) {
+    public SprayPaintTool(StylePanel style, PaintPanel paintPanel, PaintShape[] shapes) {
         this.style = style;
         this.shapes = shapes;
-        sprayPaintThread = new SprayPaintThread(null);
+        this.paintPanel = paintPanel;
     }
 
     @Override
     public Drawable deselect() {
+
         return null;
     }
 
@@ -33,10 +34,7 @@ public class SprayPaintTool implements ShapeManipulatorStrategy {
         switch(e.getID()) {
             case MouseEvent.MOUSE_PRESSED:
                 shapes[e.getPointerId()] = new SprayPaint(e.getX(), e.getY(), style.getColour(),
-                        1f, style.isFill(), style.getStrokeStyle(), style.getLineThickness());
-                sprayPaintThread = new SprayPaintThread((SprayPaint)shapes[e.getPointerId()]);
-                sprayPaintThread.start();
-                //start thread that loops random points and print
+                        1f, style.isFill(), style.getStrokeStyle(), style.getLineThickness(),paintPanel);
                 break;
             case MouseEvent.MOUSE_MOVED:
                 if(shapes[e.getPointerId()] != null) {
@@ -46,8 +44,8 @@ public class SprayPaintTool implements ShapeManipulatorStrategy {
             case MouseEvent.MOUSE_RELEASED:
                 if(shapes[e.getPointerId()] == null)
                     break;
-                sprayPaintThread.interrupt();
                 shapes[e.getPointerId()].mouseMoved(e.getX(), e.getY());
+                ((SprayPaint)shapes[e.getPointerId()]).end();
                 rtn = shapes[e.getPointerId()];
                 shapes[e.getPointerId()] = null;
         }

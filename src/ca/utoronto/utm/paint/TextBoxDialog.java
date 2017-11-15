@@ -1,18 +1,10 @@
 package ca.utoronto.utm.paint;
 
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JEditorPane;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Frame;
-import java.awt.GraphicsEnvironment;
-import java.awt.GridLayout;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
+import java.awt.event.ComponentListener;
 
 /**
  * The TextBoxDialog pops up when the TextBoxTool is selected.
@@ -26,6 +18,8 @@ public class TextBoxDialog extends JDialog {
 	private JComboBox fontSizeChooser;
 	private JCheckBox boldCheck;
 	private JCheckBox italicCheck;
+	private Point pointRelativeToParent;
+	boolean needMove = true;
 
 	/**
 	 * Constructs the JDialog that holds the textBox customization options
@@ -39,6 +33,26 @@ public class TextBoxDialog extends JDialog {
 		Container c = getContentPane();
 		c.setLayout(new GridLayout(3, 1));
 
+		addComponentListener(new ComponentAdapter(){
+			@Override
+			public void componentMoved(ComponentEvent e) {
+				if(needMove) {
+					pointRelativeToParent = getLocation();
+					SwingUtilities.convertPointFromScreen(pointRelativeToParent,getParent());
+				}
+				needMove=true;
+			}
+		});
+
+		getParent().addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentMoved(ComponentEvent e) {
+				needMove=false;
+				setLocation(getParent().getLocationOnScreen().x+ pointRelativeToParent.x,
+						getParent().getLocationOnScreen().y+ pointRelativeToParent.y);
+			}
+		});
+
 		textField = new JTextField("Text");
 		c.add(textField);
 
@@ -49,8 +63,6 @@ public class TextBoxDialog extends JDialog {
 		JEditorPane editorPane = new JEditorPane();
 		String fontFamily = editorPane.getFont().getFamily();
 		fontChooser.setSelectedItem(fontFamily);
-		//fontChooser.setSelectedIndex(218);
-		//fontName = fontChooser.getSelectedItem().toString();
 		c.add(fontChooser);
 
 		JPanel bottomPanel = new JPanel(new GridLayout(2, 3));
@@ -62,15 +74,12 @@ public class TextBoxDialog extends JDialog {
 		}
 		fontSizeChooser = new JComboBox(sizes);
 		fontSizeChooser.setSelectedIndex(DEFAULT_SIZE - 1);
-		//int size = Integer.valueOf(fontSizeChooser.getSelectedItem().toString());
 
 		JLabel boldLabel = new JLabel("Bold");
 		boldCheck = new JCheckBox();
-		//fontStyle += (boldCheck.isSelected()?1:-1);
 
 		JLabel italicLabel = new JLabel("Italic");
 		italicCheck = new JCheckBox();
-		//fontStyle += (italicCheck.isSelected()?2:-2);
 
 		fontSizeLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		boldLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -84,6 +93,8 @@ public class TextBoxDialog extends JDialog {
 		bottomPanel.add(boldCheck);
 		bottomPanel.add(italicCheck);
 		c.add(bottomPanel);
+
+		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
 		pack();
 	}
@@ -107,4 +118,5 @@ public class TextBoxDialog extends JDialog {
 	public JCheckBox getItalicCheck() {
 		return italicCheck;
 	}
+
 }
